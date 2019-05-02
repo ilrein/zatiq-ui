@@ -6,15 +6,19 @@ import {
   Segment,
   Divider,
   Message,
-  Checkbox,
 } from 'semantic-ui-react';
 import styled from 'styled-components';
 // import { Auth } from 'aws-amplify';
 import { withRouter, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
+import fetch from 'isomorphic-fetch';
 
 import fadeIn from '../../../anime/fadeIn';
+
+import {
+  API_URL,
+} from '../../../constants';
 
 const Wrapper = styled.div`
   height: 100%;
@@ -23,7 +27,7 @@ const Wrapper = styled.div`
   animation: ${fadeIn} 1s ease;
 `;
 
-const Register = () => {
+const Register = ({ history }) => {
   const [loading, setLoading] = useState(false);
 
   // form fields
@@ -36,13 +40,10 @@ const Register = () => {
   const [passwordError, setPasswordError] = useState(false);
   const [passwordConfirmationError, setPasswordConfirmationError] = useState(false);
 
-  // emailTooShort: false,
-  // passwordTooShort: false,
-  // passwordsDontMatch: false,
-  // cognitoErrorMessage: null,
+  // api errors
+  const [registerError, setRegisterError] = useState(false);
 
-  const handleSubmit = () => {
-    const { history } = this.props;
+  const handleSubmit = async () => {
     /**
      * form validations
      */
@@ -73,9 +74,26 @@ const Register = () => {
     }
 
     // send data here
+    setLoading(true);
+    try {
+      const post = fetch(`${API_URL}/auth/register`, {
+        method: 'POST',
+        body: JSON.stringify({
+          email,
+          password,
+        })
+      })
 
-    // toast.success(`Successfully created ${email}`);
-    // history.push('/verify');
+      const result = await post.json();
+      console.log(result);
+      setLoading(false);
+      setRegisterError(false);
+      toast.success(`Successfully created ${email}`);
+      history.push('/verify');
+    } catch (error) {
+      setLoading(false);
+      setRegisterError(JSON.stringify(error));
+    }
   }
 
   return (
@@ -87,15 +105,15 @@ const Register = () => {
         <Segment
           color="blue"
         >
-          {/* {
-            cognitoErrorMessage
+          {
+            registerError
               ? (
                 <Message error>
-                  {cognitoErrorMessage}
+                  {registerError}
                 </Message>
               )
               : null
-          } */}
+          }
           <Form>
             <Form.Input
               label="Email"
@@ -122,7 +140,7 @@ const Register = () => {
               type="password"
               name="passwordConfirmation"
               value={passwordConfirmation}
-              onChange={(event, { value }) => setPassword(value)}
+              onChange={(event, { value }) => setPasswordConfirmation(value)}
               error={passwordConfirmationError}
               required
             />
