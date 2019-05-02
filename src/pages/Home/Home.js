@@ -18,10 +18,15 @@ const Wrapper = styled.div`
 
 const HomePage = () => (
   <Wrapper>
-    <Link to="/dashboard">
-      <h1>
-        {APP_NAME}
-      </h1>
+    <h1>
+      {APP_NAME}
+    </h1>
+
+    <Link to="/register">
+      Register
+    </Link>
+    <Link to="/login">
+      Login
     </Link>
   </Wrapper>
 );

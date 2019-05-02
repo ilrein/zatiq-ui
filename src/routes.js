@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 // Pages
 import HomePage from './pages/Home';
-// import SignUp from './pages/Auth/SignUp';
+import Register from './pages/Auth/Register';
 // import SignIn from './pages/Auth/SignIn';
 // import VerificationSent from './pages/Auth/VerificationSent';
 // import Dashboard from './pages/Dashboard';
@@ -39,11 +39,11 @@ const Routes = () => (
           component={HomePage}
         />
 
-        {/* <Route
+        <Route
           exact
-          path="/sign-up"
-          component={SignUp}
-        /> */}
+          path="/register"
+          component={Register}
+        />
 
         {/* <Route
           exact
