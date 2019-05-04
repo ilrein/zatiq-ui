@@ -11,8 +11,8 @@ import 'react-toastify/dist/ReactToastify.css';
 // Pages
 import HomePage from './pages/Home';
 import Register from './pages/Auth/Register';
-// import SignIn from './pages/Auth/SignIn';
-// import VerificationSent from './pages/Auth/VerificationSent';
+import Login from './pages/Auth/Login';
+import Verify from './pages/Auth/Verify';
 // import Dashboard from './pages/Dashboard';
 // import Company from './pages/Company';
 // import Locations from './pages/Locations';
@@ -45,17 +45,17 @@ const Routes = () => (
           component={Register}
         />
 
-        {/* <Route
+        <Route
           exact
-          path="/sign-in"
-          component={SignIn}
-        /> */}
+          path="/login"
+          component={Login}
+        />
 
-        {/* <Route
+        <Route
           exact
           path="/verify"
-          component={VerificationSent}
-        /> */}
+          component={Verify}
+        />
 
         {/* <MainLayout>
           <Route

@@ -76,16 +76,18 @@ const Register = ({ history }) => {
     // send data here
     setLoading(true);
     try {
-      const post = fetch(`${API_URL}/auth/register`, {
+      const post = await fetch(`${API_URL}/auth/register`, {
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify({
           email,
           password,
         })
       })
 
-      const result = await post.json();
-      console.log(result);
+      await post.json();
       setLoading(false);
       setRegisterError(false);
       toast.success(`Successfully created ${email}`);
@@ -148,7 +150,7 @@ const Register = ({ history }) => {
             <Divider />
 
             <Form.Field>
-              <Link to="/sign-in">
+              <Link to="/login">
                 Login instead
               </Link>
             </Form.Field>
