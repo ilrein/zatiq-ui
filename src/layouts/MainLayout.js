@@ -16,6 +16,7 @@ import { toast } from 'react-toastify';
 import { connect } from 'react-redux';
 
 import {
+  APP_NAME,
   CLEAR_USER,
 } from '../constants';
 import AuthContainer from '../containers/AuthContainer';
@@ -72,7 +73,7 @@ class MainLayout extends Component {
     const {
       children,
       history,
-      user,
+      // user,
     } = this.props;
 
     return (
@@ -90,7 +91,7 @@ class MainLayout extends Component {
                 width="thin"
               >
                 <Brand>
-                  ScriptumStyle
+                  {APP_NAME}
                 </Brand>
 
                 <Menu.Item
