@@ -39,7 +39,7 @@ class AuthContainer extends Component {
           ...prevState,
           err,
           loading: false,
-        }), () => history.push('/sign-in'));
+        }), () => history.push('/login'));
       });
   }
 

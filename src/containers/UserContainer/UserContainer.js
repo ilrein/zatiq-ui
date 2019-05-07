@@ -7,8 +7,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {
-  API_GET_USER,
-  API_CREATE_USER,
+  API_USERS,
   CAPTURE_USER,
 } from '../../constants';
 /**
@@ -27,11 +26,10 @@ const UserContainer = ({
    * @function {}
    * looks for a user object on /api/users/
    * creates one if not found
-   * looks for initial value of custom:type in CognitoUser
    */
   const getUser = async () => {
     try {
-      const res = await fetch(API_GET_USER(cognitoUser.attributes.sub), {
+      const res = await fetch(`${API_USERS}/${cognitoUser.attributes.sub}`, {
         headers: {
           'Content-Type': 'application/json',
           'jwt-token': cognitoUser.signInUserSession.accessToken.jwtToken,
@@ -45,7 +43,7 @@ const UserContainer = ({
         const { attributes } = cognitoUser;
 
         try {
-          const CREATE_USER = await fetch(API_CREATE_USER, {
+          const CREATE_USER = await fetch(API_USERS, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -54,7 +52,6 @@ const UserContainer = ({
             body: JSON.stringify({
               user: {
                 sub: attributes.sub,
-                type: attributes['custom:type'],
                 email: attributes.email,
               },
             }),
