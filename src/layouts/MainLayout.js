@@ -131,7 +131,7 @@ class MainLayout extends Component {
 MainLayout.propTypes = {
   children: PropTypes.node.isRequired,
   history: PropTypes.shape().isRequired,
-  user: PropTypes.shape(),
+  // user: PropTypes.shape(),
   clearUser: PropTypes.func.isRequired,
 };
 
