@@ -13,13 +13,13 @@ import HomePage from './pages/Home';
 import Register from './pages/Auth/Register';
 import Login from './pages/Auth/Login';
 import Verify from './pages/Auth/Verify';
-// import Dashboard from './pages/Dashboard';
+import Dashboard from './pages/Dashboard';
 // import Company from './pages/Company';
 // import Locations from './pages/Locations';
 // import Shifts from './pages/Shifts';
 
 // Layouts
-// import MainLayout from './layouts/MainLayout';
+import MainLayout from './layouts/MainLayout';
 // import BasicLayout from './layouts/BasicLayout';
 
 // Containers
@@ -57,14 +57,14 @@ const Routes = () => (
           component={Verify}
         />
 
-        {/* <MainLayout>
+        <MainLayout>
           <Route
             exact
             path="/dashboard"
             component={Dashboard}
           />
 
-          <Route
+          {/* <Route
             exact
             path="/company"
             component={Company}
@@ -80,8 +80,8 @@ const Routes = () => (
             exact
             path="/shifts"
             component={Shifts}
-          />
-        </MainLayout> */}
+          /> */}
+        </MainLayout>
       </Switch>
       <ToastContainer
         autoClose={3500}

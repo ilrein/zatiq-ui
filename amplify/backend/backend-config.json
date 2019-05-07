@@ -1,0 +1,8 @@
+{
+	"auth": {
+		"zatiq": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation"
+		}
+	}
+}

@@ -6,14 +6,10 @@ import {
   Message,
 } from 'semantic-ui-react';
 import styled from 'styled-components';
+import { Auth } from 'aws-amplify';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
-import fetch from 'isomorphic-fetch';
-
-import {
-  API_URL,
-} from '../../../constants';
 
 import fadeIn from '../../../anime/fadeIn';
 
@@ -48,30 +44,22 @@ class Verify extends Component {
     this.setState(prevState => ({
       ...prevState,
       loading: true,
-    }), async () => {
-      try {
-        const post = await fetch(`${API_URL}/auth/verify`, {
-          method: 'post',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            email,
-            code: verificationCode,
-          })
+    }), () => {
+      Auth.confirmSignUp(
+        email,
+        verificationCode,
+      )
+        .then(() => {
+          toast.success(`Verified ${email}`);
+          history.push('/login');
         })
-
-        await post.json();
-
-        toast.success(`Verified ${email}`);
-        history.push('/login');
-      } catch (error) {
-        this.setState(prevState => ({
-        ...prevState,
-        loading: false,
-        errorMsg: JSON.stringify(error),
-      }));
-      }
+        .catch(({ message }) => {
+          this.setState(prevState => ({
+            ...prevState,
+            loading: false,
+            errorMsg: message,
+          }));
+        });
     });
   }
 

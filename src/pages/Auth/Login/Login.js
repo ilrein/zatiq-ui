@@ -8,14 +8,10 @@ import {
   Message,
 } from 'semantic-ui-react';
 import styled from 'styled-components';
+import { Auth } from 'aws-amplify';
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
-import fetch from 'isomorphic-fetch';
-
-import {
-  API_URL,
-} from '../../../constants';
 
 import fadeIn from '../../../anime/fadeIn';
 
@@ -48,31 +44,22 @@ class Login extends Component {
     this.setState(prevState => ({
       ...prevState,
       loading: true,
-    }), async () => {
-      try {
-        const post = fetch(`${API_URL}/auth/login`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            username: email,
-            password,
-          })
+    }), () => {
+      Auth.signIn({
+        username: email,
+        password,
+      })
+        .then(() => {
+          toast.success(`Signed in ${email}`);
+          history.push('/dashboard');
         })
-
-        const result = await post.json();
-          
-        toast.success(`Signed in ${email}`);
-        history.push('/dashboard');
-
-      } catch (error) {
-        this.setState(prevState => ({
-          ...prevState,
-          loading: false,
-          errorMsg: JSON.stringify(error),
-        }));
-      }
+        .catch(({ message }) => {
+          this.setState(prevState => ({
+            ...prevState,
+            loading: false,
+            errorMsg: message,
+          }));
+        });
     });
   }
 

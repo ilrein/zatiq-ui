@@ -1,0 +1,19 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "zatiq-20190507112716-authRole",
+            "UnauthRoleArn": "arn:aws:iam::869691786575:role/zatiq-20190507112716-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::869691786575:role/zatiq-20190507112716-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "zatiq-20190507112716-deployment",
+            "UnauthRoleName": "zatiq-20190507112716-unauthRole",
+            "StackName": "zatiq-20190507112716",
+            "StackId": "arn:aws:cloudformation:us-east-1:869691786575:stack/zatiq-20190507112716/98dcbd30-70dc-11e9-82b4-0e26c4fc90f2"
+        },
+        "categories": {
+            "auth": {
+                "zatiq": {}
+            }
+        }
+    }
+}

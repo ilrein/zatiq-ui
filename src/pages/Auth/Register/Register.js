@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import {
   Container,
   Form,
@@ -6,19 +6,15 @@ import {
   Segment,
   Divider,
   Message,
+  Checkbox,
 } from 'semantic-ui-react';
 import styled from 'styled-components';
-// import { Auth } from 'aws-amplify';
+import { Auth } from 'aws-amplify';
 import { withRouter, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
-import fetch from 'isomorphic-fetch';
 
 import fadeIn from '../../../anime/fadeIn';
-
-import {
-  API_URL,
-} from '../../../constants';
 
 const Wrapper = styled.div`
   height: 100%;
@@ -27,146 +23,183 @@ const Wrapper = styled.div`
   animation: ${fadeIn} 1s ease;
 `;
 
-const Register = ({ history }) => {
-  const [loading, setLoading] = useState(false);
+class Register extends Component {
+  state = {
+    // UI phases
+    loading: false,
 
-  // form fields
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordConfirmation, setPasswordConfirmation] = useState('');
+    // fields
+    email: '',
+    password: '',
+    passwordConfirmation: '',
 
-  // form errors
-  const [emailError, setEmailError] = useState(false);
-  const [passwordError, setPasswordError] = useState(false);
-  const [passwordConfirmationError, setPasswordConfirmationError] = useState(false);
+    // errors
+    emailTooShort: false,
+    passwordTooShort: false,
+    passwordsDontMatch: false,
+    cognitoErrorMessage: null,
+  }
+  /**
+   * sets a state value dynamically
+   */
+  setValue = ({ name, value }) => this.setState(prevState => ({
+    ...prevState,
+    [name]: value,
+  }));
 
-  // api errors
-  const [registerError, setRegisterError] = useState(false);
-
-  const handleSubmit = async () => {
+  handleSubmit = () => {
+    const { history } = this.props;
+    const {
+      email,
+      password,
+      passwordConfirmation,
+      type,
+    } = this.state;
     /**
      * form validations
      */
     if (email.length < 1) {
-      setEmailError(true);
+      this.setState(prevState => ({
+        ...prevState,
+        emailTooShort: true,
+      }));
+      return;
     }
 
     if (password.length < 7) {
-      setPasswordError(true);
+      this.setState(prevState => ({
+        ...prevState,
+        passwordTooShort: true,
+      }));
+      return;
     }
     /**
      * Check if passwords match
      */
     if (password !== passwordConfirmation) {
-      setPasswordConfirmationError(true);
-    }
-
-    if (
-      email.length < 1
-      || password.length < 7
-      || password !== passwordConfirmation
-    ) {
+      this.setState(prevState => ({
+        ...prevState,
+        passwordsDontMatch: true,
+      }));
       return;
-    } else {
-      setEmailError(false);
-      setPasswordError(false);
-      setPasswordConfirmationError(false);
     }
 
-    // send data here
-    setLoading(true);
-    try {
-      const post = await fetch(`${API_URL}/auth/register`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
+    this.setState(prevState => ({
+      ...prevState,
+      emailTooShort: false,
+      passwordTooShort: false,
+      passwordsDontMatch: false,
+      loading: true,
+    }), () => {
+      Auth.signUp({
+        username: email,
+        password,
+        attributes: {
           email,
-          password,
-        })
+        },
       })
-
-      await post.json();
-      setLoading(false);
-      setRegisterError(false);
-      toast.success(`Successfully created ${email}`);
-      history.push('/verify');
-    } catch (error) {
-      setLoading(false);
-      setRegisterError(JSON.stringify(error));
-    }
+        .then(() => {
+          toast.success(`Successfully created ${email}`);
+          history.push('/verify');
+        })
+        .catch(({
+          message,
+        }) => this.setState(prevState => ({
+          ...prevState,
+          loading: false,
+          cognitoErrorMessage: message,
+        })));
+    });
   }
 
-  return (
-    <Wrapper>
-      <Container>
-        <Header as="h1">
-          Register
-        </Header>
-        <Segment
-          color="blue"
-        >
-          {
-            registerError
-              ? (
-                <Message error>
-                  {registerError}
-                </Message>
-              )
-              : null
-          }
-          <Form>
-            <Form.Input
-              label="Email"
-              type="email"
-              name="email"
-              value={email}
-              onChange={(event, { value }) => setEmail(value)}
-              error={emailError}
-              required
-            />
+  render() {
+    const {
+      loading,
 
-            <Form.Input
-              label="Password"
-              type="password"
-              name="password"
-              value={password}
-              onChange={(event, { value }) => setPassword(value)}
-              error={passwordError}
-              required
-            />
+      // fields
+      email,
+      password,
+      passwordConfirmation,
 
-            <Form.Input
-              label="Password confirmation"
-              type="password"
-              name="passwordConfirmation"
-              value={passwordConfirmation}
-              onChange={(event, { value }) => setPasswordConfirmation(value)}
-              error={passwordConfirmationError}
-              required
-            />
+      // errors
+      emailTooShort,
+      passwordTooShort,
+      passwordsDontMatch,
+      cognitoErrorMessage,
+    } = this.state;
 
-            <Divider />
+    return (
+      <Wrapper
+        className="fadeIn animated"
+      >
+        <Container>
+          <Header as="h1">
+            Sign Up
+          </Header>
+          <Segment
+            color="blue"
+          >
+            {
+              cognitoErrorMessage
+                ? (
+                  <Message error>
+                    {cognitoErrorMessage}
+                  </Message>
+                )
+                : null
+            }
+            <Form>
+              <Form.Input
+                label="Email"
+                type="email"
+                name="email"
+                value={email}
+                onChange={(event, data) => this.setValue(data)}
+                error={emailTooShort}
+                required
+              />
 
-            <Form.Field>
-              <Link to="/login">
-                Login instead
-              </Link>
-            </Form.Field>
+              <Form.Input
+                label="Password"
+                type="password"
+                name="password"
+                value={password}
+                onChange={(event, data) => this.setValue(data)}
+                error={passwordTooShort}
+                required
+              />
 
-            <Form.Button
-              onClick={handleSubmit}
-              primary
-              loading={loading}
-            >
-              Submit
-            </Form.Button>
-          </Form>
-        </Segment>
-      </Container>
-    </Wrapper>
-  );
+              <Form.Input
+                label="Password confirmation"
+                type="password"
+                name="passwordConfirmation"
+                value={passwordConfirmation}
+                onChange={(event, data) => this.setValue(data)}
+                error={passwordsDontMatch}
+                required
+              />
+
+              <Divider />
+
+              <Form.Field>
+                <Link to="/login">
+                  Login instead
+                </Link>
+              </Form.Field>
+
+              <Form.Button
+                onClick={this.handleSubmit}
+                primary
+                loading={loading}
+              >
+                Submit
+              </Form.Button>
+            </Form>
+          </Segment>
+        </Container>
+      </Wrapper>
+    );
+  }
 }
 
 Register.propTypes = {

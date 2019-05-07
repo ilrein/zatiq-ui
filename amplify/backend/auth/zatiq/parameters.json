@@ -1,0 +1,78 @@
+{
+    "identityPoolName": "zatiq",
+    "allowUnauthenticatedIdentities": false,
+    "lambdaLogPolicy": "zatiq_lambda_log_policy",
+    "openIdLambdaRoleName": "zatiq_openid_lambda_role",
+    "openIdRolePolicy": "zatiq_openid_pass_role_policy",
+    "openIdLambdaIAMPolicy": "zatiq_openid_lambda_iam_policy",
+    "openIdLogPolicy": "zatiq_openid_lambda_log_policy",
+    "userPoolName": "zatiq",
+    "autoVerifiedAttributes": [
+        "email"
+    ],
+    "mfaConfiguration": "OFF",
+    "mfaTypes": [
+        "SMS Text Message"
+    ],
+    "roleName": "zatiq_sns-role",
+    "roleExternalId": "zatiq_role_external_id",
+    "policyName": "zatiq-sns-policy",
+    "smsAuthenticationMessage": "Your authentication code is {####}",
+    "smsVerificationMessage": "Your verification code is {####}",
+    "emailVerificationSubject": "Your verification code",
+    "emailVerificationMessage": "Your verification code is {####}",
+    "defaultPasswordPolicy": false,
+    "passwordPolicyMinLength": 8,
+    "passwordPolicyCharacters": [
+        "Requires Lowercase",
+        "Requires Uppercase",
+        "Requires Numbers",
+        "Requires Symbols"
+    ],
+    "requiredAttributes": [
+        "email"
+    ],
+    "userpoolClientName": "zatiq_app_client",
+    "userpoolClientGenerateSecret": true,
+    "userpoolClientRefreshTokenValidity": 30,
+    "userpoolClientWriteAttributes": [
+        "email"
+    ],
+    "userpoolClientReadAttributes": [
+        "email"
+    ],
+    "mfaLambdaRole": "zatiq_totp_lambda_role",
+    "mfaLambdaLogPolicy": "zatiq_totp_lambda_log_policy",
+    "mfaPassRolePolicy": "zatiq_totp_pass_role_policy",
+    "mfaLambdaIAMPolicy": "zatiq_totp_lambda_iam_policy",
+    "userpoolClientLambdaRole": "zatiq_userpoolclient_lambda_role",
+    "userpoolClientLogPolicy": "zatiq_userpoolclient_lambda_log_policy",
+    "userpoolClientLambdaPolicy": "zatiq_userpoolclient_lambda_iam_policy",
+    "userpoolClientSetAttributes": false,
+    "useDefault": "manual",
+    "authSelections": "identityPoolAndUserPool",
+    "resourceName": "zatiq",
+    "thirdPartyAuth": false,
+    "usernameAttributes": [
+        "email"
+    ],
+    "hostedUI": false,
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "authRoleArn": {
+        "Fn::GetAtt": [
+            "AuthRole",
+            "Arn"
+        ]
+    },
+    "unauthRoleArn": {
+        "Fn::GetAtt": [
+            "UnauthRole",
+            "Arn"
+        ]
+    }
+}
