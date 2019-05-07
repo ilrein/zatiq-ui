@@ -1,9 +1,26 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import styled from 'styled-components';
 
-const Dashboard = () => (
-  <div>
-    Dashboard
-  </div>
-)
+import fadeIn from '../../anime/fadeIn';
 
-export default Dashboard;
+const Wrapper = styled.div`
+  display: flex;
+  animation: ${fadeIn} 1s ease;
+`;
+
+const Dashboard = ({
+  userReducer,
+}) => {
+  const { user, cognitoUser } = userReducer;
+
+  return (
+    <Wrapper>
+      Dashboard
+    </Wrapper>
+  );
+};
+
+export default connect(
+  ({ userReducer }) => ({ userReducer }),
+)(Dashboard);
