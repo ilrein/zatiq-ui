@@ -21,6 +21,7 @@ import {
 } from '../constants';
 import AuthContainer from '../containers/AuthContainer';
 import UserContainer from '../containers/UserContainer';
+import CompanyContainer from '../containers/CompanyContainer';
 
 import fadeIn from '../anime/fadeIn';
 
@@ -79,6 +80,7 @@ class MainLayout extends Component {
     return (
       <AuthContainer>
         <UserContainer>
+          <CompanyContainer>
           <Wrapper>
             <Sidebar.Pushable as={Segment}>
               <Sidebar
@@ -122,6 +124,7 @@ class MainLayout extends Component {
               </Sidebar.Pusher>
             </Sidebar.Pushable>
           </Wrapper>
+          </CompanyContainer>
         </UserContainer>
       </AuthContainer>
     );

@@ -11,6 +11,7 @@ const Wrapper = styled.div`
 
 const Dashboard = ({
   userReducer,
+  company,
 }) => {
   const { user, cognitoUser } = userReducer;
 
@@ -22,5 +23,11 @@ const Dashboard = ({
 };
 
 export default connect(
-  ({ userReducer }) => ({ userReducer }),
+  ({
+    userReducer,
+    company,
+  }) => ({
+    userReducer,
+    company,
+  }),
 )(Dashboard);
