@@ -31,6 +31,23 @@ const CompanyForm = ({
         <label>
           Location(s)
         </label>
+
+        <Button.Group style={{ marginBottom: '1rem' }}>
+          <Button
+            icon="minus"
+            disabled={totalLocations === 1}
+            onClick={() => setTotalLocations(totalLocations - 1)}
+          />
+          <Button disabled>
+            {totalLocations}
+          </Button>
+          <Button
+            icon="plus"
+            disabled={totalLocations === 10}
+            onClick={() => setTotalLocations(totalLocations + 1)}
+          />
+        </Button.Group>
+
         {
           repeat(
             <div style={{ marginBottom: '1rem' }}>

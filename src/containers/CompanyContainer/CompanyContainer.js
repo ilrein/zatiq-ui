@@ -6,29 +6,18 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import fetch from 'isomorphic-fetch';
 import isNil from 'ramda/src/isNil';
-import { Message } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
-import styled from 'styled-components';
-
-import fadeIn from '../../anime/fadeIn';
 
 import {
   API_COMPANY,
   CAPTURE_COMPANY,
 } from '../../constants';
 
-const Wrapper = styled.div`
-  display: flex;
-  animation: ${fadeIn} 1s ease;
-  padding: 1rem;
-  width: 100%;
-`;
-
 const CompanyContainer = ({
   children,
   userReducer,
   captureCompany,
-  location,
+  // location,
   company,
 }) => {
   const { user, cognitoUser } = userReducer;
@@ -62,21 +51,7 @@ const CompanyContainer = ({
 
   return (
     <>
-      {
-        isNil(companyId)
-          && location.pathname !== '/company'
-          ? (
-            <Wrapper>
-              <Message fluid>
-                <p>
-                  Welcome to Zatiq!
-                </p>
-                To get started, setup your restaurant profile.
-              </Message>
-            </Wrapper>
-          )
-          : children
-      }
+      {children}
     </>
   );
 };
@@ -89,7 +64,7 @@ CompanyContainer.propTypes = {
   ]).isRequired,
   userReducer: PropTypes.shape().isRequired,
   captureCompany: PropTypes.func.isRequired,
-  location: PropTypes.shape().isRequired,
+  // location: PropTypes.shape().isRequired,
   company: PropTypes.shape().isRequired,
 };
 
