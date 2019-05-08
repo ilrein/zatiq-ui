@@ -1,14 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import {
   Menu,
   Icon,
 } from 'semantic-ui-react';
 import { Auth } from 'aws-amplify';
 import { toast } from 'react-toastify';
-import { withRouter } from 'react-router-dom';
-
-import { CLEAR_USER } from '../../constants';
 
 const Navbar = ({
   menuButton,
@@ -56,18 +52,19 @@ const Navbar = ({
         <Menu.Item
           onClick={logout}
         >
-          <Icon name="logout" />
+          <Icon name="log out" />
         </Menu.Item>
       </Menu.Menu>
     </Menu>
   );
 };
 
-export default connect(
-  ({ userReducer }) => ({ userReducer }),
-  dispatch => ({
-    clearUser: () => dispatch({
-      type: CLEAR_USER,
-    }),
-  }),
-)(withRouter(Navbar));
+// export default connect(
+//   ({ userReducer }) => ({ userReducer }),
+//   dispatch => ({
+//     clearUser: () => dispatch({
+//       type: CLEAR_USER,
+//     }),
+//   }),
+// )(withRouter(Navbar));
+export default Navbar;

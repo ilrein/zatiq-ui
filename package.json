@@ -5,7 +5,9 @@
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.test.js",
+      "!src/**/index.js",
       "src/**/**/*.js",
+      "!src/**/**/index.js",
       "!src/index.js",
       "!src/aws-exports.js",
       "!src/serviceWorker.js"
