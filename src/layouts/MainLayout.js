@@ -7,17 +7,11 @@ import {
   Icon,
 } from 'semantic-ui-react';
 import styled from 'styled-components';
-import {
-  withRouter,
-} from 'react-router-dom';
-import { Auth } from 'aws-amplify';
 import PropTypes from 'prop-types';
-import { toast } from 'react-toastify';
 import { connect } from 'react-redux';
 
 import {
   APP_NAME,
-  CLEAR_USER,
 } from '../constants';
 import AuthContainer from '../containers/AuthContainer';
 import UserContainer from '../containers/UserContainer';
@@ -51,18 +45,6 @@ class MainLayout extends Component {
     }));
   }
 
-  logout = (history) => {
-    const { clearUser } = this.props;
-
-    Auth.signOut()
-      .then(() => {
-        toast.info('Signed out');
-        history.push('/');
-        localStorage.clear();
-        clearUser();
-      });
-  };
-
   render() {
     const {
       visible,
@@ -70,7 +52,6 @@ class MainLayout extends Component {
 
     const {
       children,
-      history,
       // user,
     } = this.props;
 
@@ -92,14 +73,6 @@ class MainLayout extends Component {
                   <Brand>
                     {APP_NAME}
                   </Brand>
-
-                  <Menu.Item
-                    as="a"
-                    onClick={() => this.logout(history)}
-                  >
-                    <Icon name="log out" />
-                    Log Out
-                  </Menu.Item>
                 </Sidebar>
 
                 <Sidebar.Pusher
@@ -129,20 +102,15 @@ class MainLayout extends Component {
 
 MainLayout.propTypes = {
   children: PropTypes.node.isRequired,
-  history: PropTypes.shape().isRequired,
+  // history: PropTypes.shape().isRequired,
   // user: PropTypes.shape(),
-  clearUser: PropTypes.func.isRequired,
+  // clearUser: PropTypes.func.isRequired,
 };
 
-MainLayout.defaultProps = {
-  user: {},
-};
+// MainLayout.defaultProps = {
+//   user: {},
+// };
 
 export default connect(
   ({ userReducer }) => ({ user: userReducer.user }),
-  dispatch => ({
-    clearUser: () => dispatch({
-      type: CLEAR_USER,
-    }),
-  }),
-)(withRouter(MainLayout));
+)(MainLayout);

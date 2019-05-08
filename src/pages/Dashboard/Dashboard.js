@@ -17,7 +17,7 @@ const Dashboard = ({
 
   return (
     <Wrapper>
-      Dashboard
+      inner content
     </Wrapper>
   );
 };
