@@ -2,6 +2,15 @@
   "name": "realtimenotes",
   "version": "0.1.0",
   "private": true,
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.test.js",
+      "src/**/**/*.js",
+      "!src/index.js",
+      "!src/aws-exports.js",
+      "!src/serviceWorker.js"
+    ]
+  },
   "dependencies": {
     "aws-amplify": "^1.1.27",
     "dayjs": "^1.8.13",
