@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
 import {
-  Button,
   Menu,
-  Segment,
   Sidebar,
   Icon,
 } from 'semantic-ui-react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import {
   APP_NAME,
@@ -52,7 +51,7 @@ class MainLayout extends Component {
 
     const {
       children,
-      // user,
+      history,
     } = this.props;
 
     return (
@@ -70,9 +69,21 @@ class MainLayout extends Component {
                   visible={visible}
                   width="thin"
                 >
-                  <Brand>
+                  <Menu.Item
+                    as="a"
+                    onClick={() => history.push('/dashboard')}
+                    style={{ fontSize: '1.75rem' }}
+                  >
                     {APP_NAME}
-                  </Brand>
+                  </Menu.Item>
+
+                  <Menu.Item
+                    as="a"
+                    onClick={() => history.push('/company')}
+                  >
+                    <Icon name="building outline" />
+                    Company
+                  </Menu.Item>
                 </Sidebar>
 
                 <Sidebar.Pusher
@@ -113,4 +124,4 @@ MainLayout.propTypes = {
 
 export default connect(
   ({ userReducer }) => ({ user: userReducer.user }),
-)(MainLayout);
+)(withRouter(MainLayout));
