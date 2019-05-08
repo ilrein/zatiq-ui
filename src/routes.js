@@ -14,7 +14,7 @@ import Register from './pages/Auth/Register';
 import Login from './pages/Auth/Login';
 import Verify from './pages/Auth/Verify';
 import Dashboard from './pages/Dashboard';
-// import Company from './pages/Company';
+import Company from './pages/Company';
 // import Locations from './pages/Locations';
 // import Shifts from './pages/Shifts';
 
@@ -64,22 +64,16 @@ const Routes = () => (
             component={Dashboard}
           />
 
-          {/* <Route
+          <Route
             exact
             path="/company"
             component={Company}
           />
 
-          <Route
+          {/* <Route
             exact
             path="/locations"
             component={Locations}
-          />
-
-          <Route
-            exact
-            path="/shifts"
-            component={Shifts}
           /> */}
         </MainLayout>
       </Switch>

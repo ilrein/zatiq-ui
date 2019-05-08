@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import styled from 'styled-components';
 import {
   Card,
@@ -54,12 +53,4 @@ const Dashboard = ({
   );
 };
 
-export default connect(
-  ({
-    userReducer,
-    company,
-  }) => ({
-    userReducer,
-    company,
-  }),
-)(Dashboard);
+export default Dashboard;
