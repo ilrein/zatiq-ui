@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import {
   Card,
+  Statistic,
+  Grid,
 } from 'semantic-ui-react';
 
 import fadeIn from '../../anime/fadeIn';
@@ -25,15 +27,28 @@ const Dashboard = ({
   return (
     <Wrapper>
       <InnerWrapper>
-        <Card
-          header="Reservations"
-        />
-        <Card
-          header="Menus"
-        />
-        <Card
-          header="Dishes"
-        />
+        <Grid>
+          <Grid.Row columns="2">
+            <Grid.Column>
+              <Card>
+                <Statistic
+                  label="Reservations"
+                  value="90"
+                />
+              </Card>
+            </Grid.Column>
+
+            <Grid.Column>
+              <Card>
+                <Statistic
+                  label="Total sales"
+                  value="$7 489"
+                  color="green"
+                />
+              </Card>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
       </InnerWrapper>
     </Wrapper>
   );
