@@ -32,8 +32,8 @@ const Company = () => {
             <label>
               Name
             </label>
-            <input
-              placeholder="Company name"
+            <Form.Input
+              placeholder="Tesla Inc."
               value={name}
               onChange={(event, { value }) => setName(value)}
               fluid
