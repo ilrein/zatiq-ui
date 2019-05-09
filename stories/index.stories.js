@@ -8,10 +8,14 @@ import 'semantic-ui-css/semantic.min.css';
 
 import Welcome from './welcome';
 
-// import Navbar from '../src/components/Navbar';
+import NewUserWelcome from '../src/components/NewUserWelcome/NewUserWelcome';
 
 storiesOf('Welcome', module)
   .add('to Storybook', () => <Welcome />);
 
-// storiesOf('Navbar', module)
-//   .add('default', () => <Navbar />);
+storiesOf('NewUserWelcome', module)
+  .add('Open', () => (
+    <NewUserWelcome
+      open
+    />
+  ));
