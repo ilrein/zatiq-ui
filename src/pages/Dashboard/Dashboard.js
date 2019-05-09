@@ -5,9 +5,14 @@ import {
   Statistic,
   Grid,
 } from 'semantic-ui-react';
+import fetch from 'isomorphic-fetch';
 
 import fadeIn from '../../anime/fadeIn';
 import NewUserWelcome from '../../components/NewUserWelcome';
+import {
+  API_COMPANY,
+  API_USERS,
+} from '../../constants';
 
 const Wrapper = styled.div`
   display: flex;
@@ -20,18 +25,67 @@ const InnerWrapper = styled.div`
 
 const Dashboard = ({
   userReducer,
-  company,
+  // company,
+  captureCompany,
+  captureUser,
 }) => {
   const { user, cognitoUser } = userReducer;
 
-  const [newRegistration, setNewRegistration] = useState(company._id === null);
+  const token = cognitoUser.signInUserSession.idToken.jwtToken;
+
+  const [newRegistration, setNewRegistration] = useState(user.companyId === null);
   const [saving, setSaving] = useState(false);
 
   // console.log('newRegistration', newRegistration);
 
-  const onSubmit = () => {
-    console.log('submit');
-  }
+  const onSubmit = async (name) => {
+    setSaving(true);
+
+    try {
+      const post = await fetch(API_COMPANY, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'jwt-token': token,
+        },
+        body: JSON.stringify({
+          company: {
+            name,
+            staff: [
+              {
+                role: user.role,
+                userId: user._id,
+              },
+            ],
+          },
+        }),
+      });
+  
+      const result = await post.json();
+      captureCompany(result);
+    
+      const updateUser = await fetch(API_USERS, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'jwt-token': token,
+        },
+        body: JSON.stringify({
+          user: {
+            companyId: result._id,
+          },
+        }),
+      });
+
+      const updateUserResult = await updateUser.json();
+      captureUser(updateUserResult);
+
+      setSaving(false);
+      setNewRegistration(false);
+    } catch (error) {
+      //
+    }
+  };
 
   return (
     <Wrapper>

@@ -44,7 +44,7 @@ const NewUserWelcome = ({
         <Button
           primary
           type="submit"
-          onClick={onSubmit}
+          onClick={() => onSubmit(name)}
           style={{ marginTop: '1rem' }}
           loading={loading}
         >
