@@ -33,6 +33,7 @@ const NewUserWelcome = ({
         </Message>
 
         <Input
+          name="companyName"
           onChange={(event, { value }) => setName(value)}
           value={name}
           placeholder="Company name"
