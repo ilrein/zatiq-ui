@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import {
   Card,
   Statistic,
   Grid,
+  Header,
 } from 'semantic-ui-react';
 import fetch from 'isomorphic-fetch';
 
@@ -61,7 +62,7 @@ const Dashboard = ({
       const result = await post.json();
       captureCompany(result);
     
-      const updateUser = await fetch(API_USERS, {
+      const updateUser = await fetch(`${API_USERS}/${user._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -85,43 +86,52 @@ const Dashboard = ({
 
   return (
     <Wrapper>
-      <InnerWrapper>
+      {
+        user._id
+        && company._id
+          ? (
+            <InnerWrapper>
+              <Header>
+                {company.name}
+              </Header>
+              {
+                company._id === null
+                  ? (
+                    <NewUserWelcome
+                      open
+                      onSubmit={onSubmit}
+                      loading={saving}
+                    />
+                  )
+                  : null
+              }
 
-        {
-          company._id === null
-            ? (
-              <NewUserWelcome
-                open
-                onSubmit={onSubmit}
-                loading={saving}
-              />
-            )
-            : null
-        }
+              <Grid>
+                <Grid.Row columns="2">
+                  <Grid.Column>
+                    <Card>
+                      <Statistic
+                        label="Reservations"
+                        value="90"
+                      />
+                    </Card>
+                  </Grid.Column>
 
-        <Grid>
-          <Grid.Row columns="2">
-            <Grid.Column>
-              <Card>
-                <Statistic
-                  label="Reservations"
-                  value="90"
-                />
-              </Card>
-            </Grid.Column>
-
-            <Grid.Column>
-              <Card>
-                <Statistic
-                  label="Total sales"
-                  value="$7 489"
-                  color="green"
-                />
-              </Card>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </InnerWrapper>
+                  <Grid.Column>
+                    <Card>
+                      <Statistic
+                        label="Total sales"
+                        value="$7 489"
+                        color="green"
+                      />
+                    </Card>
+                  </Grid.Column>
+                </Grid.Row>
+              </Grid>
+            </InnerWrapper>
+          )
+          : null
+      }
     </Wrapper>
   );
 };

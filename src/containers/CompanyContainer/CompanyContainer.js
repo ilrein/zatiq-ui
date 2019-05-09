@@ -42,6 +42,8 @@ const CompanyContainer = ({
       } catch (error) {
         console.log(error); // eslint-disable-line
       }
+    } else if (!isNil(companyId) && !isNil(company._id)) {
+      // return;
     } else {
       captureCompany({ _id: null });
     }
@@ -49,7 +51,7 @@ const CompanyContainer = ({
 
   useEffect(() => {
     getCompany();
-  }, []);
+  }, [companyId]);
 
   return (
     <>
