@@ -5,6 +5,7 @@ import {
 } from 'semantic-ui-react';
 import styled from 'styled-components';
 import fetch from 'isomorphic-fetch';
+import { toast } from 'react-toastify';
 
 import fadeIn from '../../anime/fadeIn';
 import {
@@ -27,7 +28,7 @@ const Company = ({
   captureCompany,
 }) => {
   const [name, setName] = useState(company.name);
-  const { user, cognitoUser } = userReducer;
+  const { cognitoUser } = userReducer;
 
   const token = cognitoUser.signInUserSession.idToken.jwtToken;
 
@@ -53,6 +54,7 @@ const Company = ({
       const result = await post.json();
       captureCompany(result);
       setSaving(false);
+      toast.success(`Updated ${name}`);
     } catch (error) {
       console.log(error) // eslint-disable-line
     }
