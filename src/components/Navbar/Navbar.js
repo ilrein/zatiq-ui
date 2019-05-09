@@ -17,14 +17,16 @@ const Navbar = ({
 }) => {
   const { user } = userReducer;
 
-  const logout = () => {
-    Auth.signOut()
-      .then(() => {
-        toast.info('Signed out');
-        history.push('/');
-        localStorage.clear();
-        clearUser();
-      });
+  const logout = async () => {
+    try {
+      await Auth.signOut();  
+      toast.info('Signed out');
+      history.push('/');
+      localStorage.clear();
+      clearUser();
+    } catch {
+      history.push('/');
+    }
   };
 
   return (
