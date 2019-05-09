@@ -13,12 +13,12 @@ beforeEach(() => {
       userReducer={{
         user: {},
       }}
-
       history={{
         push: () => {},
       }}
-
       clearUser={() => {}}
+      menuButton={<div>MenuButton</div>}
+      toggleMenu={() => {}}
     />,
   );
 });
