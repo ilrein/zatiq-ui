@@ -1,8 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme'; // eslint-disable-line
 
-import Company from '.';
+import Company from './Company';
 
 it('renders without crashing', () => {
-  shallow(<Company />);
+  const wrapper = shallow(<Company />);
+
+  expect(wrapper).toBeTruthy();
 });

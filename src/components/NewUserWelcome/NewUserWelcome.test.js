@@ -3,7 +3,13 @@ import { shallow } from 'enzyme'; // eslint-disable-line
 
 import NewUserWelcome from './NewUserWelcome';
 
-const wrapper = shallow(<NewUserWelcome />);
+const wrapper = shallow(
+  <NewUserWelcome
+    onSubmit={() => {}}
+    open
+    loading={false}
+  />,
+);
 
 describe('NewUserWelcome', () => {
   it('renders without crashing', () => {
