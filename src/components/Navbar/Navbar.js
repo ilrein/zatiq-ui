@@ -6,6 +6,7 @@ import {
 import { Auth } from 'aws-amplify';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const Navbar = ({
   menuButton,
@@ -61,6 +62,14 @@ const Navbar = ({
       </Menu.Menu>
     </Menu>
   );
+};
+
+Navbar.propTypes = {
+  menuButton: PropTypes.node.isRequired,
+  toggleMenu: PropTypes.func.isRequired,
+  userReducer: PropTypes.shape().isRequired,
+  clearUser: PropTypes.func.isRequired,
+  history: PropTypes.shape().isRequired,
 };
 
 export default Navbar;
