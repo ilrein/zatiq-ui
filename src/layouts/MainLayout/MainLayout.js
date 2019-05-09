@@ -85,7 +85,7 @@ const MainLayout = ({ history, children }) => {
       </UserContainer>
     </AuthContainer>
   );
-}
+};
 
 MainLayout.propTypes = {
   children: PropTypes.node.isRequired,
