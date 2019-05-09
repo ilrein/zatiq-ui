@@ -6,7 +6,6 @@ import {
   Segment,
   Divider,
   Message,
-  Checkbox,
 } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { Auth } from 'aws-amplify';
@@ -42,6 +41,7 @@ class Register extends Component {
   /**
    * sets a state value dynamically
    */
+
   setValue = ({ name, value }) => this.setState(prevState => ({
     ...prevState,
     [name]: value,
@@ -53,7 +53,6 @@ class Register extends Component {
       email,
       password,
       passwordConfirmation,
-      type,
     } = this.state;
     /**
      * form validations

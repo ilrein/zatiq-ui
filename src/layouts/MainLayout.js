@@ -26,12 +26,6 @@ const Wrapper = styled.div`
   background-color: green;
 `;
 
-const Brand = styled.div`
-  padding: 1rem;
-  color: white;
-  font-size: 1.1rem;
-`;
-
 class MainLayout extends Component {
   state = {
     visible: false,

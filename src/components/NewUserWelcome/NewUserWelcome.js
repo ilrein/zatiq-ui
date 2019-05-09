@@ -13,6 +13,7 @@ const NewUserWelcome = ({
   onSubmit,
   open,
   onClose,
+  loading,
 }) => {
   const [name, setName] = useState('');
 
@@ -38,6 +39,7 @@ const NewUserWelcome = ({
           value={name}
           placeholder="Company name"
           fluid
+          disabled={loading}
         />
 
         <Button
@@ -45,6 +47,7 @@ const NewUserWelcome = ({
           type="submit"
           onClick={onSubmit}
           style={{ marginTop: '1rem' }}
+          loading={loading}
         >
           Submit
         </Button>
