@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import {
   Card,
@@ -25,7 +25,7 @@ const InnerWrapper = styled.div`
 
 const Dashboard = ({
   userReducer,
-  // company,
+  company,
   captureCompany,
   captureUser,
 }) => {
@@ -33,10 +33,7 @@ const Dashboard = ({
 
   const token = cognitoUser.signInUserSession.idToken.jwtToken;
 
-  const [newRegistration, setNewRegistration] = useState(user.companyId === null);
   const [saving, setSaving] = useState(false);
-
-  // console.log('newRegistration', newRegistration);
 
   const onSubmit = async (name) => {
     setSaving(true);
@@ -81,7 +78,6 @@ const Dashboard = ({
       captureUser(updateUserResult);
 
       setSaving(false);
-      setNewRegistration(false);
     } catch (error) {
       //
     }
@@ -92,7 +88,7 @@ const Dashboard = ({
       <InnerWrapper>
 
         {
-          newRegistration
+          company._id === null
             ? (
               <NewUserWelcome
                 open
