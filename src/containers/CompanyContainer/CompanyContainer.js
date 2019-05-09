@@ -42,12 +42,14 @@ const CompanyContainer = ({
       } catch (error) {
         console.log(error); // eslint-disable-line
       }
+    } else {
+      captureCompany({ _id: null });
     }
   };
 
   useEffect(() => {
     getCompany();
-  }, [companyId]);
+  }, []);
 
   return (
     <>

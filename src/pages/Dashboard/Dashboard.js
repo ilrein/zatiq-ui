@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import {
   Card,
@@ -7,6 +7,7 @@ import {
 } from 'semantic-ui-react';
 
 import fadeIn from '../../anime/fadeIn';
+import NewUserWelcome from '../../components/NewUserWelcome';
 
 const Wrapper = styled.div`
   display: flex;
@@ -23,9 +24,31 @@ const Dashboard = ({
 }) => {
   const { user, cognitoUser } = userReducer;
 
+  const [newRegistration, setNewRegistration] = useState(company._id === null);
+  const [saving, setSaving] = useState(false);
+
+  // console.log('newRegistration', newRegistration);
+
+  const onSubmit = () => {
+    console.log('submit');
+  }
+
   return (
     <Wrapper>
       <InnerWrapper>
+
+        {
+          newRegistration
+            ? (
+              <NewUserWelcome
+                open
+                onSubmit={onSubmit}
+                loading={saving}
+              />
+            )
+            : null
+        }
+
         <Grid>
           <Grid.Row columns="2">
             <Grid.Column>

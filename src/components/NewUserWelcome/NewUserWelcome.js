@@ -6,13 +6,13 @@ import {
   Input,
   Button,
 } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
 
 import { APP_NAME } from '../../constants';
 
 const NewUserWelcome = ({
   onSubmit,
   open,
-  onClose,
   loading,
 }) => {
   const [name, setName] = useState('');
@@ -22,7 +22,6 @@ const NewUserWelcome = ({
   return (
     <Modal
       open={open}
-      onClose={onClose}
       size="small"
     >
       <Header>
@@ -54,6 +53,12 @@ const NewUserWelcome = ({
       </Modal.Content>
     </Modal>
   );
+};
+
+NewUserWelcome.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+  loading: PropTypes.bool.isRequired,
 };
 
 export default NewUserWelcome;
