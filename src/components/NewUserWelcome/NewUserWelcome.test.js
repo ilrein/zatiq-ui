@@ -1,9 +1,9 @@
 import React from 'react';
-import { shallow } from 'enzyme'; // eslint-disable-line
+import { mount } from 'enzyme'; // eslint-disable-line
 
 import NewUserWelcome from './NewUserWelcome';
 
-const wrapper = shallow(
+const wrapper = mount(
   <NewUserWelcome
     onSubmit={() => {}}
     open
@@ -16,15 +16,14 @@ describe('NewUserWelcome', () => {
     expect(wrapper).toBeTruthy();
   });
 
-  // Can't get this test to work yet
+  it('stores name value', () => {
+    const data = { target: { value: 'foo' } };
 
-  // it('stores name value', () => {
-  //   const event = { target: { value: 'name' } };
+    wrapper
+      .find('Input')
+      .simulate('change', data);
 
-  //   wrapper
-  //     .find('[name="companyName"]')
-  //     .simulate('change', event);
-
-  //   expect(wrapper).toBeTruthy();
-  // });
+    // change assertion when enzyme supports checking hooks
+    expect(wrapper.find('Input').simulate('change', data)).toBeTruthy();
+  });
 });
