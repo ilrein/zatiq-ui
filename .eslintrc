@@ -7,7 +7,9 @@
     "localStorage": true,
     "describe": true,
     "it": true,
-    "expect": true
+    "expect": true,
+    "beforeEach": true,
+    "jest": true
   },
   "rules": {
     "no-console": 1,

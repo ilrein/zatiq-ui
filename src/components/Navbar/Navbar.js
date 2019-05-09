@@ -5,6 +5,7 @@ import {
 } from 'semantic-ui-react';
 import { Auth } from 'aws-amplify';
 import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 
 const Navbar = ({
   menuButton,
@@ -39,9 +40,11 @@ const Navbar = ({
       >
         {menuButton}
       </Menu.Item>
-      <Menu.Item>
-        Dashboard
-      </Menu.Item>
+      <Link to="/dashboard">
+        <Menu.Item>
+          Dashboard
+        </Menu.Item>
+      </Link>
 
       <Menu.Menu
         position="right"
@@ -50,6 +53,7 @@ const Navbar = ({
           {user.email}
         </Menu.Item>  
         <Menu.Item
+          name="logout"
           onClick={logout}
         >
           <Icon name="log out" />
@@ -59,12 +63,4 @@ const Navbar = ({
   );
 };
 
-// export default connect(
-//   ({ userReducer }) => ({ userReducer }),
-//   dispatch => ({
-//     clearUser: () => dispatch({
-//       type: CLEAR_USER,
-//     }),
-//   }),
-// )(withRouter(Navbar));
 export default Navbar;

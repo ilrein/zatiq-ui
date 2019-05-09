@@ -4,9 +4,11 @@ import { shallow } from 'enzyme'; // eslint-disable-line
 import CustomCard from '.';
 
 it('renders without crashing', () => {
-  shallow(
+  const wrapper = shallow(
     <CustomCard>
       Kard Content
     </CustomCard>,
   );
+
+  expect(wrapper).toBeTruthy();
 });
