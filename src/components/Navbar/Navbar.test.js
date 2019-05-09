@@ -31,7 +31,5 @@ describe('<Navbar />', () => {
   it('triggers logout onClick', () => {
     wrapper.find('[name="logout"]').simulate('click');
     expect(wrapper.find('[name="logout"]')).toBeTruthy();
-    // const spy = jest.spyOn(Navbar, 'logout');
-    // expect(spy).toHaveBeenCalled();
   });
 });
