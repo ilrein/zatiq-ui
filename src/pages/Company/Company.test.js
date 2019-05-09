@@ -3,8 +3,24 @@ import { shallow } from 'enzyme'; // eslint-disable-line
 
 import Company from './Company';
 
-it('renders without crashing', () => {
-  const wrapper = shallow(<Company />);
+const wrapper = shallow(
+  <Company
+    company={{
+      name: '',
+    }}
+    userReducer={{
+      user: {},
+      cognitoUser: {
+        signInUserSession: {
+          idToken: {
+            jwtToken: 123,
+          },
+        },
+      },
+    }}
+  />,
+);
 
+it('renders without crashing', () => {
   expect(wrapper).toBeTruthy();
 });
