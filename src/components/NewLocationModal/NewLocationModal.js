@@ -4,13 +4,22 @@ import {
   Header,
   Input,
   Button,
+  Icon,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
+const SpreadHeader = styled(Header)`
+  display: flex !important;
+  flex-direction: row;
+  justify-content: space-between;
+`;
 
 const NewLocationModal = ({
   onSubmit,
   open,
   loading,
+  onClose,
 }) => {
   const [name, setName] = useState('');
 
@@ -19,9 +28,15 @@ const NewLocationModal = ({
       open={open}
       size="small"
     >
-      <Header>
-        New Location
-      </Header>
+      <SpreadHeader>
+        <>New Location</>
+
+        <Icon
+          name="close"
+          onClick={onClose}
+          style={{ cursor: 'pointer' }}
+        />
+      </SpreadHeader>
       <Modal.Content>
         <Input
           name="locationName"

@@ -45,6 +45,7 @@ const Body = ({
         open={open}
         onSubmit={onSubmit}
         loading={saving}
+        onClose={() => setOpen(false)}
       />
     </>
   );
