@@ -1,11 +1,12 @@
 import React from 'react';
-import { mount } from 'enzyme'; // eslint-disable-line
+import { shallow } from 'enzyme'; // eslint-disable-line
 
 import NewLocationModal from './NewLocationModal';
 
-const wrapper = mount(
+const wrapper = shallow(
   <NewLocationModal
     onSubmit={() => {}}
+    onClose={() => {}}
     open
     loading={false}
   />,
