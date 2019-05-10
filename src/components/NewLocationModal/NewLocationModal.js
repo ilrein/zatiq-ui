@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import {
   Modal,
   Header,
-  Input,
   Button,
   Icon,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+
+import PlacesAutoComplete from '../PlacesAutoComplete';
 
 const SpreadHeader = styled(Header)`
   display: flex !important;
@@ -21,7 +22,7 @@ const NewLocationModal = ({
   loading,
   onClose,
 }) => {
-  const [name, setName] = useState('');
+  const [address, setAddress] = useState('');
 
   return (
     <Modal
@@ -38,19 +39,15 @@ const NewLocationModal = ({
         />
       </SpreadHeader>
       <Modal.Content>
-        <Input
-          name="locationName"
-          onChange={(event, { value }) => setName(value)}
-          value={name}
-          placeholder="Location name"
-          fluid
-          disabled={loading}
+        <PlacesAutoComplete
+          onPlaceSelected={place => setAddress(place)}
+          placeholder="Location Address"
         />
 
         <Button
           primary
           type="submit"
-          onClick={() => onSubmit(name)}
+          onClick={onSubmit}
           style={{ marginTop: '1rem' }}
           loading={loading}
         >
@@ -65,6 +62,7 @@ NewLocationModal.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 export default NewLocationModal;
