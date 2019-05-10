@@ -65,7 +65,7 @@ const MainLayout = ({ history, children }) => {
 
               <Sidebar.Pusher
                 dimmed={visible}
-                onClick={toggleVisible}
+                onClick={visible ? toggleVisible : null}
               >
                 <>
                   <Navbar
