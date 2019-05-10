@@ -8,6 +8,7 @@ const wrapper = shallow(
     company={{
       name: '',
     }}
+    captureCompany={() => {}}
     userReducer={{
       user: {},
       cognitoUser: {

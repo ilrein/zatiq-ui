@@ -15,6 +15,7 @@ import {
 import AuthContainer from '../../containers/AuthContainer';
 import UserContainer from '../../containers/UserContainer';
 import CompanyContainer from '../../containers/CompanyContainer';
+// import LocationsContainer from '../../containers/LocationsContainer';
 
 import Navbar from '../../components/Navbar';
 
@@ -61,6 +62,14 @@ const MainLayout = ({ history, children }) => {
                   <Icon name="building outline" />
                   Company
                 </Menu.Item>
+
+                <Menu.Item
+                  as="a"
+                  onClick={() => history.push('/locations')}
+                >
+                  <Icon name="building" />
+                  Locations
+                </Menu.Item>
               </Sidebar>
 
               <Sidebar.Pusher
@@ -89,7 +98,7 @@ const MainLayout = ({ history, children }) => {
 
 MainLayout.propTypes = {
   children: PropTypes.node.isRequired,
-  // history: PropTypes.shape().isRequired,
+  history: PropTypes.shape().isRequired,
   // user: PropTypes.shape(),
   // clearUser: PropTypes.func.isRequired,
 };

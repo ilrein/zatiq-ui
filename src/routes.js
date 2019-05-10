@@ -15,7 +15,7 @@ import Login from './pages/Auth/Login';
 import Verify from './pages/Auth/Verify';
 import Dashboard from './pages/Dashboard';
 import Company from './pages/Company';
-// import Locations from './pages/Locations';
+import Locations from './pages/Locations';
 // import Shifts from './pages/Shifts';
 
 // Layouts
@@ -70,11 +70,11 @@ const Routes = () => (
             component={Company}
           />
 
-          {/* <Route
+          <Route
             exact
             path="/locations"
             component={Locations}
-          /> */}
+          />
         </MainLayout>
       </Switch>
       <ToastContainer
