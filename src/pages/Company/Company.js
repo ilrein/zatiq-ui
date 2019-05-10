@@ -6,6 +6,7 @@ import {
 import styled from 'styled-components';
 import fetch from 'isomorphic-fetch';
 import { toast } from 'react-toastify';
+import PropTypes from 'prop-types';
 
 import fadeIn from '../../anime/fadeIn';
 import {
@@ -87,6 +88,12 @@ const Company = ({
       </InnerWrapper>
     </Wrapper>
   );
+};
+
+Company.propTypes = {
+  userReducer: PropTypes.shape().isRequired,
+  company: PropTypes.shape().isRequired,
+  captureCompany: PropTypes.func.isRequired,
 };
 
 export default Company;
