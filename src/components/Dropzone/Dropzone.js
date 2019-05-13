@@ -6,6 +6,14 @@ import {
   Icon,
   Segment,
 } from 'semantic-ui-react';
+import styled from 'styled-components';
+
+const Heading = styled(Header)`
+  margin: 0 !important;
+  &::before {
+    background-color: transparent !important;
+  }
+`;
 
 const Dropzone = ({ onDrop }) => {
   const handleDrop = useCallback((acceptedFiles) => {
@@ -22,14 +30,14 @@ const Dropzone = ({ onDrop }) => {
     <div {...getRootProps()}>
       <Segment placeholder>
         <input {...getInputProps()} />
-        <Header icon>
+        <Heading icon>
           <Icon name="pdf file outline" />
           {
             isDragActive
               ? <p>Drop the files here ...</p>
               : <p>Drag & drop some files here, or click to select files</p>
           }
-        </Header>
+        </Heading>
       </Segment>
     </div>
   );

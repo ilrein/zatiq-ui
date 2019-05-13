@@ -1,13 +1,13 @@
 import React from 'react';
 import { shallow } from 'enzyme'; // eslint-disable-line
 
-import NewItem from './NewItem';
+import NewItemModal from './NewItemModal';
 
 const wrapper = shallow(
-  <NewItem />,
+  <NewItemModal />,
 );
 
-describe('NewItem', () => {
+describe('NewItemModal', () => {
   it('renders without crashing', () => {
     expect(wrapper).toBeTruthy();
   });

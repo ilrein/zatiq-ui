@@ -9,6 +9,7 @@ import 'semantic-ui-css/semantic.min.css';
 import Welcome from './welcome';
 
 import NewUserWelcome from '../src/components/NewUserWelcome/NewUserWelcome';
+import NewItemModal from '../src/components/NewItemModal';
 
 storiesOf('Welcome', module)
   .add('to Storybook', () => <Welcome />);
@@ -16,6 +17,13 @@ storiesOf('Welcome', module)
 storiesOf('NewUserWelcome', module)
   .add('Open', () => (
     <NewUserWelcome
+      open
+    />
+  ));
+
+storiesOf('NewItemModal', module)
+  .add('Open', () => (
+    <NewItemModal
       open
     />
   ));
