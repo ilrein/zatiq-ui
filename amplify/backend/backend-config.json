@@ -1,9 +1,14 @@
 {
 	"auth": {
-		"zatiq": {
+		"cognito40bf02bf": {
 			"service": "Cognito",
 			"providerPlugin": "awscloudformation"
 		}
 	},
-	"storage": {}
+	"storage": {
+		"zatiq": {
+			"service": "S3",
+			"providerPlugin": "awscloudformation"
+		}
+	}
 }

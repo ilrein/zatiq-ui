@@ -4,7 +4,9 @@ import { mount } from 'enzyme'; // eslint-disable-line
 import Dropzone from './Dropzone';
 
 const wrapper = mount(
-  <Dropzone />,
+  <Dropzone
+    onDrop={() => {}}
+  />,
 );
 
 describe('Dropzone', () => {

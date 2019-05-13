@@ -7,16 +7,16 @@ import {
   Segment,
 } from 'semantic-ui-react';
 
-const Dropzone = ({ handleDrop }) => {
-  const onDrop = useCallback((acceptedFiles) => {
-    handleDrop(acceptedFiles[0]);
+const Dropzone = ({ onDrop }) => {
+  const handleDrop = useCallback((acceptedFiles) => {
+    onDrop(acceptedFiles[0]);
   }, []);
 
   const {
     getRootProps,
     getInputProps,
     isDragActive,
-  } = useDropzone({ onDrop });
+  } = useDropzone({ handleDrop });
 
   return (
     <div {...getRootProps()}>
@@ -36,7 +36,7 @@ const Dropzone = ({ handleDrop }) => {
 };
 
 Dropzone.propTypes = {
-  handleDrop: PropTypes.func.isRequired,
+  onDrop: PropTypes.func.isRequired,
 };
 
 export default Dropzone;

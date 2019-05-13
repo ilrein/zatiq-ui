@@ -1,12 +1,12 @@
 {
-    "identityPoolName": "zatiq",
+    "identityPoolName": "cognito40bf02bf_identitypool_40bf02bf",
     "allowUnauthenticatedIdentities": false,
-    "lambdaLogPolicy": "zatiq_lambda_log_policy",
-    "openIdLambdaRoleName": "zatiq_openid_lambda_role",
-    "openIdRolePolicy": "zatiq_openid_pass_role_policy",
-    "openIdLambdaIAMPolicy": "zatiq_openid_lambda_iam_policy",
-    "openIdLogPolicy": "zatiq_openid_lambda_log_policy",
-    "userPoolName": "zatiq",
+    "lambdaLogPolicy": "cognito40bf02bf_lambda_log_policy",
+    "openIdLambdaRoleName": "cognito40bf02bf_openid_lambda_role",
+    "openIdRolePolicy": "cognito40bf02bf_openid_pass_role_policy",
+    "openIdLambdaIAMPolicy": "cognito40bf02bf_openid_lambda_iam_policy",
+    "openIdLogPolicy": "cognito40bf02bf_openid_lambda_log_policy",
+    "userPoolName": "cognito40bf02bf_userpool_40bf02bf",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -14,9 +14,9 @@
     "mfaTypes": [
         "SMS Text Message"
     ],
-    "roleName": "zatiq_sns-role",
-    "roleExternalId": "zatiq_role_external_id",
-    "policyName": "zatiq-sns-policy",
+    "roleName": "cognito40bf02bf_sns-role",
+    "roleExternalId": "cognito40bf02bf_role_external_id",
+    "policyName": "cognito40bf02bf-sns-policy",
     "smsAuthenticationMessage": "Your authentication code is {####}",
     "smsVerificationMessage": "Your verification code is {####}",
     "emailVerificationSubject": "Your verification code",
@@ -32,7 +32,7 @@
     "requiredAttributes": [
         "email"
     ],
-    "userpoolClientName": "zatiq_app_client",
+    "userpoolClientName": "cognito40bf02bf_app_client",
     "userpoolClientGenerateSecret": true,
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [
@@ -41,22 +41,16 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "mfaLambdaRole": "zatiq_totp_lambda_role",
-    "mfaLambdaLogPolicy": "zatiq_totp_lambda_log_policy",
-    "mfaPassRolePolicy": "zatiq_totp_pass_role_policy",
-    "mfaLambdaIAMPolicy": "zatiq_totp_lambda_iam_policy",
-    "userpoolClientLambdaRole": "zatiq_userpoolclient_lambda_role",
-    "userpoolClientLogPolicy": "zatiq_userpoolclient_lambda_log_policy",
-    "userpoolClientLambdaPolicy": "zatiq_userpoolclient_lambda_iam_policy",
+    "mfaLambdaRole": "cognito40bf02bf_totp_lambda_role",
+    "mfaLambdaLogPolicy": "cognito40bf02bf_totp_lambda_log_policy",
+    "mfaPassRolePolicy": "cognito40bf02bf_totp_pass_role_policy",
+    "mfaLambdaIAMPolicy": "cognito40bf02bf_totp_lambda_iam_policy",
+    "userpoolClientLambdaRole": "cognito40bf02bf_userpoolclient_lambda_role",
+    "userpoolClientLogPolicy": "cognito40bf02bf_userpoolclient_lambda_log_policy",
+    "userpoolClientLambdaPolicy": "cognito40bf02bf_userpoolclient_lambda_iam_policy",
     "userpoolClientSetAttributes": false,
-    "useDefault": "manual",
+    "resourceName": "cognito40bf02bf",
     "authSelections": "identityPoolAndUserPool",
-    "resourceName": "zatiq",
-    "thirdPartyAuth": false,
-    "usernameAttributes": [
-        "email"
-    ],
-    "hostedUI": false,
     "authRoleName": {
         "Ref": "AuthRoleName"
     },
@@ -74,5 +68,9 @@
             "UnauthRole",
             "Arn"
         ]
-    }
+    },
+    "useDefault": "default",
+    "usernameAttributes": [
+        "email"
+    ]
 }
