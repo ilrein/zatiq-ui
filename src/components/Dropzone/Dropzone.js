@@ -36,7 +36,11 @@ const Dropzone = ({ onDrop }) => {
 };
 
 Dropzone.propTypes = {
-  onDrop: PropTypes.func.isRequired,
+  onDrop: PropTypes.func,
+};
+
+Dropzone.defaultProps = {
+  onDrop: () => {},
 };
 
 export default Dropzone;
