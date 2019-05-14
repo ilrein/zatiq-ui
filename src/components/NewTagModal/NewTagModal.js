@@ -5,15 +5,32 @@ import {
   Button,
   Icon,
   Form,
+  Label,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+
+const find = require('ramda/src/find');
+const propEq = require('ramda/src/propEq');
 
 const SpreadHeader = styled(Header)`
   display: flex !important;
   flex-direction: row;
   justify-content: space-between;
 `;
+
+const TagLabel = (tag, onDelete) => (
+  <>
+    <Label>
+      {tag}
+      <Icon
+        name="delete"
+        style={{ cursor: 'pointer' }}
+        onClick={onDelete}
+      />
+    </Label>
+  </>
+);
 
 const NewTagModal = ({
   onSubmit,
@@ -31,7 +48,9 @@ const NewTagModal = ({
     setTag('');
   };
 
-  const removeTag = () => {};
+  const removeTag = (TAG) => {
+    console.log(TAG);
+  };
 
   return (
     <Modal
@@ -59,11 +78,15 @@ const NewTagModal = ({
             }}
           />
 
-          {
+          {/* {
             tags.map(TAG => (
-              <div>{TAG}</div>
+              <TagLabel
+                key={TAG}
+                tag={TAG}
+                onDelete={removeTag}
+              />
             ))
-          }
+          } */}
 
           <Button
             primary
