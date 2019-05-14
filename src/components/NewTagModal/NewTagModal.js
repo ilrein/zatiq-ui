@@ -9,30 +9,23 @@ import {
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import Dropzone from '../Dropzone';
-
 const SpreadHeader = styled(Header)`
   display: flex !important;
   flex-direction: row;
   justify-content: space-between;
 `;
 
-const NewItemModal = ({
+const NewTagModal = ({
   onSubmit,
   open,
   loading,
   onClose,
-  // uploadImage,
 }) => {
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [imageURI, setImageURI] = useState('');
+  const [tags, setTags] = useState([]);
 
-  const handleSubmit = () => onSubmit({
-    name,
-    description,
-    imageURI,
-  });
+  const addTag = () => {};
+
+  const removeTag = () => {};
 
   return (
     <Modal
@@ -40,7 +33,7 @@ const NewItemModal = ({
       size="small"
     >
       <SpreadHeader>
-        <>New Item</>
+        <>New Tag</>
 
         <Icon
           name="close"
@@ -52,33 +45,23 @@ const NewItemModal = ({
         <Form>
           <Form.Input
             label="Name"
-            placeholder="Cheeseburger"
-            onChange={(event, { value }) => setName(value)}
-            value={name}
-            required
           />
-
-          <Form.TextArea
-            label="Description"
-            placeholder="Sweet and sour..."
-            onChange={(event, { value }) => setDescription(value)}
-            value={description}
-            required
-          />
-
-          <div className="field">
-            <label>
-              Image
-            </label>
-            <Dropzone
-              handleDrop={picture => console.log(picture)}
-            />
-          </div>
 
           <Button
             primary
             type="submit"
-            onClick={handleSubmit}
+            onClick={onSubmit}
+            style={{ marginTop: '1rem' }}
+            loading={loading}
+          >
+            Submit
+          </Button>
+
+
+          <Button
+            primary
+            type="submit"
+            onClick={onSubmit}
             style={{ marginTop: '1rem' }}
             loading={loading}
           >
@@ -90,11 +73,11 @@ const NewItemModal = ({
   );
 };
 
-NewItemModal.propTypes = {
+NewTagModal.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
-export default NewItemModal;
+export default NewTagModal;
