@@ -34,8 +34,8 @@ const Dropzone = ({ onDrop }) => {
           <Icon name="pdf file outline" />
           {
             isDragActive
-              ? <p>Drop the files here ...</p>
-              : <p>Drag & drop some files here, or click to select files</p>
+              ? <p>Drop the file here ...</p>
+              : <p>Drag & drop a file here, or click to select a file</p>
           }
         </Heading>
       </Segment>
