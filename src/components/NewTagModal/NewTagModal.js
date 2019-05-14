@@ -41,7 +41,15 @@ const NewTagModal = ({
   const [tag, setTag] = useState('');
   const [tags, setTags] = useState([]);
 
-  const addTag = TAG => setTags([...tags, TAG]);
+  const addTag = (TAG) => {
+    // check for any duplicates
+    const duplicate = find(propEq('tag', TAG))(tags);
+    console.log(duplicate, tag, tags);
+
+    if (duplicate) return;
+
+    setTags([...tags, TAG]);
+  };
 
   const addTagAction = () => {
     addTag(tag);
@@ -78,6 +86,10 @@ const NewTagModal = ({
             }}
           />
 
+          {/* <Form.Dropdown
+
+          /> */}
+
           {/* {
             tags.map(TAG => (
               <TagLabel
@@ -87,6 +99,11 @@ const NewTagModal = ({
               />
             ))
           } */}
+          {
+            tags.map(TAG => (
+              <div>{TAG}</div>
+            ))
+          }
 
           <Button
             primary
