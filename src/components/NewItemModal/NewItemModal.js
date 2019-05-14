@@ -9,7 +9,6 @@ import {
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import PlacesAutoComplete from '../PlacesAutoComplete';
 import Dropzone from '../Dropzone';
 
 const SpreadHeader = styled(Header)`
@@ -23,8 +22,17 @@ const NewItemModal = ({
   open,
   loading,
   onClose,
+  // uploadImage,
 }) => {
-  const [address, setAddress] = useState('');
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [imageURI, setImageURI] = useState('');
+
+  const handleSubmit = () => onSubmit({
+    name,
+    description,
+    imageURI,
+  });
 
   return (
     <Modal
@@ -42,15 +50,19 @@ const NewItemModal = ({
       </SpreadHeader>
       <Modal.Content>
         <Form>
-          <div className="field required">
-            <label>
-              Name
-            </label>
-            <PlacesAutoComplete
-              onPlaceSelected={place => setAddress(place)}
-              placeholder="Location Address"
-            />
-          </div>
+          <Form.Input
+            label="Name"
+            placeholder="Cheeseburger"
+            onChange={(event, { value }) => setName(value)}
+            value={name}
+          />
+
+          <Form.TextArea
+            label="Description"
+            placeholder="Sweet and sour..."
+            onChange={(event, { value }) => setDescription(value)}
+            value={description}
+          />
 
           <div className="field">
             <label>
@@ -64,7 +76,7 @@ const NewItemModal = ({
           <Button
             primary
             type="submit"
-            onClick={onSubmit}
+            onClick={handleSubmit}
             style={{ marginTop: '1rem' }}
             loading={loading}
           >
