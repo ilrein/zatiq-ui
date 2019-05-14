@@ -21,9 +21,15 @@ const NewTagModal = ({
   loading,
   onClose,
 }) => {
+  const [tag, setTag] = useState('');
   const [tags, setTags] = useState([]);
 
-  const addTag = () => {};
+  const addTag = TAG => setTags([...tags, TAG]);
+
+  const addTagAction = () => {
+    addTag(tag);
+    setTag('');
+  };
 
   const removeTag = () => {};
 
@@ -45,18 +51,19 @@ const NewTagModal = ({
         <Form>
           <Form.Input
             label="Name"
+            value={tag}
+            onChange={(event, { value }) => setTag(value)}
+            action={{
+              icon: 'plus',
+              onClick: () => addTagAction(),
+            }}
           />
 
-          <Button
-            primary
-            type="submit"
-            onClick={onSubmit}
-            style={{ marginTop: '1rem' }}
-            loading={loading}
-          >
-            Submit
-          </Button>
-
+          {
+            tags.map(TAG => (
+              <div>{TAG}</div>
+            ))
+          }
 
           <Button
             primary
