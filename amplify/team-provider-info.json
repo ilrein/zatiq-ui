@@ -1,0 +1,19 @@
+{
+    "prod": {
+        "awscloudformation": {
+            "AuthRoleName": "zatiq-prod-20190514195812-authRole",
+            "UnauthRoleArn": "arn:aws:iam::869691786575:role/zatiq-prod-20190514195812-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::869691786575:role/zatiq-prod-20190514195812-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "zatiq-prod-20190514195812-deployment",
+            "UnauthRoleName": "zatiq-prod-20190514195812-unauthRole",
+            "StackName": "zatiq-prod-20190514195812",
+            "StackId": "arn:aws:cloudformation:us-east-1:869691786575:stack/zatiq-prod-20190514195812/22253a50-76a4-11e9-ae3b-0e26c4fc90f2"
+        },
+        "categories": {
+            "auth": {
+                "cognito32ac4dea": {}
+            }
+        }
+    }
+}

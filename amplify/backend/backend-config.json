@@ -1,0 +1,14 @@
+{
+	"auth": {
+		"cognito32ac4dea": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation"
+		}
+	},
+	"storage": {
+		"zatiqresource": {
+			"service": "S3",
+			"providerPlugin": "awscloudformation"
+		}
+	}
+}
