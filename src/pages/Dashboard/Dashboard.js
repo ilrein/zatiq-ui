@@ -7,6 +7,7 @@ import {
   Header,
 } from 'semantic-ui-react';
 import fetch from 'isomorphic-fetch';
+import isNil from 'ramda/src/isNil';
 
 import fadeIn from '../../anime/fadeIn';
 import NewUserWelcome from '../../components/NewUserWelcome';
@@ -84,18 +85,19 @@ const Dashboard = ({
     }
   };
 
+  console.log(user._id, company._id)
+
   return (
     <Wrapper>
       {
         user._id
-        && company._id
           ? (
             <InnerWrapper>
               <Header>
                 {company.name}
               </Header>
               {
-                company._id === null
+                isNil(company._id)
                   ? (
                     <NewUserWelcome
                       open
@@ -130,7 +132,7 @@ const Dashboard = ({
               </Grid>
             </InnerWrapper>
           )
-          : null
+          : <div>user id not found</div>
       }
     </Wrapper>
   );
