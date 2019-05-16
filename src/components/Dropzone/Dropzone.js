@@ -15,7 +15,10 @@ const Heading = styled(Header)`
   }
 `;
 
-const Dropzone = ({ onDrop }) => {
+const Dropzone = ({
+  onDrop,
+  defaultDropMessage,
+}) => {
   const handleDrop = useCallback((acceptedFiles) => {
     onDrop(acceptedFiles[0]);
   }, []);
@@ -35,7 +38,7 @@ const Dropzone = ({ onDrop }) => {
           {
             isDragActive
               ? <p>Drop the file here ...</p>
-              : <p>Drag & drop a file here, or click to select a file</p>
+              : <p>{defaultDropMessage}</p>
           }
         </Heading>
       </Segment>
@@ -45,10 +48,12 @@ const Dropzone = ({ onDrop }) => {
 
 Dropzone.propTypes = {
   onDrop: PropTypes.func,
+  defaultDropMessage: PropTypes.string,
 };
 
 Dropzone.defaultProps = {
   onDrop: () => {},
+  defaultDropMessage: 'Drag & drop a file here, or click to select a file',
 };
 
 export default Dropzone;

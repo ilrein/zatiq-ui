@@ -58,6 +58,7 @@ const NewLocationModal = ({
             </label>
             <Dropzone
               handleDrop={picture => console.log(picture)}
+              defaultDropMessage="Click to upload an image of your restaurant's interior"
             />
           </div>
 

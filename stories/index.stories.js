@@ -11,6 +11,7 @@ import Welcome from './welcome';
 import NewUserWelcome from '../src/components/NewUserWelcome/NewUserWelcome';
 import NewItemModal from '../src/components/NewItemModal';
 import NewTagModal from '../src/components/NewTagModal';
+import NewLocationModal from '../src/components/NewLocationModal';
 
 storiesOf('Welcome', module)
   .add('to Storybook', () => <Welcome />);
@@ -32,6 +33,13 @@ storiesOf('NewItemModal', module)
 storiesOf('NewTagModal', module)
   .add('Open', () => (
     <NewTagModal
+      open
+    />
+  ));
+
+storiesOf('NewLocationModal', module)
+  .add('Open', () => (
+    <NewLocationModal
       open
     />
   ));

@@ -75,7 +75,7 @@ class Login extends Component {
       <Wrapper>
         <Container>
           <Header as="h1">
-            Sign In
+            Login
           </Header>
           <Segment
             color="blue"
