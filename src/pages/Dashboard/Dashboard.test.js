@@ -18,6 +18,9 @@ it('renders without crashing', () => {
           },
         },
       }}
+      company={{
+        _id: 123,
+      }}
     />,
   );
 
