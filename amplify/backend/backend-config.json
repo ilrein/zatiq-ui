@@ -1,8 +1,0 @@
-{
-	"auth": {
-		"cognitozatiqresourece": {
-			"service": "Cognito",
-			"providerPlugin": "awscloudformation"
-		}
-	}
-}
