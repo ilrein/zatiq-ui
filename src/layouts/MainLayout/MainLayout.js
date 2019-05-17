@@ -57,6 +57,14 @@ const MainLayout = ({ history, children }) => {
 
                 <Menu.Item
                   as="a"
+                  onClick={() => history.push('/reservations')}
+                >
+                  <Icon name="hourglass outline" />
+                  Reservations
+                </Menu.Item>
+
+                <Menu.Item
+                  as="a"
                   onClick={() => history.push('/company')}
                 >
                   <Icon name="building outline" />
@@ -69,6 +77,22 @@ const MainLayout = ({ history, children }) => {
                 >
                   <Icon name="building" />
                   Locations
+                </Menu.Item>
+
+                <Menu.Item
+                  as="a"
+                  onClick={() => history.push('/menus')}
+                >
+                  <Icon name="book" />
+                  Menus
+                </Menu.Item>
+
+                <Menu.Item
+                  as="a"
+                  onClick={() => history.push('/items')}
+                >
+                  <Icon name="coffee" />
+                  Dishes
                 </Menu.Item>
               </Sidebar>
 
