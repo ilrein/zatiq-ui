@@ -13,10 +13,14 @@ import HomePage from './pages/Home';
 import Register from './pages/Auth/Register';
 import Login from './pages/Auth/Login';
 import Verify from './pages/Auth/Verify';
+
+// Main
 import Dashboard from './pages/Dashboard';
 import Company from './pages/Company';
 import Locations from './pages/Locations';
-// import Shifts from './pages/Shifts';
+import Reservations from './pages/Reservations';
+import Menus from './pages/Menus';
+import Items from './pages/Items';
 
 // Layouts
 import MainLayout from './layouts/MainLayout';
@@ -74,6 +78,24 @@ const Routes = () => (
             exact
             path="/locations"
             component={Locations}
+          />
+
+          <Route
+            exact
+            path="/reservations"
+            component={Reservations}
+          />
+
+          <Route
+            exact
+            path="/items"
+            component={Items}
+          />
+
+          <Route
+            exact
+            path="/menus"
+            component={Menus}
           />
         </MainLayout>
       </Switch>
