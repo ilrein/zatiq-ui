@@ -1,0 +1,19 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "zatiqapp-dev-20190517105834-authRole",
+            "UnauthRoleArn": "arn:aws:iam::869691786575:role/zatiqapp-dev-20190517105834-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::869691786575:role/zatiqapp-dev-20190517105834-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "zatiqapp-dev-20190517105834-deployment",
+            "UnauthRoleName": "zatiqapp-dev-20190517105834-unauthRole",
+            "StackName": "zatiqapp-dev-20190517105834",
+            "StackId": "arn:aws:cloudformation:us-east-1:869691786575:stack/zatiqapp-dev-20190517105834/3f7d8d70-78b4-11e9-a653-0ae81055537e"
+        },
+        "categories": {
+            "auth": {
+                "cognitoa35dd0ca": {}
+            }
+        }
+    }
+}
