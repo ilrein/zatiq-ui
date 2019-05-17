@@ -5,6 +5,7 @@ import {
   Button,
   Icon,
   Form,
+  Image,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -25,6 +26,7 @@ const NewLocationModal = ({
   onClose,
 }) => {
   const [address, setAddress] = useState('');
+  const [image, setImage] = useState(null);
 
   return (
     <Modal
@@ -57,10 +59,18 @@ const NewLocationModal = ({
               Image
             </label>
             <Dropzone
-              handleDrop={picture => console.log(picture)}
+              handleDrop={picture => setImage(picture)}
               defaultDropMessage="Click to upload an image of your restaurant's interior"
             />
           </div>
+
+          {
+            image
+              ? (
+                <Image src={image} />
+              )
+              : null
+          }
 
           <Button
             primary
