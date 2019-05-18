@@ -28,6 +28,11 @@ const NewLocationModal = ({
   const [address, setAddress] = useState('');
   const [image, setImage] = useState(null);
 
+  const onSetImage = (IMG) => {
+    console.log(IMG);
+    setImage(IMG);
+  };
+
   return (
     <Modal
       open={open}
@@ -58,19 +63,26 @@ const NewLocationModal = ({
             <label>
               Image
             </label>
-            <Dropzone
-              handleDrop={picture => setImage(picture)}
-              defaultDropMessage="Click to upload an image of your restaurant's interior"
-            />
-          </div>
+            {
+              image
+                ? (
+                  <>
+                    <Image src={image.preview} />
 
-          {
-            image
-              ? (
-                <Image src={image} />
-              )
-              : null
-          }
+                    <Button
+                      icon="remove"
+                      onClick={() => setImage(null)}
+                    />
+                  </>
+                )
+                : (
+                  <Dropzone
+                    handleDrop={picture => onSetImage(picture)}
+                    defaultDropMessage="Click to upload an image of your restaurant's interior"
+                  />
+                )
+            }
+          </div>
 
           <Button
             primary

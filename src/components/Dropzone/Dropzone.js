@@ -16,18 +16,26 @@ const Heading = styled(Header)`
 `;
 
 const Dropzone = ({
-  onDrop,
+  handleDrop,
   defaultDropMessage,
 }) => {
-  const handleDrop = useCallback((acceptedFiles) => {
-    onDrop(acceptedFiles[0]);
+  const onDrop = useCallback((acceptedFiles) => {
+    acceptedFiles.map((file) => { // eslint-disable-line
+      Object.assign(file, {
+        preview: URL.createObjectURL(file),
+      });
+    });
+    handleDrop(acceptedFiles[0]);
   }, []);
 
   const {
     getRootProps,
     getInputProps,
     isDragActive,
-  } = useDropzone({ handleDrop });
+  } = useDropzone({
+    accept: 'image/*',
+    onDrop,
+  });
 
   return (
     <div {...getRootProps()}>
@@ -47,12 +55,12 @@ const Dropzone = ({
 };
 
 Dropzone.propTypes = {
-  onDrop: PropTypes.func,
+  handleDrop: PropTypes.func,
   defaultDropMessage: PropTypes.string,
 };
 
 Dropzone.defaultProps = {
-  onDrop: () => {},
+  handleDrop: () => {},
   defaultDropMessage: 'Drag & drop a file here, or click to select a file',
 };
 
