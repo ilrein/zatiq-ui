@@ -1,12 +1,12 @@
 {
 	"auth": {
-		"cognitoa35dd0ca": {
+		"cognito71ff964d": {
 			"service": "Cognito",
 			"providerPlugin": "awscloudformation"
 		}
 	},
 	"storage": {
-		"zatiqstorageresource": {
+		"s319b47f04": {
 			"service": "S3",
 			"providerPlugin": "awscloudformation"
 		}

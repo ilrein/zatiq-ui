@@ -114,7 +114,7 @@ const Dashboard = ({
                     <Card>
                       <Statistic
                         label="Reservations"
-                        value="90"
+                        value="0"
                       />
                     </Card>
                   </Grid.Column>
@@ -123,7 +123,7 @@ const Dashboard = ({
                     <Card>
                       <Statistic
                         label="Total sales"
-                        value="$7 489"
+                        value="$0"
                         color="green"
                       />
                     </Card>
