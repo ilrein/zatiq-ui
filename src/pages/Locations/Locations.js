@@ -48,9 +48,7 @@ const Locations = ({
               <Header>
                 {heading}
               </Header>
-              <Body
-                locations={locations}
-              />
+              <Body />
             </InnerWrapper>
           )
           : null

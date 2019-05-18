@@ -15,3 +15,4 @@ export const CAPTURE_RESERVATIONS = 'CAPTURE_RESERVATIONS';
 // Endpoints
 export const API_USERS = `${process.env.REACT_APP_API_URL}/api/users`;
 export const API_COMPANY = `${process.env.REACT_APP_API_URL}/api/companies`;
+export const API_LOCATIONS = `${process.env.REACT_APP_API_URL}/api/locations`;

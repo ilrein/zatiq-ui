@@ -7,12 +7,19 @@ import {
 import {
   Storage,
 } from 'aws-amplify';
-// import fetch from 'isomorphic-fetch';
+import fetch from 'isomorphic-fetch';
 import uuidv4 from 'uuid/v4';
 
-import NewLocationModal from '../../../components/NewLocationModal';
+import NewLocationModal from '../../../../components/NewLocationModal';
+
+import {
+  // API_COMPANY,
+  API_LOCATIONS,
+} from '../../../../constants';
 
 const Body = ({
+  userReducer,
+  // company,
   locations,
 }) => {
   const [open, setOpen] = useState(false);
@@ -28,7 +35,21 @@ const Body = ({
         { level: 'public' },
       );
 
-      console.log(PUT);
+      const { key } = PUT;
+
+      const createLocation = await fetch(`${API_LOCATIONS}/`, {
+        method: 'POST',
+        headers: {
+          
+        },
+        body: {
+          location: {
+            companyId: userReducer.user.companyId,
+            address,
+            image: key,
+          },
+        },
+      });
 
       setSaving(false);
     } catch (error) {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme'; // eslint-disable-line
 
-import Body from './Body';
+import Body from '.';
 
 const wrapper = shallow(
   <Body
