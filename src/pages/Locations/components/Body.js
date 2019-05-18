@@ -4,6 +4,11 @@ import {
   Button,
   Icon,
 } from 'semantic-ui-react';
+import {
+  Storage,
+} from 'aws-amplify';
+// import fetch from 'isomorphic-fetch';
+import uuidv4 from 'uuid/v4';
 
 import NewLocationModal from '../../../components/NewLocationModal';
 
@@ -13,7 +18,23 @@ const Body = ({
   const [open, setOpen] = useState(false);
   const [saving, setSaving] = useState(false);
 
-  const onSubmit = () => {};
+  const onSubmit = async (address, addressImage) => {
+    setSaving(true);
+
+    try {
+      const PUT = await Storage.put(
+        (`${uuidv4()}-${addressImage.name}`).replace(/\s/g, ''),
+        addressImage,
+        { level: 'public' },
+      );
+
+      console.log(PUT);
+
+      setSaving(false);
+    } catch (error) {
+      console.log(error); // eslint-disable-line
+    }
+  };
 
   return (
     <>

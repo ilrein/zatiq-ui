@@ -87,7 +87,7 @@ const NewLocationModal = ({
           <Button
             primary
             type="submit"
-            onClick={onSubmit}
+            onClick={() => onSubmit(address, image)}
             style={{ marginTop: '1rem' }}
             loading={loading}
           >

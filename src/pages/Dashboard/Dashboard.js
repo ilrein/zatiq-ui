@@ -85,8 +85,6 @@ const Dashboard = ({
     }
   };
 
-  console.log(user._id, company._id)
-
   return (
     <Wrapper>
       {
