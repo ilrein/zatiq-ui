@@ -12,6 +12,7 @@ import uuidv4 from 'uuid/v4';
 import { toast } from 'react-toastify';
 
 import NewLocationModal from '../../../../components/NewLocationModal';
+import LocationCard from '../../../../components/LocationCard';
 
 import {
   API_COMPANY,
@@ -97,7 +98,14 @@ const Body = ({
       {
         locations.totalDocs > 0
           ? (
-            <div>locations</div>
+            <>
+              {locations.docs.map(LOCATION => (
+                <LocationCard
+                  key={LOCATION._id}
+                  location={LOCATION}
+                />
+              ))}
+            </>
           )
           : (
             <>

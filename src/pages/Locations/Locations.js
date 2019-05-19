@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import {
   Header,
 } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
 // import fetch from 'isomorphic-fetch';
 
 import fadeIn from '../../anime/fadeIn';
@@ -24,17 +25,8 @@ const InnerWrapper = styled.div`
 const Locations = ({
   userReducer,
   company,
-  locations,
 }) => {
-  const { user, cognitoUser } = userReducer;
-
-  const token = cognitoUser.signInUserSession.idToken.jwtToken;
-
-  // const [saving, setSaving] = useState(false);
-
-  // const onSubmit = async () => {
-  //   setSaving(true);
-  // };
+  const { user } = userReducer;
 
   const heading = `${company.name} Locations`;
 
@@ -55,6 +47,11 @@ const Locations = ({
       }
     </Wrapper>
   );
+};
+
+Locations.propTypes = {
+  userReducer: PropTypes.shape().isRequired,
+  company: PropTypes.shape().isRequired,
 };
 
 export default Locations;
