@@ -8,6 +8,8 @@ import {
 } from 'semantic-ui-react';
 import fetch from 'isomorphic-fetch';
 import isNil from 'ramda/src/isNil';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import fadeIn from '../../anime/fadeIn';
 import NewUserWelcome from '../../components/NewUserWelcome';
@@ -28,6 +30,7 @@ const InnerWrapper = styled.div`
 const Dashboard = ({
   userReducer,
   company,
+  locations,
   captureCompany,
   captureUser,
 }) => {
@@ -91,7 +94,7 @@ const Dashboard = ({
         user._id
           ? (
             <InnerWrapper>
-              <Header>
+              <Header as="h1">
                 {company.name}
               </Header>
               {
@@ -107,6 +110,13 @@ const Dashboard = ({
               }
 
               <Grid>
+                <Grid.Row columns="1">
+                  <Grid.Column>
+                    <Header>
+                      Sales Stats
+                    </Header>
+                  </Grid.Column>
+                </Grid.Row>
                 <Grid.Row columns="2">
                   <Grid.Column>
                     <Card>
@@ -127,6 +137,36 @@ const Dashboard = ({
                     </Card>
                   </Grid.Column>
                 </Grid.Row>
+
+                <Grid.Row columns="1">
+                  <Grid.Column>
+                    <Header>
+                      Location Details
+                    </Header>
+                  </Grid.Column>
+                </Grid.Row>
+                <Grid.Row columns="equal">
+                  {
+                    locations.totalDocs > 0
+                      ? (
+                        locations.docs.map(location => (
+                          <Grid.Column>
+                            <Card>
+                              {location.address}
+                            </Card>
+                          </Grid.Column>
+                        ))
+                      )
+                      : (
+                        <Grid.Column>
+                          <Card
+                            header="No locations created yet"
+                            description={<Link to="/locations">Create one now.</Link>}
+                          />
+                        </Grid.Column>
+                      )
+                  }
+                </Grid.Row>
               </Grid>
             </InnerWrapper>
           )
@@ -134,6 +174,10 @@ const Dashboard = ({
       }
     </Wrapper>
   );
+};
+
+Dashboard.propTypes = {
+  locations: PropTypes.shape().isRequired,
 };
 
 export default Dashboard;

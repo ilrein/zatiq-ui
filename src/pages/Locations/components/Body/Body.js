@@ -22,6 +22,8 @@ const Body = ({
   userReducer,
   company,
   locations,
+  captureLocation,
+  captureCompany,
 }) => {
   // tokens
   const { user, cognitoUser } = userReducer;
@@ -43,7 +45,6 @@ const Body = ({
       );
 
       const { key } = PUT;
-      // console.log(key);
 
       const createLocation = await fetch(`${API_LOCATIONS}/`, {
         method: 'POST',
@@ -61,23 +62,28 @@ const Body = ({
       });
 
       const newLocation = await createLocation.json();
+      console.log('newLocation', newLocation);
 
-      const updateCompanyWithLocationId = await fetch(`${API_COMPANY}/${companyId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'jwt-token': jwtToken,
-        },
-        body: JSON.stringify({
-          company: {
-            locations: [...company.locations, newLocation._id],
-          },
-        }),
-      });
+      // const updateCompanyWithLocationId = await fetch(`${API_COMPANY}/${companyId}`, {
+      //   method: 'PUT',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //     'jwt-token': jwtToken,
+      //   },
+      //   body: JSON.stringify({
+      //     company: {
+      //       locations: [...company.locations, newLocation._id],
+      //     },
+      //   }),
+      // });
 
-      // capture location here
+      // capture location & company here
+      // const updatedCompany = await updateCompanyWithLocationId.json();
+      // console.log('updatedCompany', updatedCompany);
+      // captureCompany(updatedCompany);
+      captureLocation(newLocation);
       toast.success(`Created new location @ ${address.formatted_address}`);
-
+      
       setSaving(false);
     } catch (error) {
       console.log(error); // eslint-disable-line
@@ -123,6 +129,8 @@ const Body = ({
 
 Body.propTypes = {
   locations: PropTypes.shape().isRequired,
+  captureLocation: PropTypes.func.isRequired,
+  captureCompany: PropTypes.func.isRequired,
 };
 
 export default Body;

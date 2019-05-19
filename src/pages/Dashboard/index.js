@@ -10,9 +10,11 @@ export default connect(
   ({
     userReducer,
     company,
+    locations,
   }) => ({
     userReducer,
     company,
+    locations,
   }),
   dispatch => ({
     captureCompany: payload => dispatch({

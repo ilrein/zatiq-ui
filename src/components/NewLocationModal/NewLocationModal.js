@@ -29,7 +29,7 @@ const NewLocationModal = ({
   const [image, setImage] = useState(null);
 
   const onSetImage = (IMG) => {
-    console.log(IMG);
+    // console.log(IMG);
     setImage(IMG);
   };
 

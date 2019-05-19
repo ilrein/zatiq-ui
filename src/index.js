@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import Amplify from 'aws-amplify';
+import Amplify, { Storage } from 'aws-amplify';
 import { Provider } from 'react-redux';
 
 import Routes from './routes';
@@ -14,6 +14,7 @@ import configureStore from './store';
 const store = configureStore();
 
 Amplify.configure(AWS_EXPORTS);
+Storage.configure({ level: 'public' });
 
 const renderApp = () => render(
   <Provider store={store}>
