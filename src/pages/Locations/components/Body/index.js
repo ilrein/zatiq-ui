@@ -5,11 +5,11 @@ import Body from './Body';
 export default connect(
   ({
     userReducer,
-    // company,
+    company,
     locations,
   }) => ({
     userReducer,
-    // company,
+    company,
     locations,
   }),
 )(Body);

@@ -9,19 +9,26 @@ import {
 } from 'aws-amplify';
 import fetch from 'isomorphic-fetch';
 import uuidv4 from 'uuid/v4';
+import { toast } from 'react-toastify';
 
 import NewLocationModal from '../../../../components/NewLocationModal';
 
 import {
-  // API_COMPANY,
+  API_COMPANY,
   API_LOCATIONS,
 } from '../../../../constants';
 
 const Body = ({
   userReducer,
-  // company,
+  company,
   locations,
 }) => {
+  // tokens
+  const { user, cognitoUser } = userReducer;
+  const { companyId } = user;
+  const [jwtToken] = useState(cognitoUser.signInUserSession.accessToken.jwtToken);
+
+  // states
   const [open, setOpen] = useState(false);
   const [saving, setSaving] = useState(false);
 
@@ -36,24 +43,45 @@ const Body = ({
       );
 
       const { key } = PUT;
+      // console.log(key);
 
       const createLocation = await fetch(`${API_LOCATIONS}/`, {
         method: 'POST',
         headers: {
-          
+          'Content-Type': 'application/json',
+          'jwt-token': jwtToken,
         },
-        body: {
+        body: JSON.stringify({
           location: {
-            companyId: userReducer.user.companyId,
-            address,
+            companyId,
+            address: address.formatted_address,
             image: key,
           },
-        },
+        }),
       });
+
+      const newLocation = await createLocation.json();
+
+      const updateCompanyWithLocationId = await fetch(`${API_COMPANY}/${companyId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'jwt-token': jwtToken,
+        },
+        body: JSON.stringify({
+          company: {
+            locations: [...company.locations, newLocation._id],
+          },
+        }),
+      });
+
+      // capture location here
+      toast.success(`Created new location @ ${address.formatted_address}`);
 
       setSaving(false);
     } catch (error) {
       console.log(error); // eslint-disable-line
+      setSaving(false);
     }
   };
 
