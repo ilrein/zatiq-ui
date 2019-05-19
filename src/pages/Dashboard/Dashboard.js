@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom';
 
 import fadeIn from '../../anime/fadeIn';
 import NewUserWelcome from '../../components/NewUserWelcome';
+import LocationCard from '../../components/LocationCard';
 import {
   API_COMPANY,
   API_USERS,
@@ -150,10 +151,8 @@ const Dashboard = ({
                     locations.totalDocs > 0
                       ? (
                         locations.docs.map(location => (
-                          <Grid.Column>
-                            <Card>
-                              {location.address}
-                            </Card>
+                          <Grid.Column key={location._id}>
+                            <LocationCard location={location} />
                           </Grid.Column>
                         ))
                       )
