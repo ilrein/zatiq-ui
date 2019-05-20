@@ -4,8 +4,12 @@ import {
   Header,
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-const DishesSection = () => (
+const DishesSection = ({
+  // userReducer,
+  items,
+}) => (
   <>
     <Grid.Row columns="1">
       <Grid.Column>
@@ -14,9 +18,29 @@ const DishesSection = () => (
             Dishes
           </Header>
         </Link>
+        {
+          items.totalDocs === 0
+            ? (
+              <Link to="/items">
+                <div>
+                  Add your first dish now.
+                </div>
+              </Link>
+            )
+            : (
+              <div>
+                list of dishes here...
+              </div>
+            )
+        }
       </Grid.Column>
     </Grid.Row>
   </>
 );
+
+DishesSection.propTypes = {
+  // userReducer: PropTypes.shape().isRequired,
+  items: PropTypes.shape().isRequired,
+};
 
 export default DishesSection;
