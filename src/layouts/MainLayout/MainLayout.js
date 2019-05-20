@@ -19,7 +19,6 @@ import LocationsContainer from '../../containers/LocationsContainer';
 import MenusContainer from '../../containers/MenusContainer';
 
 import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
 
 import fadeIn from '../../anime/fadeIn';
 
@@ -28,6 +27,8 @@ const Wrapper = styled.div`
   animation: ${fadeIn} 1s ease;
   background-color: green;
 `;
+
+const Section = styled.section``;
 
 const MainLayout = ({ history, children }) => {
   const [visible, setVisible] = useState(false);
@@ -104,7 +105,7 @@ const MainLayout = ({ history, children }) => {
                     dimmed={visible}
                     onClick={visible ? toggleVisible : null}
                   >
-                    <>
+                    <Section>
                       <Navbar
                         toggleMenu={toggleVisible}
                         menuButton={(
@@ -114,8 +115,7 @@ const MainLayout = ({ history, children }) => {
                         )}
                       />
                       {children}
-                      <Footer />
-                    </>
+                    </Section>
                   </Sidebar.Pusher>
                 </Sidebar.Pushable>
               </Wrapper>

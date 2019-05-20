@@ -18,6 +18,7 @@ import {
 const Wrapper = styled.div`
   display: flex;
   animation: ${fadeIn} 1s ease;
+  height: 100%;
 `;
 
 const InnerWrapper = styled.div`
@@ -48,8 +49,6 @@ const Items = ({
 
 Items.propTypes = {
   userReducer: PropTypes.shape().isRequired,
-  company: PropTypes.shape().isRequired,
-  captureCompany: PropTypes.func.isRequired,
 };
 
 export default Items;

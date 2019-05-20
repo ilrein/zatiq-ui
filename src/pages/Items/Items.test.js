@@ -4,7 +4,18 @@ import { shallow } from 'enzyme'; // eslint-disable-line
 import Items from './Items';
 
 const wrapper = shallow(
-  <Items />,
+  <Items
+    userReducer={{
+      user: {},
+      cognitoUser: {
+        signInUserSession: {
+          idToken: {
+            jwtToken: 123,
+          },
+        },
+      },
+    }}
+  />,
 );
 
 it('renders without crashing', () => {
