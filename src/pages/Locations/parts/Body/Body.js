@@ -140,6 +140,8 @@ Body.propTypes = {
   locations: PropTypes.shape().isRequired,
   captureLocation: PropTypes.func.isRequired,
   captureCompany: PropTypes.func.isRequired,
+  userReducer: PropTypes.shape().isRequired,
+  company: PropTypes.shape().isRequired,
 };
 
 export default Body;

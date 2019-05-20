@@ -47,9 +47,9 @@ const Reservations = ({
 };
 
 Reservations.propTypes = {
-  userReducer: PropTypes.shape().isRequired,
-  company: PropTypes.shape().isRequired,
-  captureCompany: PropTypes.func.isRequired,
+  // userReducer: PropTypes.shape().isRequired,
+  // company: PropTypes.shape().isRequired,
+  // captureCompany: PropTypes.func.isRequired,
 };
 
 export default Reservations;

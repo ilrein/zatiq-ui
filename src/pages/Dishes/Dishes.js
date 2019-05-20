@@ -1,9 +1,9 @@
-import React from 'react';
+/* eslint-disable */
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import {
   Header,
 } from 'semantic-ui-react';
-import PropTypes from 'prop-types';
 // import fetch from 'isomorphic-fetch';
 
 import fadeIn from '../../anime/fadeIn';
@@ -22,13 +22,22 @@ const InnerWrapper = styled.div`
   margin: 0.25rem 1rem;
 `;
 
-const Locations = ({
+const Dishes = ({
   userReducer,
   company,
+  menus,
 }) => {
-  const { user } = userReducer;
+  const { user, cognitoUser } = userReducer;
 
-  const heading = `${company.name} Locations`;
+  const token = cognitoUser.signInUserSession.idToken.jwtToken;
+
+  // const [saving, setSaving] = useState(false);
+
+  // const onSubmit = async () => {
+  //   setSaving(true);
+  // };
+
+  const heading = 'Dishes';
 
   return (
     <Wrapper>
@@ -40,7 +49,9 @@ const Locations = ({
               <Header>
                 {heading}
               </Header>
-              <Body />
+              <Body
+                menus={menus}
+              />
             </InnerWrapper>
           )
           : null
@@ -49,9 +60,4 @@ const Locations = ({
   );
 };
 
-Locations.propTypes = {
-  userReducer: PropTypes.shape().isRequired,
-  company: PropTypes.shape().isRequired,
-};
-
-export default Locations;
+export default Dishes;

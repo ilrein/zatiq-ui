@@ -16,6 +16,8 @@ import fadeIn from '../../anime/fadeIn';
 import NewUserWelcome from '../../components/NewUserWelcome';
 import LocationCard from '../../components/LocationCard';
 import MenuSection from './parts/MenuSection';
+import DishesSection from './parts/DishesSection';
+
 import {
   API_COMPANY,
   API_USERS,
@@ -184,6 +186,8 @@ const Dashboard = ({
                 </Grid.Row>
 
                 <MenuSection />
+
+                <DishesSection />
               </Grid>
             </InnerWrapper>
           )

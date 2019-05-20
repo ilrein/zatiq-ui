@@ -19,6 +19,7 @@ import LocationsContainer from '../../containers/LocationsContainer';
 import MenusContainer from '../../containers/MenusContainer';
 
 import Navbar from '../../components/Navbar';
+import Footer from '../../components/Footer';
 
 import fadeIn from '../../anime/fadeIn';
 
@@ -68,14 +69,6 @@ const MainLayout = ({ history, children }) => {
 
                     <Menu.Item
                       as="a"
-                      onClick={() => history.push('/company')}
-                    >
-                      <Icon name="building outline" />
-                      Company
-                    </Menu.Item>
-
-                    <Menu.Item
-                      as="a"
                       onClick={() => history.push('/locations')}
                     >
                       <Icon name="building" />
@@ -97,6 +90,14 @@ const MainLayout = ({ history, children }) => {
                       <Icon name="coffee" />
                       Dishes
                     </Menu.Item>
+
+                    <Menu.Item
+                      as="a"
+                      onClick={() => history.push('/company')}
+                    >
+                      <Icon name="building outline" />
+                      Company
+                    </Menu.Item>
                   </Sidebar>
 
                   <Sidebar.Pusher
@@ -113,6 +114,7 @@ const MainLayout = ({ history, children }) => {
                         )}
                       />
                       {children}
+                      <Footer />
                     </>
                   </Sidebar.Pusher>
                 </Sidebar.Pushable>
