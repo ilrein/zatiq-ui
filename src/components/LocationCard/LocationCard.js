@@ -26,16 +26,27 @@ const LocationCard = ({ location }) => {
   }, []);
 
   return (
-    <Card>
-      <Card.Header>
-        {location.address}
-      </Card.Header>
-      <Card.Description>
-        <Segment basic loading={fetchingImage}>
-          <Image src={image} />
-        </Segment>
-      </Card.Description>
-    </Card>
+    <Segment
+      basic
+      loading={fetchingImage}
+      style={{ padding: 0 }}
+    >
+      <Card>
+        <Image
+          src={image}
+          wrapped
+          ui={false}
+        />
+        <Card.Content>
+          <Card.Header>
+            {location.address}
+          </Card.Header>
+          <Card.Description>
+            0 reservations today
+          </Card.Description>
+        </Card.Content>
+      </Card>
+    </Segment>
   );
 };
 

@@ -5,6 +5,7 @@ import {
   Statistic,
   Grid,
   Header,
+  Divider,
 } from 'semantic-ui-react';
 import fetch from 'isomorphic-fetch';
 import isNil from 'ramda/src/isNil';
@@ -98,6 +99,7 @@ const Dashboard = ({
               <Header as="h1">
                 {company.name}
               </Header>
+              <Divider />
               {
                 isNil(company._id)
                   ? (
@@ -114,21 +116,32 @@ const Dashboard = ({
                 <Grid.Row columns="1">
                   <Grid.Column>
                     <Header>
-                      Sales Stats
+                      Sales
                     </Header>
                   </Grid.Column>
                 </Grid.Row>
-                <Grid.Row columns="2">
-                  <Grid.Column>
+                <Grid.Row>
+                  <Grid.Column width="5">
                     <Card>
                       <Statistic
                         label="Reservations"
                         value="0"
+                        color="purple"
                       />
                     </Card>
                   </Grid.Column>
 
-                  <Grid.Column>
+                  <Grid.Column width="5">
+                    <Card>
+                      <Statistic
+                        label="Daily sales"
+                        value="$0"
+                        color="blue"
+                      />
+                    </Card>
+                  </Grid.Column>
+
+                  <Grid.Column width="5">
                     <Card>
                       <Statistic
                         label="Total sales"
@@ -141,9 +154,11 @@ const Dashboard = ({
 
                 <Grid.Row columns="1">
                   <Grid.Column>
-                    <Header>
-                      Location Details
-                    </Header>
+                    <Link to="/locations">
+                      <Header>
+                        Locations
+                      </Header>
+                    </Link>
                   </Grid.Column>
                 </Grid.Row>
                 <Grid.Row columns="equal">
@@ -177,6 +192,10 @@ const Dashboard = ({
 
 Dashboard.propTypes = {
   locations: PropTypes.shape().isRequired,
+  userReducer: PropTypes.shape().isRequired,
+  company: PropTypes.shape().isRequired,
+  captureCompany: PropTypes.func.isRequired,
+  captureUser: PropTypes.func.isRequired,
 };
 
 export default Dashboard;
