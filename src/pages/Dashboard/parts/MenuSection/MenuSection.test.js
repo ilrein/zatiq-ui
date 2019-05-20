@@ -1,17 +1,14 @@
 import React from 'react';
 import { shallow } from 'enzyme'; // eslint-disable-line
 
-import Body from './Body';
+import MenuSection from './MenuSection';
 
-const wrapper = shallow(
-  <Body
-    locations={{
-      totalDocs: 0,
-      locations: [],
-    }}
-  />,
-);
+// cognitoUser.signInUserSession.idToken.jwtToken;
 
 it('renders without crashing', () => {
+  const wrapper = shallow(
+    <MenuSection />,
+  );
+
   expect(wrapper).toBeTruthy();
 });

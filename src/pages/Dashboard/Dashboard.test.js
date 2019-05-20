@@ -21,6 +21,9 @@ it('renders without crashing', () => {
       company={{
         _id: 123,
       }}
+      locations={{}}
+      captureCompany={() => {}}
+      captureUser={() => {}}
     />,
   );
 

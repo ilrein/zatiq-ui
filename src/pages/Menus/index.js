@@ -6,9 +6,11 @@ export default connect(
   ({
     userReducer,
     company,
+    menus,
   }) => ({
     userReducer,
     company,
+    menus,
   }),
   // dispatch => ({
   //   captureCompany: payload => dispatch({

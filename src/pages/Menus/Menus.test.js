@@ -4,7 +4,21 @@ import { shallow } from 'enzyme'; // eslint-disable-line
 import Menus from './Menus';
 
 const wrapper = shallow(
-  <Menus />,
+  <Menus
+    userReducer={{
+      user: {},
+      cognitoUser: {
+        signInUserSession: {
+          idToken: {
+            jwtToken: 123,
+          },
+        },
+      },
+    }}
+    company={{
+      _id: 123,
+    }}
+  />,
 );
 
 it('renders without crashing', () => {

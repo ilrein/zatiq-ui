@@ -35,7 +35,7 @@ const Body = ({
                 onClick={() => setOpen(true)}
               >
                 <Icon name="plus" />
-                New Location
+                New Menu
               </Button>
             </>
           )

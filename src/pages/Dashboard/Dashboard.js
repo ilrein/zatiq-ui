@@ -15,6 +15,7 @@ import { Link } from 'react-router-dom';
 import fadeIn from '../../anime/fadeIn';
 import NewUserWelcome from '../../components/NewUserWelcome';
 import LocationCard from '../../components/LocationCard';
+import MenuSection from './parts/MenuSection';
 import {
   API_COMPANY,
   API_USERS,
@@ -181,6 +182,8 @@ const Dashboard = ({
                       )
                   }
                 </Grid.Row>
+
+                <MenuSection />
               </Grid>
             </InnerWrapper>
           )

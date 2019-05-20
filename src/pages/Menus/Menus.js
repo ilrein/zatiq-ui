@@ -7,7 +7,7 @@ import {
 // import fetch from 'isomorphic-fetch';
 
 import fadeIn from '../../anime/fadeIn';
-// import Body from './components/Body';
+import Body from './parts/Body';
 // import {
 //   API_COMPANY,
 //   API_USERS,
@@ -25,7 +25,7 @@ const InnerWrapper = styled.div`
 const Locations = ({
   userReducer,
   company,
-  locations,
+  menus,
 }) => {
   const { user, cognitoUser } = userReducer;
 
@@ -49,9 +49,9 @@ const Locations = ({
               <Header>
                 {heading}
               </Header>
-              {/* <Body
-                locations={locations}
-              /> */}
+              <Body
+                menus={menus}
+              />
             </InnerWrapper>
           )
           : null
