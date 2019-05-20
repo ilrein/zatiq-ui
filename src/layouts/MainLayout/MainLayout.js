@@ -17,6 +17,7 @@ import UserContainer from '../../containers/UserContainer';
 import CompanyContainer from '../../containers/CompanyContainer';
 import LocationsContainer from '../../containers/LocationsContainer';
 import MenusContainer from '../../containers/MenusContainer';
+import ItemsContainer from '../../containers/ItemsContainer';
 
 import Navbar from '../../components/Navbar';
 
@@ -41,84 +42,86 @@ const MainLayout = ({ history, children }) => {
         <CompanyContainer>
           <LocationsContainer>
             <MenusContainer>
-              <Wrapper>
-                <Sidebar.Pushable>
-                  <Sidebar
-                    as={Menu}
-                    animation="push"
-                    icon="labeled"
-                    inverted
-                    vertical
-                    visible={visible}
-                    width="thin"
-                  >
-                    <Menu.Item
-                      as="a"
-                      onClick={() => history.push('/dashboard')}
-                      style={{ fontSize: '1.75rem' }}
+              <ItemsContainer>
+                <Wrapper>
+                  <Sidebar.Pushable>
+                    <Sidebar
+                      as={Menu}
+                      animation="push"
+                      icon="labeled"
+                      inverted
+                      vertical
+                      visible={visible}
+                      width="thin"
                     >
-                      {APP_NAME}
-                    </Menu.Item>
+                      <Menu.Item
+                        as="a"
+                        onClick={() => history.push('/dashboard')}
+                        style={{ fontSize: '1.75rem' }}
+                      >
+                        {APP_NAME}
+                      </Menu.Item>
 
-                    <Menu.Item
-                      as="a"
-                      onClick={() => history.push('/reservations')}
+                      <Menu.Item
+                        as="a"
+                        onClick={() => history.push('/reservations')}
+                      >
+                        <Icon name="hourglass outline" />
+                        Reservations
+                      </Menu.Item>
+
+                      <Menu.Item
+                        as="a"
+                        onClick={() => history.push('/locations')}
+                      >
+                        <Icon name="building" />
+                        Locations
+                      </Menu.Item>
+
+                      <Menu.Item
+                        as="a"
+                        onClick={() => history.push('/menus')}
+                      >
+                        <Icon name="book" />
+                        Menus
+                      </Menu.Item>
+
+                      <Menu.Item
+                        as="a"
+                        onClick={() => history.push('/items')}
+                      >
+                        <Icon name="coffee" />
+                        Dishes
+                      </Menu.Item>
+
+                      <Menu.Item
+                        as="a"
+                        onClick={() => history.push('/company')}
+                      >
+                        <Icon name="building outline" />
+                        Company
+                      </Menu.Item>
+                    </Sidebar>
+
+                    <Sidebar.Pusher
+                      dimmed={visible}
+                      onClick={visible ? toggleVisible : null}
                     >
-                      <Icon name="hourglass outline" />
-                      Reservations
-                    </Menu.Item>
-
-                    <Menu.Item
-                      as="a"
-                      onClick={() => history.push('/locations')}
-                    >
-                      <Icon name="building" />
-                      Locations
-                    </Menu.Item>
-
-                    <Menu.Item
-                      as="a"
-                      onClick={() => history.push('/menus')}
-                    >
-                      <Icon name="book" />
-                      Menus
-                    </Menu.Item>
-
-                    <Menu.Item
-                      as="a"
-                      onClick={() => history.push('/items')}
-                    >
-                      <Icon name="coffee" />
-                      Dishes
-                    </Menu.Item>
-
-                    <Menu.Item
-                      as="a"
-                      onClick={() => history.push('/company')}
-                    >
-                      <Icon name="building outline" />
-                      Company
-                    </Menu.Item>
-                  </Sidebar>
-
-                  <Sidebar.Pusher
-                    dimmed={visible}
-                    onClick={visible ? toggleVisible : null}
-                  >
-                    <Section>
-                      <Navbar
-                        toggleMenu={toggleVisible}
-                        menuButton={(
-                          <Icon
-                            name="sidebar"
-                          />
-                        )}
-                      />
-                      {children}
-                    </Section>
-                  </Sidebar.Pusher>
-                </Sidebar.Pushable>
-              </Wrapper>
+                      <Section>
+                        <Navbar
+                          toggleMenu={toggleVisible}
+                          menuButton={(
+                            <Icon
+                              name="sidebar"
+                            />
+                          )}
+                        />
+                        {children}
+                      </Section>
+                    </Sidebar.Pusher>
+                  </Sidebar.Pushable>
+                </Wrapper>
+              </ItemsContainer>
             </MenusContainer>
           </LocationsContainer>
         </CompanyContainer>
