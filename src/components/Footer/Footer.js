@@ -3,6 +3,10 @@ import {
   Menu,
 } from 'semantic-ui-react';
 
+import { APP_NAME } from '../../constants';
+
+const FootMessage = ` 2019 ${APP_NAME}`;
+
 const Footer = () => (
   <Menu
     inverted
@@ -18,7 +22,8 @@ const Footer = () => (
       bottom: 0,
     }}
   >
-    &copy; 2019 Zatiq.com
+    &copy;
+    {FootMessage}
   </Menu>
 );
 
