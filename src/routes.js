@@ -18,6 +18,7 @@ import Verify from './pages/Auth/Verify';
 import Dashboard from './pages/Dashboard';
 import Company from './pages/Company';
 import Locations from './pages/Locations';
+import Location from './pages/Locations/Location';
 import Reservations from './pages/Reservations';
 import Menus from './pages/Menus';
 import Items from './pages/Items';
@@ -78,6 +79,12 @@ const Routes = () => (
             exact
             path="/locations"
             component={Locations}
+          />
+
+          <Route
+            exact
+            path="/locations/:id"
+            component={Location}
           />
 
           <Route

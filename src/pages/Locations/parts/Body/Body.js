@@ -11,6 +11,7 @@ import {
 import fetch from 'isomorphic-fetch';
 import uuidv4 from 'uuid/v4';
 import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 
 import NewLocationModal from '../../../../components/NewLocationModal';
 import LocationCard from '../../../../components/LocationCard';
@@ -114,10 +115,12 @@ const Body = ({
                 <Grid.Row columns="equal">
                   {locations.docs.map(LOCATION => (
                     <Grid.Column>
-                      <LocationCard
-                        key={LOCATION._id}
-                        location={LOCATION}
-                      />
+                      <Link to={`/locations/${LOCATION._id}`}>
+                        <LocationCard
+                          key={LOCATION._id}
+                          location={LOCATION}
+                        />
+                      </Link>
                     </Grid.Column>
                   ))}
                 </Grid.Row>

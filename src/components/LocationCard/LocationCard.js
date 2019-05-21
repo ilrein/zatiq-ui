@@ -6,6 +6,16 @@ import {
 } from 'semantic-ui-react';
 import { Storage } from 'aws-amplify';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
+const StyledCard = styled(Segment)`
+  padding: 0 !important;
+  transition: all 0.25s ease-in-out;
+
+  &:hover {
+    transform: scale(1.025);
+  }
+`;
 
 const LocationCard = ({ location }) => {
   const [fetchingImage, setFetchingImage] = useState(true);
@@ -26,10 +36,9 @@ const LocationCard = ({ location }) => {
   }, []);
 
   return (
-    <Segment
+    <StyledCard
       basic
       loading={fetchingImage}
-      style={{ padding: 0 }}
     >
       <Card>
         <Image
@@ -46,7 +55,7 @@ const LocationCard = ({ location }) => {
           </Card.Description>
         </Card.Content>
       </Card>
-    </Segment>
+    </StyledCard>
   );
 };
 

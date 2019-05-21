@@ -165,7 +165,7 @@ const Dashboard = ({
                       </Link>
                     </Grid.Column>
                   </Grid.Row>
-                  <Grid.Row columns="equal">
+                  <Grid.Row columns="3">
                     {
                       locations.totalDocs > 0
                         ? (
