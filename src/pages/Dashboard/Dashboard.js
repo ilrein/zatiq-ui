@@ -12,7 +12,6 @@ import isNil from 'ramda/src/isNil';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import Footer from '../../components/Footer';
 import fadeIn from '../../anime/fadeIn';
 import NewUserWelcome from '../../components/NewUserWelcome';
 import LocationCard from '../../components/LocationCard';
@@ -118,7 +117,7 @@ const Dashboard = ({
                 }
 
                 <Grid>
-                  <Grid.Row columns="1">
+                  <Grid.Row columns="5">
                     <Grid.Column>
                       <Header>
                         Sales
@@ -157,7 +156,7 @@ const Dashboard = ({
                     </Grid.Column>
                   </Grid.Row>
 
-                  <Grid.Row columns="1">
+                  <Grid.Row columns="5">
                     <Grid.Column>
                       <Link to="/locations">
                         <Header>
@@ -196,7 +195,6 @@ const Dashboard = ({
             : <div>user id not found</div>
         }
       </Wrapper>
-      <Footer />
     </>
   );
 };

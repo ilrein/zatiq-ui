@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
+  Grid,
   Button,
   Icon,
 } from 'semantic-ui-react';
@@ -86,7 +87,7 @@ const Body = ({
       toast.success(`Created new location @ ${address.formatted_address}`);
       
       setSaving(false);
-      setSaving(false);
+      setOpen(false);
     } catch (error) {
       console.log(error); // eslint-disable-line
       setSaving(false);
@@ -99,12 +100,28 @@ const Body = ({
         locations.totalDocs > 0
           ? (
             <>
-              {locations.docs.map(LOCATION => (
-                <LocationCard
-                  key={LOCATION._id}
-                  location={LOCATION}
-                />
-              ))}
+              <Button
+                primary
+                icon
+                labelPosition="left"
+                onClick={() => setOpen(true)}
+              >
+                <Icon name="plus" />
+                New Location
+              </Button>
+
+              <Grid style={{ marginTop: '0.5rem' }}>
+                <Grid.Row columns="equal">
+                  {locations.docs.map(LOCATION => (
+                    <Grid.Column>
+                      <LocationCard
+                        key={LOCATION._id}
+                        location={LOCATION}
+                      />
+                    </Grid.Column>
+                  ))}
+                </Grid.Row>
+              </Grid>
             </>
           )
           : (

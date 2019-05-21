@@ -13,6 +13,9 @@ const Footer = () => (
       justifyContent: 'center',
       alignItems: 'center',
       color: 'white',
+      position: 'absolute',
+      width: '100%',
+      bottom: 0,
     }}
   >
     &copy; 2019 Zatiq.com

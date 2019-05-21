@@ -48,7 +48,7 @@ const Items = ({
 };
 
 Items.propTypes = {
-  userReducer: PropTypes.shape().isRequired,
+  // userReducer: PropTypes.shape().isRequired,
 };
 
 export default Items;
