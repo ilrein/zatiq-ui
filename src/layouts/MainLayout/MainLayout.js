@@ -79,13 +79,13 @@ const MainLayout = ({ history, children }) => {
                         Locations
                       </Menu.Item>
 
-                      <Menu.Item
+                      {/* <Menu.Item
                         as="a"
                         onClick={() => history.push('/menus')}
                       >
                         <Icon name="book" />
                         Menus
-                      </Menu.Item>
+                      </Menu.Item> */}
 
                       <Menu.Item
                         as="a"

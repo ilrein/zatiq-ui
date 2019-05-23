@@ -10,7 +10,7 @@ const DishesSection = ({
   // userReducer,
   items,
 }) => (
-  <>
+  <Grid>
     <Grid.Row columns="1">
       <Grid.Column>
         <Link to="/items">
@@ -35,7 +35,7 @@ const DishesSection = ({
         }
       </Grid.Column>
     </Grid.Row>
-  </>
+  </Grid>
 );
 
 DishesSection.propTypes = {

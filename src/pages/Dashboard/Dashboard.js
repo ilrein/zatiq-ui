@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import {
   Card,
-  Statistic,
   Grid,
   Header,
   Divider,
@@ -15,7 +14,9 @@ import { Link } from 'react-router-dom';
 import fadeIn from '../../anime/fadeIn';
 import NewUserWelcome from '../../components/NewUserWelcome';
 import LocationCard from '../../components/LocationCard';
+
 // import MenuSection from './parts/MenuSection';
+import SalesSection from './parts/SalesSection';
 import DishesSection from './parts/DishesSection';
 
 import {
@@ -26,10 +27,12 @@ import {
 const Wrapper = styled.div`
   display: flex;
   animation: ${fadeIn} 1s ease;
+  min-height: 110vh;
 `;
 
 const InnerWrapper = styled.div`
   margin: 0.25rem 1rem;
+  width: 100%;
 `;
 
 const Dashboard = ({
@@ -116,46 +119,11 @@ const Dashboard = ({
                     : null
                 }
 
+                <SalesSection />
+
+                <Divider />
+
                 <Grid>
-                  <Grid.Row columns="5">
-                    <Grid.Column>
-                      <Header>
-                        Sales
-                      </Header>
-                    </Grid.Column>
-                  </Grid.Row>
-                  <Grid.Row>
-                    <Grid.Column width="5">
-                      <Card>
-                        <Statistic
-                          label="Reservations"
-                          value="0"
-                          color="purple"
-                        />
-                      </Card>
-                    </Grid.Column>
-
-                    <Grid.Column width="5">
-                      <Card>
-                        <Statistic
-                          label="Daily sales"
-                          value="$0"
-                          color="blue"
-                        />
-                      </Card>
-                    </Grid.Column>
-
-                    <Grid.Column width="5">
-                      <Card>
-                        <Statistic
-                          label="Total sales"
-                          value="$0"
-                          color="green"
-                        />
-                      </Card>
-                    </Grid.Column>
-                  </Grid.Row>
-
                   <Grid.Row columns="5">
                     <Grid.Column>
                       <Link to="/locations">
@@ -171,7 +139,9 @@ const Dashboard = ({
                         ? (
                           locations.docs.map(location => (
                             <Grid.Column key={location._id}>
-                              <LocationCard location={location} />
+                              <Link to={`/locations/${location._id}`}>
+                                <LocationCard location={location} />
+                              </Link>
                             </Grid.Column>
                           ))
                         )
@@ -185,11 +155,9 @@ const Dashboard = ({
                         )
                     }
                   </Grid.Row>
-
-                  {/* <MenuSection /> */}
-
-                  <DishesSection />
                 </Grid>
+                <Divider />
+                <DishesSection />
               </InnerWrapper>
             )
             : <div>user id not found</div>
