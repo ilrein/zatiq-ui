@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Menu,
   Icon,
+  Label,
 } from 'semantic-ui-react';
 import { Auth } from 'aws-amplify';
 import { toast } from 'react-toastify';
@@ -52,6 +53,19 @@ const Navbar = ({
       <Menu.Menu
         position="right"
       >
+        <Menu.Item text>
+          <Label
+            color="red"
+            floating
+            style={{
+              top: '2em',
+              left: '80%',
+            }}
+          >
+            22
+          </Label>
+          <Icon name="bell outline" />
+        </Menu.Item>
         <Menu.Item>
           {user.email}
         </Menu.Item>  
