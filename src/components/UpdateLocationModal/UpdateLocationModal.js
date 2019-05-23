@@ -25,8 +25,8 @@ const UpdateLocationModal = ({
   loading,
   onClose,
 }) => {
-  const [address, setAddress] = useState('');
-  const [image, setImage] = useState(null);
+  const [updatedAddress, setUpdatedAddress] = useState('');
+  const [updatedImage, setImage] = useState(null);
 
   return (
     <Modal
@@ -49,7 +49,7 @@ const UpdateLocationModal = ({
               Address
             </label>
             <PlacesAutoComplete
-              onPlaceSelected={place => setAddress(place)}
+              onPlaceSelected={place => setUpdatedAddress(place)}
               placeholder="Location Address"
             />
           </div>
@@ -59,10 +59,10 @@ const UpdateLocationModal = ({
               Image
             </label>
             {
-              image
+              updatedImage
                 ? (
                   <>
-                    <Image src={image.preview} />
+                    <Image src={updatedImage.preview} />
 
                     <Button
                       icon="remove"
@@ -73,7 +73,7 @@ const UpdateLocationModal = ({
                 : (
                   <Dropzone
                     handleDrop={picture => setImage(picture)}
-                    defaultDropMessage="Click to upload an image of your restaurant's interior"
+                    defaultDropMessage="Click to upload an updatedImage of your restaurant's interior"
                   />
                 )
             }
@@ -82,13 +82,12 @@ const UpdateLocationModal = ({
           <Button
             primary
             type="submit"
-            onClick={() => onSubmit(address, image)}
+            onClick={() => onSubmit(updatedAddress, updatedImage)}
             style={{ marginTop: '1rem' }}
             loading={loading}
             disabled={
-              address === ''
-              || address.formatted_address === undefined 
-              || image === null
+              updatedAddress === ''
+              || updatedImage === null
             }
           >
             Submit
