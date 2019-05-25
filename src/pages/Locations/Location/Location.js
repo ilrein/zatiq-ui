@@ -11,7 +11,7 @@ import {
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { Storage } from 'aws-amplify';
-// import fetch from 'isomorphic-fetch';
+import fetch from 'isomorphic-fetch';
 
 import fadeIn from '../../../anime/fadeIn';
 import UpdateLocationModal from '../../../components/UpdateLocationModal';
@@ -74,6 +74,14 @@ const Locations = ({
     getImage();
   }, []);
 
+  const updateLocation = () => {
+
+  };
+
+  const deleteLocation = () => {
+
+  };
+
   return (
     <Wrapper>
       {
@@ -86,16 +94,28 @@ const Locations = ({
                   {LOCATION.address}
                 </Header>
 
-                <Button
-                  primary
-                  icon
-                  labelPosition="left"
-                  onClick={() => setOpen(true)}
-                  size="small"
-                >
-                  <Icon name="edit" />
-                  Update
-                </Button>
+                <div>
+                  <Button
+                    primary
+                    icon
+                    labelPosition="left"
+                    onClick={() => setOpen(true)}
+                    size="small"
+                  >
+                    <Icon name="edit" />
+                    Update
+                  </Button>
+                  <Button
+                    color="red"
+                    icon
+                    labelPosition="left"
+                    onClick={() => setOpen(true)}
+                    size="small"
+                  >
+                    <Icon name="remove" />
+                    Delete
+                  </Button>
+                </div>
               </SpreadHeader>
               <Divider />
               <Segment
