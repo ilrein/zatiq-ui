@@ -12,6 +12,7 @@ import {
 import PropTypes from 'prop-types';
 import { Storage } from 'aws-amplify';
 import fetch from 'isomorphic-fetch';
+import uuidv4 from 'uuid/v4';
 
 import fadeIn from '../../../anime/fadeIn';
 import UpdateLocationModal from '../../../components/UpdateLocationModal';
@@ -86,9 +87,46 @@ const Locations = ({
     getImage();
   }, []);
 
-  const updateLocation = async () => {
+  const updateLocation = async (updatedAddress, updatedImage) => {
     try {
-      
+      setUpdating(true);
+      await Storage.remove(LOCATION.image);
+
+      const PUT = await Storage.put(
+        (`${uuidv4()}-${updatedImage.name}`).replace(/\s/g, ''),
+        updatedImage,
+        { level: 'public' },
+      );
+
+      const { key } = PUT;
+
+      await fetch(`${API_LOCATIONS}/${LOCATION._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'jwt-token': jwtToken,
+        },
+        body: JSON.stringify({
+          location: {
+            ...LOCATION,
+            address: updatedAddress.formatted_address,
+            image: key,
+          },
+        }),
+      });
+
+      const getLocationsAgain = await fetch(`${API_LOCATIONS}?companyId=${companyId}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'jwt-token': jwtToken,
+        },
+      });
+
+      const updatedLocations = await getLocationsAgain.json();
+      captureLocations(updatedLocations);
+      setUpdating(false);
+      setOpen(false);
+      history.push(`/locations/${LOCATION._id}`);
     } catch (error) {
       console.log(error); // eslint-disable-line
     }
@@ -208,13 +246,20 @@ const Locations = ({
           )
           : null
       }
-      <UpdateLocationModal
-        open={open}
-        onClose={() => setOpen(false)}
-        onSubmit={updateLocation}
-        loading={updating}
-        address={LOCATION.address}
-      />
+      {
+        LOCATION
+        && LOCATION.address
+          ? (
+            <UpdateLocationModal
+              open={open}
+              onClose={() => setOpen(false)}
+              onSubmit={updateLocation}
+              loading={updating}
+              address={LOCATION.address}
+            />
+          )
+          : null
+      }
 
       <DeleteLocationModal
         open={deleteModalOpen}
