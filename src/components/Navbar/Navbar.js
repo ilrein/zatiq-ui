@@ -54,7 +54,7 @@ const Navbar = ({
         position="right"
       >
         {/* eslint-disable-next-line */}
-        <Menu.Item text={true ? 1 : 0}>
+        {/* <Menu.Item text={true ? 1 : 0}>
           <Label
             color="red"
             floating
@@ -63,10 +63,10 @@ const Navbar = ({
               left: '80%',
             }}
           >
-            22
+            0
           </Label>
           <Icon name="bell outline" />
-        </Menu.Item>
+        </Menu.Item> */}
         <Menu.Item>
           {user.email}
         </Menu.Item>  

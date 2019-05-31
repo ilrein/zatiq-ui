@@ -18,7 +18,7 @@ import CompanyContainer from '../../containers/CompanyContainer';
 import LocationsContainer from '../../containers/LocationsContainer';
 import MenusContainer from '../../containers/MenusContainer';
 import ItemsContainer from '../../containers/ItemsContainer';
-import Footer from '../../components/Footer';
+// import Footer from '../../components/Footer';
 
 import Navbar from '../../components/Navbar';
 
@@ -118,7 +118,7 @@ const MainLayout = ({ history, children }) => {
                           )}
                         />
                         {children}
-                        <Footer />
+                        {/* <Footer /> */}
                       </Section>
                     </Sidebar.Pusher>
                   </Sidebar.Pushable>

@@ -114,7 +114,7 @@ const Body = ({
               <Grid style={{ marginTop: '0.5rem' }}>
                 <Grid.Row columns="equal">
                   {locations.docs.map(LOCATION => (
-                    <Grid.Column>
+                    <Grid.Column key={LOCATION._id}>
                       <Link to={`/locations/${LOCATION._id}`}>
                         <LocationCard
                           key={LOCATION._id}

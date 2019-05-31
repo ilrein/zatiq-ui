@@ -16,8 +16,8 @@ import NewUserWelcome from '../../components/NewUserWelcome';
 import LocationCard from '../../components/LocationCard';
 
 // import MenuSection from './parts/MenuSection';
-import SalesSection from './parts/SalesSection';
-import DishesSection from './parts/DishesSection';
+import SalesSection from './sections/SalesSection';
+import DishesSection from './sections/DishesSection';
 
 import {
   API_COMPANY,
