@@ -53,7 +53,8 @@ const Navbar = ({
       <Menu.Menu
         position="right"
       >
-        <Menu.Item text>
+        {/* eslint-disable-next-line */}
+        <Menu.Item text={true ? 1 : 0}>
           <Label
             color="red"
             floating
