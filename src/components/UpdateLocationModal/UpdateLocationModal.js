@@ -24,6 +24,7 @@ const UpdateLocationModal = ({
   open,
   loading,
   onClose,
+  address,
 }) => {
   const [updatedAddress, setUpdatedAddress] = useState('');
   const [updatedImage, setImage] = useState(null);
@@ -50,7 +51,7 @@ const UpdateLocationModal = ({
             </label>
             <PlacesAutoComplete
               onPlaceSelected={place => setUpdatedAddress(place)}
-              placeholder="Location Address"
+              placeholder={address}
             />
           </div>
 
@@ -73,7 +74,7 @@ const UpdateLocationModal = ({
                 : (
                   <Dropzone
                     handleDrop={picture => setImage(picture)}
-                    defaultDropMessage="Click to upload an updatedImage of your restaurant's interior"
+                    defaultDropMessage="Click to upload a new image of your restaurant's interior"
                   />
                 )
             }
@@ -103,6 +104,7 @@ UpdateLocationModal.propTypes = {
   open: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
+  address: PropTypes.string.isRequired,
 };
 
 export default UpdateLocationModal;

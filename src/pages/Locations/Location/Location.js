@@ -62,6 +62,7 @@ const Locations = ({
 
   // update
   const [open, setOpen] = useState(false);
+  const [updating, setUpdating] = useState(false);
 
   // delete
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
@@ -86,6 +87,11 @@ const Locations = ({
   }, []);
 
   const updateLocation = async () => {
+    try {
+      
+    } catch (error) {
+      console.log(error); // eslint-disable-line
+    }
   };
 
   const deleteLocation = async () => {
@@ -202,10 +208,13 @@ const Locations = ({
           )
           : null
       }
-      {/* <UpdateLocationModal
+      <UpdateLocationModal
         open={open}
         onClose={() => setOpen(false)}
-      /> */}
+        onSubmit={updateLocation}
+        loading={updating}
+        address={LOCATION.address}
+      />
 
       <DeleteLocationModal
         open={deleteModalOpen}
