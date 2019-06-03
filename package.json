@@ -16,6 +16,7 @@
   "dependencies": {
     "aws-amplify": "^1.1.27",
     "dayjs": "^1.8.13",
+    "format-usd": "^1.0.1",
     "isomorphic-fetch": "^2.2.1",
     "prop-types": "^15.7.2",
     "query-string": "^6.5.0",

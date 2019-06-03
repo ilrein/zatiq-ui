@@ -16,6 +16,7 @@ import {
   API_ITEMS,
 } from '../../constants';
 import NewItemModal from '../../components/NewItemModal';
+import DishCard from '../../components/DishCard';
 
 const Wrapper = styled.div`
   display: flex;
@@ -119,9 +120,16 @@ const Items = ({
               </>
             )
             : (
-              <div>
-                Dishes found.
-              </div>
+              <>
+                {
+                  items.docs.map(DOC => (
+                    <DishCard
+                      key={DOC._id}
+                      dish={DOC}
+                    />
+                  ))
+                }
+              </>
             )
         }
       </InnerWrapper>
