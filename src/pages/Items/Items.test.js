@@ -5,6 +5,10 @@ import Items from './Items';
 
 const wrapper = shallow(
   <Items
+    items={{
+      totalDocs: 0,
+      docs: [],
+    }}
     userReducer={{
       user: {},
       cognitoUser: {

@@ -1,9 +1,8 @@
-/* eslint-disable */
-
 import React, { useState } from 'react';
 import {
-  Form,
   Button,
+  Header,
+  Icon,
 } from 'semantic-ui-react';
 import styled from 'styled-components';
 import fetch from 'isomorphic-fetch';
@@ -14,6 +13,7 @@ import fadeIn from '../../anime/fadeIn';
 import {
   API_COMPANY,
 } from '../../constants';
+import NewItemModal from '../../components/NewItemModal';
 
 const Wrapper = styled.div`
   display: flex;
@@ -27,28 +27,59 @@ const InnerWrapper = styled.div`
 `;
 
 const Items = ({
-  // userReducer,
+  userReducer,
   // company,
   // captureCompany,
+  items,
 }) => {
-  // const [name, setName] = useState(company.name);
   // const { cognitoUser } = userReducer;
-
   // const token = cognitoUser.signInUserSession.idToken.jwtToken;
 
-  // const [saving, setSaving] = useState(false);
+  const [newItemModalIsOpen, setNewItemModalOpen] = useState(false);
 
   return (
     <Wrapper>
       <InnerWrapper>
-        Items page.
+        <Header>
+          Dishes
+        </Header>
+        {
+          items.totalDocs === 0
+            ? (
+              <>
+                <p>
+                  No dishes found.
+                  Add your first one now.
+                </p>
+                <Button
+                  primary
+                  icon
+                  labelPosition="left"
+                  onClick={() => setNewItemModalOpen(true)}
+                >
+                  <Icon name="plus" />
+                  New Item
+                </Button>
+                <NewItemModal
+                  open={newItemModalIsOpen}
+                  onClose={() => setNewItemModalOpen(false)}
+                />
+              </>
+            )
+            : (
+              <div>
+                Dishes found.
+              </div>
+            )
+        }
       </InnerWrapper>
     </Wrapper>
   );
 };
 
 Items.propTypes = {
-  // userReducer: PropTypes.shape().isRequired,
+  userReducer: PropTypes.shape().isRequired,
+  items: PropTypes.shape().isRequired,
 };
 
 export default Items;
