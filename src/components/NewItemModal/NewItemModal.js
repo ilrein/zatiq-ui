@@ -94,6 +94,11 @@ const NewItemModal = ({
             onClick={handleSubmit}
             style={{ marginTop: '1rem' }}
             loading={loading}
+            disabled={
+              name === ''
+              || price === ''
+              || description === ''
+            }
           >
             Submit
           </Button>
