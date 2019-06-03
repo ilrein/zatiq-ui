@@ -25,6 +25,7 @@ const NewItemModal = ({
   // uploadImage,
 }) => {
   const [name, setName] = useState('');
+  const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
   const [imageURI, setImageURI] = useState('');
 
@@ -64,6 +65,18 @@ const NewItemModal = ({
             onChange={(event, { value }) => setDescription(value)}
             value={description}
             required
+          />
+
+          <Form.Input
+            label="Price"
+            placeholder="12.99"
+            onChange={(event, { value }) => setPrice(value)}
+            value={price}
+            required
+            type="number"
+            min="0.00"
+            max="100.00"
+            step="0.01"
           />
 
           <div className="field">
