@@ -35,7 +35,13 @@ const Items = ({
   // const { cognitoUser } = userReducer;
   // const token = cognitoUser.signInUserSession.idToken.jwtToken;
 
+  // new dish states
   const [newItemModalIsOpen, setNewItemModalOpen] = useState(false);
+  const [savingNewItem, setSavingNewItem] = useState(false);
+
+  const createNewDish = async (name, description, price, image) => {
+    console.log(name, description, price, image);
+  };
 
   return (
     <Wrapper>
@@ -63,6 +69,8 @@ const Items = ({
                 <NewItemModal
                   open={newItemModalIsOpen}
                   onClose={() => setNewItemModalOpen(false)}
+                  loading={savingNewItem}
+                  onSubmit={createNewDish}
                 />
               </>
             )

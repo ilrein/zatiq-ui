@@ -5,6 +5,7 @@ import {
   Button,
   Icon,
   Form,
+  Image,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -27,13 +28,7 @@ const NewItemModal = ({
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
-  const [imageURI, setImageURI] = useState('');
-
-  const handleSubmit = () => onSubmit({
-    name,
-    description,
-    imageURI,
-  });
+  const [image, setImage] = useState('');
 
   return (
     <Modal
@@ -41,7 +36,7 @@ const NewItemModal = ({
       size="small"
     >
       <SpreadHeader>
-        <>New Item</>
+        <>New Dish</>
 
         <Icon
           name="close"
@@ -83,15 +78,31 @@ const NewItemModal = ({
             <label>
               Image
             </label>
-            <Dropzone
-              handleDrop={picture => console.log(picture)}
-            />
+            {
+              image
+                ? (
+                  <>
+                    <Image src={image.preview} />
+
+                    <Button
+                      icon="remove"
+                      onClick={() => setImage(null)}
+                    />
+                  </>
+                )
+                : (
+                  <Dropzone
+                    handleDrop={picture => setImage(picture)}
+                    defaultDropMessage="Optional dish image. Click or drag to upload."
+                  />
+                )
+            }
           </div>
 
           <Button
             primary
             type="submit"
-            onClick={handleSubmit}
+            onClick={() => onSubmit(name, description, price, image)}
             style={{ marginTop: '1rem' }}
             loading={loading}
             disabled={
