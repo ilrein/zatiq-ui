@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Menu,
   Icon,
-  Label,
+  // Label,
 } from 'semantic-ui-react';
 import { Auth } from 'aws-amplify';
 import { toast } from 'react-toastify';

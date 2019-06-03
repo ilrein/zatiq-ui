@@ -6,7 +6,7 @@ import {
 } from 'semantic-ui-react';
 
 // import NewLocationModal from '../../../components/NewLocationModal';
-
+/* eslint-disable */
 const Body = ({
   menus,
 }) => {

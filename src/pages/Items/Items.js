@@ -8,10 +8,12 @@ import styled from 'styled-components';
 import fetch from 'isomorphic-fetch';
 import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
+import { Storage } from 'aws-amplify';
+import uuidv4 from 'uuid/v4';
 
 import fadeIn from '../../anime/fadeIn';
 import {
-  API_COMPANY,
+  API_ITEMS,
 } from '../../constants';
 import NewItemModal from '../../components/NewItemModal';
 
@@ -28,19 +30,61 @@ const InnerWrapper = styled.div`
 
 const Items = ({
   userReducer,
-  // company,
-  // captureCompany,
   items,
+  captureItems,
 }) => {
-  // const { cognitoUser } = userReducer;
-  // const token = cognitoUser.signInUserSession.idToken.jwtToken;
+  const { cognitoUser, user } = userReducer;
+  const { companyId } = user;
+  const [jwtToken] = useState(cognitoUser.signInUserSession.accessToken.jwtToken);
 
   // new dish states
   const [newItemModalIsOpen, setNewItemModalOpen] = useState(false);
   const [savingNewItem, setSavingNewItem] = useState(false);
 
   const createNewDish = async (name, description, price, image) => {
-    console.log(name, description, price, image);
+    try {
+      setSavingNewItem(true);
+
+      const PUT = await Storage.put(
+        (`${uuidv4()}-${image.name}`).replace(/\s/g, ''),
+        image,
+        { level: 'public' },
+      );
+
+      const { key } = PUT;
+      
+      await fetch(API_ITEMS, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'jwt-token': jwtToken,
+        },
+        body: JSON.stringify({
+          item: {
+            companyId,
+            name,
+            description,
+            image: key,
+            price,
+          },
+        }),
+      });
+
+      const getItems = await fetch(API_ITEMS, {
+        headers: {
+          'Content-Type': 'application/json',
+          'jwt-token': jwtToken,
+        },
+      });
+
+      const freshItems = await getItems.json();
+      captureItems(freshItems);
+      toast.success(`Successfully created ${name}`);
+      setNewItemModalOpen(false);
+      setSavingNewItem(false);
+    } catch (error) {
+      console.log(error) // eslint-disable-line
+    }
   };
 
   return (
@@ -88,6 +132,7 @@ const Items = ({
 Items.propTypes = {
   userReducer: PropTypes.shape().isRequired,
   items: PropTypes.shape().isRequired,
+  captureItems: PropTypes.func.isRequired,
 };
 
 export default Items;
