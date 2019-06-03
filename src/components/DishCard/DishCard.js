@@ -12,6 +12,7 @@ import formatUSD from 'format-usd';
 const StyledCard = styled(Segment)`
   padding: 0 !important;
   transition: all 0.25s ease-in-out;
+  cursor: pointer;
 
   &:hover {
     transform: scale(1.025);
@@ -40,6 +41,7 @@ const DishCard = ({ dish }) => {
     <StyledCard
       basic
       loading={fetchingImage}
+      compact
     >
       <Card>
         <Image
@@ -57,6 +59,8 @@ const DishCard = ({ dish }) => {
           </Card.Description>
         </Card.Content>
         <Card.Content extra>
+          Price:
+          &nbsp;
           {formatUSD({ amount: Object.values(dish.price)[0] })}
         </Card.Content>
       </Card>

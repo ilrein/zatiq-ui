@@ -29,6 +29,13 @@ const InnerWrapper = styled.div`
   width: 100%;
 `;
 
+const SpreadHeader = styled.div`
+  display: flex !important;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 const Items = ({
   userReducer,
   items,
@@ -91,9 +98,21 @@ const Items = ({
   return (
     <Wrapper>
       <InnerWrapper>
-        <Header>
-          Dishes
-        </Header>
+        <SpreadHeader>
+          <Header>
+            Dishes
+          </Header>
+
+          <Button
+            primary
+            icon
+            labelPosition="left"
+            onClick={() => setNewItemModalOpen(true)}
+          >
+            <Icon name="plus" />
+            New Item
+          </Button>
+        </SpreadHeader>
         {
           items.totalDocs === 0
             ? (
@@ -102,21 +121,6 @@ const Items = ({
                   No dishes found.
                   Add your first one now.
                 </p>
-                <Button
-                  primary
-                  icon
-                  labelPosition="left"
-                  onClick={() => setNewItemModalOpen(true)}
-                >
-                  <Icon name="plus" />
-                  New Item
-                </Button>
-                <NewItemModal
-                  open={newItemModalIsOpen}
-                  onClose={() => setNewItemModalOpen(false)}
-                  loading={savingNewItem}
-                  onSubmit={createNewDish}
-                />
               </>
             )
             : (
@@ -132,6 +136,12 @@ const Items = ({
               </>
             )
         }
+        <NewItemModal
+          open={newItemModalIsOpen}
+          onClose={() => setNewItemModalOpen(false)}
+          loading={savingNewItem}
+          onSubmit={createNewDish}
+        />
       </InnerWrapper>
     </Wrapper>
   );
