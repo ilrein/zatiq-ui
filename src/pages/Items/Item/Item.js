@@ -254,6 +254,7 @@ const Item = ({
               onSubmit={updateItem}
               loading={updating}
               dish={ITEM}
+              image={image}
             />
           )
           : null

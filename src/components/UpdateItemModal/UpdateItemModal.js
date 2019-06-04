@@ -24,12 +24,13 @@ const UpdateItemModal = ({
   loading,
   onClose,
   dish,
+  image,
 }) => {
   const [name, setName] = useState(dish.name);
   const [description, setDescription] = useState(dish.description);
   const [price, setPrice] = useState(Object.values(dish.price)[0]);
 
-  const [updatedImage, setImage] = useState(null);
+  const [picture, setPicture] = useState(undefined);
 
   return (
     <Modal
@@ -71,30 +72,53 @@ const UpdateItemModal = ({
             step="0.01"
           />
 
-          {/* <div className="field required">
+          <div className="field">
             <label>
               Image
             </label>
             {
-              updatedImage
+              image
+              && picture === undefined
                 ? (
                   <>
-                    <Image src={updatedImage.preview} />
+                    <Image src={image} />
 
                     <Button
                       icon="remove"
-                      onClick={() => setImage(null)}
+                      onClick={() => setPicture(null)}
                     />
                   </>
                 )
-                : (
-                  <Dropzone
-                    handleDrop={picture => setImage(picture)}
-                    defaultDropMessage="Click to upload a new image of your restaurant's interior"
-                  />
-                )
+                : null
             }
-          </div> */}
+
+            {
+              picture === null
+                ? (
+                  <Dropzone
+                    handleDrop={PIC => setPicture(PIC)}
+                    defaultDropMessage="Modify dish image, or leave blank to omit one."
+                  /> 
+                )
+                : null 
+            }
+
+            {
+              picture !== null
+              && picture !== undefined
+                ? (
+                  <>
+                    <Image src={picture.preview} />
+                    
+                    <Button
+                      icon="remove"
+                      onClick={() => setPicture(null)}
+                    />
+                  </>
+                )
+                : null
+            }
+          </div>
 
           <Button
             primary
@@ -117,6 +141,7 @@ UpdateItemModal.propTypes = {
   loading: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   dish: PropTypes.shape().isRequired,
+  image: PropTypes.string.isRequired,
 };
 
 export default UpdateItemModal;
