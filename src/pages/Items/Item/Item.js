@@ -7,15 +7,17 @@ import {
   Button,
   Icon,
   Divider,
+  Table,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { Storage } from 'aws-amplify';
+import formatUSD from 'format-usd';
 // import fetch from 'isomorphic-fetch';
 // import uuidv4 from 'uuid/v4';
 
 import fadeIn from '../../../anime/fadeIn';
 // import UpdateLocationModal from '../../../components/UpdateLocationModal';
-// import DeleteLocationModal from '../../../components/DeleteLocationModal';
+import ConfirmDeleteModal from '../../../components/ConfirmDeleteModal';
 // import {
 //   API_LOCATIONS,
 //   API_COMPANY,
@@ -184,8 +186,6 @@ const Item = ({
   //   }
   // };
 
-  console.log(ITEM);
-
   return (
     <Wrapper>
       {
@@ -229,9 +229,36 @@ const Item = ({
               >
                 <Image
                   src={image}
-                  size="large"
+                  size="medium"
                 />
               </Segment>
+
+              <Table
+                basic="very"
+                celled
+                collapsing
+              >
+                <Table.Header>
+                  <Table.Row>
+                    <Table.HeaderCell>
+                      Description
+                    </Table.HeaderCell>
+                    <Table.HeaderCell>
+                      Price
+                    </Table.HeaderCell>
+                  </Table.Row>
+                </Table.Header>
+                <Table.Body>
+                  <Table.Row>
+                    <Table.Cell>
+                      {ITEM.description}
+                    </Table.Cell>
+                    <Table.Cell>
+                      {formatUSD({ amount: Object.values(ITEM.price)[0] })}
+                    </Table.Cell>
+                  </Table.Row>
+                </Table.Body>
+              </Table>
             </InnerWrapper>
           )
           : null
@@ -249,14 +276,15 @@ const Item = ({
             />
           )
           : null
-      }
+      } */}
 
-      <DeleteLocationModal
+      <ConfirmDeleteModal
+        heading={`Delete ${ITEM.name}`}
         open={deleteModalOpen}
         onClose={() => setDeleteModalOpen(false)}
-        onDelete={deleteLocation}
-        loading={deleting}
-      /> */}
+        // onDelete={deleteLocation}
+        // loading={deleting}
+      />
     </Wrapper>
   );
 };
