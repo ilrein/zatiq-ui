@@ -13,7 +13,7 @@ import PropTypes from 'prop-types';
 import { Storage } from 'aws-amplify';
 import formatUSD from 'format-usd';
 import fetch from 'isomorphic-fetch';
-// import uuidv4 from 'uuid/v4';
+import uuidv4 from 'uuid/v4';
 
 import fadeIn from '../../../anime/fadeIn';
 import UpdateItemModal from '../../../components/UpdateItemModal';
@@ -58,7 +58,7 @@ const Item = ({
   const { params } = match;
   const { id } = params;
 
-  // grab the location from redux array rather than another request
+  // grab the dish from redux array rather than another request
   const ITEM = find(propEq('_id', id))(items.docs);
 
   // update
@@ -87,49 +87,49 @@ const Item = ({
     getImage();
   }, []);
 
-  const updateItem = async (name) => {
-    // try {
-    //   setUpdating(true);
-    //   await Storage.remove(LOCATION.image);
+  const updateItem = async (name, description, price, picture) => {
+    // console.log(name, description, price, picture);
+    try {
+      setUpdating(true);
+      if (ITEM.image) await Storage.remove(ITEM.image);
 
-    //   const PUT = await Storage.put(
-    //     (`${uuidv4()}-${updatedImage.name}`).replace(/\s/g, ''),
-    //     updatedImage,
-    //     { level: 'public' },
-    //   );
+      const PUT = await Storage.put(
+        (`${uuidv4()}-${picture.name}`).replace(/\s/g, ''),
+        picture,
+        { level: 'public' },
+      );
 
-    //   const { key } = PUT;
+      const { key } = PUT;
 
-    //   await fetch(`${API_LOCATIONS}/${LOCATION._id}`, {
-    //     method: 'PUT',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //       'jwt-token': jwtToken,
-    //     },
-    //     body: JSON.stringify({
-    //       location: {
-    //         ...LOCATION,
-    //         address: updatedAddress.formatted_address,
-    //         image: key,
-    //       },
-    //     }),
-    //   });
+      await fetch(`${API_ITEMS}/${ITEM._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'jwt-token': jwtToken,
+        },
+        body: JSON.stringify({
+          location: {
+            ...ITEM,
+            image: key,
+          },
+        }),
+      });
 
-    //   const getLocationsAgain = await fetch(`${API_LOCATIONS}?companyId=${companyId}`, {
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //       'jwt-token': jwtToken,
-    //     },
-    //   });
+      const getItemsAgain = await fetch(`${API_ITEMS}?companyId=${companyId}&limit=50`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'jwt-token': jwtToken,
+        },
+      });
 
-    //   const updatedLocations = await getLocationsAgain.json();
-    //   captureLocations(updatedLocations);
-    //   setUpdating(false);
-    //   setOpen(false);
-    //   history.push(`/locations/${LOCATION._id}`);
-    // } catch (error) {
-    //   console.log(error); // eslint-disable-line
-    // }
+      const updatedItems = await getItemsAgain.json();
+      captureItems(updatedItems);
+      setUpdating(false);
+      setOpen(false);
+      getImage();
+    } catch (error) {
+      console.log(error); // eslint-disable-line
+    }
   };
 
   const deleteItem = async () => {
@@ -279,6 +279,7 @@ const Item = ({
 };
 
 Item.propTypes = {
+  items: PropTypes.shape().isRequired,
   userReducer: PropTypes.shape().isRequired,
   match: PropTypes.shape().isRequired,
   history: PropTypes.shape().isRequired,

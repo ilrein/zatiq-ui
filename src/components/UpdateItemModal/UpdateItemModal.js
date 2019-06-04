@@ -123,7 +123,7 @@ const UpdateItemModal = ({
           <Button
             primary
             type="submit"
-            onClick={() => onSubmit(name)}
+            onClick={() => onSubmit(name, description, price, picture)}
             style={{ marginTop: '1rem' }}
             loading={loading}
           >

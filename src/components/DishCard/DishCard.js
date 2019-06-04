@@ -20,21 +20,22 @@ const StyledCard = styled(Segment)`
 `;
 
 const DishCard = ({ doc }) => {
-  const [fetchingImage, setFetchingImage] = useState(true);
+  const [fetchingImage, setFetchingImage] = useState(false);
   const [image, setImage] = useState(null);
 
   const getImage = async () => {
+    setFetchingImage(true);
     try {
       const picture = await Storage.get(doc.image);
-      setFetchingImage(false);
       setImage(picture);
+      setFetchingImage(false);
     } catch (error) {
       console.log(error); // eslint-disable-line
     }
   };
 
   useEffect(() => {
-    getImage();
+    if (doc.image !== null) getImage();
   }, []);
 
   return (
@@ -44,12 +45,18 @@ const DishCard = ({ doc }) => {
       compact
     >
       <Card>
-        <Image
-          src={image}
-          wrapped
-          ui={false}
-          size="medium"
-        />
+        {
+          doc.image
+            ? (
+              <Image
+                src={image}
+                wrapped
+                ui={false}
+                size="medium"
+              />
+            )
+            : null
+        }
         <Card.Content>
           <Card.Header>
             {doc.name}
