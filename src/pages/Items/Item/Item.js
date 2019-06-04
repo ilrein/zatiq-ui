@@ -70,21 +70,22 @@ const Item = ({
   const [deleting, setDeleting] = useState(false);
 
   // loading image
-  const [fetchingImage, setFetchingImage] = useState(true);
+  const [fetchingImage, setFetchingImage] = useState(false);
   const [image, setImage] = useState(null);
 
   const getImage = async () => {
+    setFetchingImage(true);
     try {
       const picture = await Storage.get(ITEM.image);
-      setFetchingImage(false);
       setImage(picture);
+      setFetchingImage(false);
     } catch (error) {
       console.log(error); // eslint-disable-line
     }
   };
 
   useEffect(() => {
-    getImage();
+    if (ITEM.image !== null) getImage();
   }, []);
 
   const updateItem = async (name, description, price, picture) => {
