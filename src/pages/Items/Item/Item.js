@@ -12,16 +12,15 @@ import {
 import PropTypes from 'prop-types';
 import { Storage } from 'aws-amplify';
 import formatUSD from 'format-usd';
-// import fetch from 'isomorphic-fetch';
+import fetch from 'isomorphic-fetch';
 // import uuidv4 from 'uuid/v4';
 
 import fadeIn from '../../../anime/fadeIn';
 // import UpdateLocationModal from '../../../components/UpdateLocationModal';
 import ConfirmDeleteModal from '../../../components/ConfirmDeleteModal';
-// import {
-//   API_LOCATIONS,
-//   API_COMPANY,
-// } from '../../../constants';
+import {
+  API_ITEMS,
+} from '../../../constants';
 
 const find = require('ramda/src/find');
 const propEq = require('ramda/src/propEq');
@@ -49,7 +48,7 @@ const Item = ({
   // company,
   match,
   // captureCompany,
-  // captureLocations,
+  captureItems,
   history,
 }) => {
   const { user, cognitoUser } = userReducer;
@@ -68,7 +67,7 @@ const Item = ({
 
   // delete
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-  // const [deleting, setDeleting] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   // loading image
   const [fetchingImage, setFetchingImage] = useState(true);
@@ -133,58 +132,40 @@ const Item = ({
   //   }
   // };
 
-  // const deleteLocation = async () => {
-  //   /**
-  //    * 1. remove the image from the bucket
-  //    * 2. delete the location object in the DB
-  //    * 3. update the company object to remove this location ref
-  //    */
-  //   try {
-  //     setDeleting(true);
-  //     await Storage.remove(LOCATION.image);
+  const deleteItem = async () => {
+    /**
+     * 1. remove the image from the bucket
+     * 2. delete the item object in Mongo
+     */
+    try {
+      setDeleting(true);
+      await Storage.remove(ITEM.image);
 
-  //     await fetch(`${API_LOCATIONS}/${LOCATION._id}`, {
-  //       method: 'DELETE',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         'jwt-token': jwtToken,
-  //       },
-  //     });
+      await fetch(`${API_ITEMS}/${ITEM._id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'jwt-token': jwtToken,
+        },
+      });
 
-  //     const put = await fetch(`${API_COMPANY}/${companyId}`, {
-  //       method: 'PUT',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         'jwt-token': jwtToken,
-  //       },
-  //       body: JSON.stringify({
-  //         company: {
-  //           ...company,
-  //           locations: company.locations.filter(locationId => locationId !== LOCATION._id),
-  //         },
-  //       }),
-  //     });
+      const getItemsAgain = await fetch(API_ITEMS, {
+        headers: {
+          'Content-Type': 'application/json',
+          'jwt-token': jwtToken,
+        },
+      });
 
-  //     const updateCompanyResult = await put.json();
-  //     captureCompany(updateCompanyResult);
+      const updatedItems = await getItemsAgain.json();
+      captureItems(updatedItems);
 
-  //     const getLocationsAgain = await fetch(API_LOCATIONS, {
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         'jwt-token': jwtToken,
-  //       },
-  //     });
-
-  //     const updatedLocations = await getLocationsAgain.json();
-  //     captureLocations(updatedLocations);
-
-  //     setDeleting(false);
-  //     setDeleteModalOpen(false);
-  //     history.push('/locations');
-  //   } catch (error) {
-  //     console.log(error); // eslint-disable-line
-  //   }
-  // };
+      setDeleting(false);
+      setDeleteModalOpen(false);
+      history.push('/items');
+    } catch (error) {
+      console.log(error); // eslint-disable-line
+    }
+  };
 
   return (
     <Wrapper>
@@ -199,7 +180,7 @@ const Item = ({
                 </Header>
 
                 <div>
-                  <Button
+                  {/* <Button
                     primary
                     icon
                     labelPosition="left"
@@ -208,7 +189,7 @@ const Item = ({
                   >
                     <Icon name="edit" />
                     Update
-                  </Button>
+                  </Button> */}
                   <Button
                     color="red"
                     icon
@@ -278,25 +259,29 @@ const Item = ({
           : null
       } */}
 
-      <ConfirmDeleteModal
-        heading={`Delete ${ITEM.name}`}
-        open={deleteModalOpen}
-        onClose={() => setDeleteModalOpen(false)}
-        // onDelete={deleteLocation}
-        // loading={deleting}
-      />
+      {
+        ITEM
+        && ITEM.name
+          ? (
+            <ConfirmDeleteModal
+              heading={`Delete ${ITEM.name}`}
+              open={deleteModalOpen}
+              onClose={() => setDeleteModalOpen(false)}
+              onDelete={deleteItem}
+              loading={deleting}
+            />
+          )
+          : null
+      }
     </Wrapper>
   );
 };
 
 Item.propTypes = {
   userReducer: PropTypes.shape().isRequired,
-  // locations: PropTypes.shape().isRequired,
-  // company: PropTypes.shape().isRequired,
   match: PropTypes.shape().isRequired,
   history: PropTypes.shape().isRequired,
-  // captureCompany: PropTypes.func.isRequired,
-  // captureLocations: PropTypes.func.isRequired,
+  captureItems: PropTypes.func.isRequired,
 };
 
 export default Item;

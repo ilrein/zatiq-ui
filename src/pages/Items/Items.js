@@ -131,10 +131,12 @@ const Items = ({
               <>
                 {
                   items.docs.map(DOC => (
-                    <Link to={`/items/${DOC._id}`}>
+                    <Link
+                      to={`/items/${DOC._id}`}
+                      key={DOC._id}
+                    >
                       <DishCard
-                        key={DOC._id}
-                        dish={DOC}
+                        doc={DOC}
                       />
                     </Link>
                   ))
