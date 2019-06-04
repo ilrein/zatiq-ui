@@ -1,10 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme'; // eslint-disable-line
 
-import DeleteLocationModal from './DeleteLocationModal';
+import ConfirmDeleteModal from './ConfirmDeleteModal';
 
 const wrapper = shallow(
-  <DeleteLocationModal
+  <ConfirmDeleteModal
     onSubmit={() => {}}
     onClose={() => {}}
     open
@@ -12,7 +12,7 @@ const wrapper = shallow(
   />,
 );
 
-describe('DeleteLocationModal', () => {
+describe('ConfirmDeleteModal', () => {
   it('renders without crashing', () => {
     expect(wrapper).toBeTruthy();
   });

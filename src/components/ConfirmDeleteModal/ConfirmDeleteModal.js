@@ -14,7 +14,9 @@ const SpreadHeader = styled(Header)`
   justify-content: space-between;
 `;
 
-const NewLocationModal = ({
+const ConfirmDeleteModal = ({
+  heading,
+  body,
   onDelete,
   open,
   loading,
@@ -25,7 +27,7 @@ const NewLocationModal = ({
     size="small"
   >
     <SpreadHeader>
-      <>Delete Location</>
+      <>{heading}</>
 
       <Icon
         name="close"
@@ -35,8 +37,8 @@ const NewLocationModal = ({
     </SpreadHeader>
     <Modal.Content>
       <p>
-        Are you sure you want to delete this location?
-        &nbsp;
+        {body}
+        <br />
         <b>This action is permanent.</b>
       </p>
       <Button
@@ -52,11 +54,18 @@ const NewLocationModal = ({
   </Modal>
 );
 
-NewLocationModal.propTypes = {
+ConfirmDeleteModal.propTypes = {
+  heading: PropTypes.string,
+  body: PropTypes.string,
   onDelete: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
-export default NewLocationModal;
+ConfirmDeleteModal.defaultProps = {
+  heading: 'Delete',
+  body: 'Are you sure you want to delete this entry?',
+};
+
+export default ConfirmDeleteModal;

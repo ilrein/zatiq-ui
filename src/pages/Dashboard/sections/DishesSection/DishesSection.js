@@ -2,12 +2,16 @@ import React from 'react';
 import {
   Grid,
   Header,
+  Table,
+  Button,
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import formatUSD from 'format-usd';
+
+import DishCard from '../../../../components/DishCard';
 
 const DishesSection = ({
-  // userReducer,
   items,
 }) => (
   <Grid>
@@ -28,9 +32,14 @@ const DishesSection = ({
               </Link>
             )
             : (
-              <div>
-                list of dishes here...
-              </div>
+              items.docs.map(DOC => (
+                <Link
+                  to={`/items/${DOC._id}`}
+                  key={DOC._id}
+                >
+                  <DishCard doc={DOC} />
+                </Link>
+              ))
             )
         }
       </Grid.Column>
@@ -39,7 +48,6 @@ const DishesSection = ({
 );
 
 DishesSection.propTypes = {
-  // userReducer: PropTypes.shape().isRequired,
   items: PropTypes.shape().isRequired,
 };
 

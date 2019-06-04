@@ -19,13 +19,13 @@ const StyledCard = styled(Segment)`
   }
 `;
 
-const DishCard = ({ dish }) => {
+const DishCard = ({ doc }) => {
   const [fetchingImage, setFetchingImage] = useState(true);
   const [image, setImage] = useState(null);
 
   const getImage = async () => {
     try {
-      const picture = await Storage.get(dish.image);
+      const picture = await Storage.get(doc.image);
       setFetchingImage(false);
       setImage(picture);
     } catch (error) {
@@ -52,16 +52,16 @@ const DishCard = ({ dish }) => {
         />
         <Card.Content>
           <Card.Header>
-            {dish.name}
+            {doc.name}
           </Card.Header>
           <Card.Description>
-            {dish.description}
+            {doc.description}
           </Card.Description>
         </Card.Content>
         <Card.Content extra>
           Price:
           &nbsp;
-          {formatUSD({ amount: Object.values(dish.price)[0] })}
+          {formatUSD({ amount: Object.values(doc.price)[0] })}
         </Card.Content>
       </Card>
     </StyledCard>
@@ -69,7 +69,7 @@ const DishCard = ({ dish }) => {
 };
 
 DishCard.propTypes = {
-  dish: PropTypes.shape().isRequired,
+  doc: PropTypes.shape().isRequired,
 };
 
 export default DishCard;

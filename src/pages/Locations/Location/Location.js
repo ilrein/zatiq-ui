@@ -16,7 +16,7 @@ import uuidv4 from 'uuid/v4';
 
 import fadeIn from '../../../anime/fadeIn';
 import UpdateLocationModal from '../../../components/UpdateLocationModal';
-import DeleteLocationModal from '../../../components/DeleteLocationModal';
+import ConfirmDeleteModal from '../../../components/ConfirmDeleteModal';
 import {
   API_LOCATIONS,
   API_COMPANY,
@@ -42,7 +42,7 @@ const SpreadHeader = styled.div`
   align-items: center;
 `;
 
-const Locations = ({
+const Location = ({
   userReducer,
   locations,
   company,
@@ -261,7 +261,7 @@ const Locations = ({
           : null
       }
 
-      <DeleteLocationModal
+      <ConfirmDeleteModal
         open={deleteModalOpen}
         onClose={() => setDeleteModalOpen(false)}
         onDelete={deleteLocation}
@@ -271,7 +271,7 @@ const Locations = ({
   );
 };
 
-Locations.propTypes = {
+Location.propTypes = {
   userReducer: PropTypes.shape().isRequired,
   locations: PropTypes.shape().isRequired,
   company: PropTypes.shape().isRequired,
@@ -281,4 +281,4 @@ Locations.propTypes = {
   captureLocations: PropTypes.func.isRequired,
 };
 
-export default Locations;
+export default Location;

@@ -29,7 +29,7 @@ const MenusContainer = ({
   const getItemsByCompanyId = async () => {
     if (!isNil(companyId)) {
       try {
-        const get = await fetch(`${API_ITEMS}?companyId=${companyId}`, {
+        const get = await fetch(`${API_ITEMS}?companyId=${companyId}&limit=50`, {
           headers: {
             'Content-Type': 'application/json',
             'jwt-token': jwtToken,

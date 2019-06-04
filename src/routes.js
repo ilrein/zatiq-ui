@@ -22,6 +22,7 @@ import Location from './pages/Locations/Location';
 import Reservations from './pages/Reservations';
 import Menus from './pages/Menus';
 import Items from './pages/Items';
+import Item from './pages/Items/Item';
 
 // Layouts
 import MainLayout from './layouts/MainLayout';
@@ -97,6 +98,12 @@ const Routes = () => (
             exact
             path="/items"
             component={Items}
+          />
+
+          <Route
+            exact
+            path="/items/:id"
+            component={Item}
           />
 
           <Route

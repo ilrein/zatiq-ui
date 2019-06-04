@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 import { Storage } from 'aws-amplify';
 import uuidv4 from 'uuid/v4';
+import { Link } from 'react-router-dom';
 
 import fadeIn from '../../anime/fadeIn';
 import {
@@ -53,6 +54,9 @@ const Items = ({
     try {
       setSavingNewItem(true);
 
+      /**
+       * removes any whitespace while generating a unique ID
+       */
       const PUT = await Storage.put(
         (`${uuidv4()}-${image.name}`).replace(/\s/g, ''),
         image,
@@ -127,10 +131,12 @@ const Items = ({
               <>
                 {
                   items.docs.map(DOC => (
-                    <DishCard
-                      key={DOC._id}
-                      dish={DOC}
-                    />
+                    <Link to={`/items/${DOC._id}`}>
+                      <DishCard
+                        key={DOC._id}
+                        dish={DOC}
+                      />
+                    </Link>
                   ))
                 }
               </>
