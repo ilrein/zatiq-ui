@@ -53,7 +53,6 @@ const Items = ({
   const createNewDish = async (name, description, price, image) => {
     try {
       setSavingNewItem(true);
-
       /**
        * removes any whitespace while generating a unique ID
        */
