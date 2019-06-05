@@ -23,7 +23,6 @@ const NewItemModal = ({
   open,
   loading,
   onClose,
-  // uploadImage,
 }) => {
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
@@ -102,7 +101,13 @@ const NewItemModal = ({
           <Button
             primary
             type="submit"
-            onClick={() => onSubmit(name, description, price, image)}
+            onClick={() => {
+              onSubmit(name, description, price, image);
+              setName('');
+              setDescription('');
+              setPrice('');
+              setImage('');
+            }}
             style={{ marginTop: '1rem' }}
             loading={loading}
             disabled={

@@ -51,11 +51,10 @@ const Items = ({
   const [savingNewItem, setSavingNewItem] = useState(false);
 
   const createNewDish = async (name, description, price, image) => {
-    // console.log(name, description, price, image, image === '');
     try {
       setSavingNewItem(true);
       let IMAGE_URI;
-      if (image.length > 0) {
+      if (image.name) {
         /**
          * removes any whitespace while generating a unique ID
          */
@@ -80,7 +79,7 @@ const Items = ({
             companyId,
             name,
             description,
-            image: image.length > 0 ? IMAGE_URI : null,
+            image: image.name ? IMAGE_URI : null,
             price,
           },
         }),

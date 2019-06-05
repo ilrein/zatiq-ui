@@ -45,9 +45,7 @@ const SpreadHeader = styled.div`
 const Item = ({
   userReducer,
   items,
-  // company,
   match,
-  // captureCompany,
   captureItems,
   history,
 }) => {
