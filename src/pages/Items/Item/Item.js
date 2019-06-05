@@ -92,13 +92,17 @@ const Item = ({
       setUpdating(true);
       if (ITEM.image) await Storage.remove(ITEM.image);
 
-      const PUT = await Storage.put(
-        (`${uuidv4()}-${picture.name}`).replace(/\s/g, ''),
-        picture,
-        { level: 'public' },
-      );
+      let IMAGE_URI;
+      if (picture.name) {
+        const PUT = await Storage.put(
+          (`${uuidv4()}-${picture.name}`).replace(/\s/g, ''),
+          picture,
+          { level: 'public' },
+        );
 
-      const { key } = PUT;
+        const { key } = PUT;
+        IMAGE_URI = key;
+      }
 
       await fetch(`${API_ITEMS}/${ITEM._id}`, {
         method: 'PUT',
@@ -109,7 +113,7 @@ const Item = ({
         body: JSON.stringify({
           location: {
             ...ITEM,
-            image: key,
+            image: IMAGE_URI.length > 0 ? IMAGE_URI : null,
           },
         }),
       });

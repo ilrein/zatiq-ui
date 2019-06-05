@@ -33,7 +33,10 @@ const DishesSection = ({
       </Grid.Column>
     </Grid.Row>
 
-    <Grid.Row columns={4} stackable>
+    <Grid.Row
+      columns={4}
+      stackable="true"
+    >
       {
         items.totalDocs > 0
           ? (
