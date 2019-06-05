@@ -140,6 +140,7 @@ const Items = ({
                 {
                   items.docs.map(DOC => (
                     <DishCard
+                      key={DOC._id}
                       doc={DOC}
                     />
                   ))

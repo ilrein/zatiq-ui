@@ -118,6 +118,18 @@ const UpdateItemModal = ({
                 )
                 : null
             }
+
+            {
+              dish.image === null
+              && picture === undefined
+                ? (
+                  <Dropzone
+                    handleDrop={PIC => setPicture(PIC)}
+                    defaultDropMessage="Modify dish image, or leave blank to omit one."
+                  /> 
+                )
+                : null 
+            }
           </div>
 
           <Button
@@ -141,7 +153,11 @@ UpdateItemModal.propTypes = {
   loading: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   dish: PropTypes.shape().isRequired,
-  image: PropTypes.string.isRequired,
+  image: PropTypes.string,
+};
+
+UpdateItemModal.defaultProps = {
+  image: '',
 };
 
 export default UpdateItemModal;

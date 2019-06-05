@@ -92,8 +92,8 @@ const Item = ({
       setUpdating(true);
       if (ITEM.image) await Storage.remove(ITEM.image);
 
-      let IMAGE_URI;
-      if (picture.name) {
+      let IMAGE_URI = '';
+      if (picture !== null && picture.name) {
         const PUT = await Storage.put(
           (`${uuidv4()}-${picture.name}`).replace(/\s/g, ''),
           picture,
@@ -111,7 +111,7 @@ const Item = ({
           'jwt-token': jwtToken,
         },
         body: JSON.stringify({
-          location: {
+          item: {
             ...ITEM,
             image: IMAGE_URI.length > 0 ? IMAGE_URI : null,
           },
@@ -129,6 +129,8 @@ const Item = ({
       captureItems(updatedItems);
       setUpdating(false);
       setOpen(false);
+      // ITEM = find(propEq('_id', id))(items.docs);
+      // console.log('updated item', ITEM);
       getImage();
     } catch (error) {
       console.log(error); // eslint-disable-line
@@ -206,16 +208,22 @@ const Item = ({
                 </div>
               </SpreadHeader>
               <Divider />
-              <Segment
-                basic
-                loading={fetchingImage}
-                style={{ padding: 0 }}
-              >
-                <Image
-                  src={image}
-                  size="medium"
-                />
-              </Segment>
+              {
+                ITEM.image
+                  ? (
+                    <Segment
+                      basic
+                      loading={fetchingImage}
+                      style={{ padding: 0 }}
+                    >
+                      <Image
+                        src={image}
+                        size="medium"
+                      />
+                    </Segment>
+                  )
+                  : null
+              }
 
               <Table
                 basic="very"
@@ -247,7 +255,7 @@ const Item = ({
           )
           : null
       }
-      {
+      {/* {
         ITEM
         && ITEM.name
           ? (
@@ -261,7 +269,7 @@ const Item = ({
             />
           )
           : null
-      }
+      } */}
 
       {
         ITEM
