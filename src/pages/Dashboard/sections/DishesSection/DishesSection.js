@@ -2,12 +2,9 @@ import React from 'react';
 import {
   Grid,
   Header,
-  Table,
-  Button,
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import formatUSD from 'format-usd';
 
 import DishCard from '../../../../components/DishCard';
 
@@ -31,18 +28,23 @@ const DishesSection = ({
                 </div>
               </Link>
             )
-            : (
-              items.docs.map(DOC => (
-                <Link
-                  to={`/items/${DOC._id}`}
-                  key={DOC._id}
-                >
-                  <DishCard doc={DOC} />
-                </Link>
-              ))
-            )
+            : null
         }
       </Grid.Column>
+    </Grid.Row>
+
+    <Grid.Row columns={4} stackable>
+      {
+        items.totalDocs > 0
+          ? (
+            items.docs.map(DOC => (
+              <Grid.Column key={DOC._id}>
+                <DishCard doc={DOC} />
+              </Grid.Column>
+            ))
+          )
+          : null
+      }
     </Grid.Row>
   </Grid>
 );

@@ -3,6 +3,7 @@ import {
   Button,
   Header,
   Icon,
+  Grid,
 } from 'semantic-ui-react';
 import styled from 'styled-components';
 import fetch from 'isomorphic-fetch';
@@ -10,7 +11,6 @@ import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 import { Storage } from 'aws-amplify';
 import uuidv4 from 'uuid/v4';
-import { Link } from 'react-router-dom';
 
 import fadeIn from '../../anime/fadeIn';
 import {
@@ -35,6 +35,7 @@ const SpreadHeader = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin: 1rem 0 2rem 0;
 `;
 
 const Items = ({
@@ -106,7 +107,7 @@ const Items = ({
     <Wrapper>
       <InnerWrapper>
         <SpreadHeader>
-          <Header>
+          <Header style={{ margin: 0 }}>
             Dishes
           </Header>
 
@@ -131,20 +132,19 @@ const Items = ({
               </>
             )
             : (
-              <>
+              <Grid
+                columns={4}
+                divided
+                stackable
+              >
                 {
                   items.docs.map(DOC => (
-                    <Link
-                      to={`/items/${DOC._id}`}
-                      key={DOC._id}
-                    >
-                      <DishCard
-                        doc={DOC}
-                      />
-                    </Link>
+                    <DishCard
+                      doc={DOC}
+                    />
                   ))
                 }
-              </>
+              </Grid>
             )
         }
         <NewItemModal

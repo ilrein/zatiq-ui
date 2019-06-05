@@ -8,6 +8,7 @@ import { Storage } from 'aws-amplify';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import formatUSD from 'format-usd';
+import { Link } from 'react-router-dom';
 
 const StyledCard = styled(Segment)`
   padding: 0 !important;
@@ -17,6 +18,7 @@ const StyledCard = styled(Segment)`
   &:hover {
     transform: scale(1.025);
   }
+  margin-bottom: 1rem !important;
 `;
 
 const DishCard = ({ doc }) => {
@@ -41,39 +43,45 @@ const DishCard = ({ doc }) => {
   }, []);
 
   return (
-    <StyledCard
-      basic
-      loading={fetchingImage}
-      compact
+    <Link
+      to={`/items/${doc._id}`}
+      key={doc._id}
+      style={{ height: 'max-content' }}
     >
-      <Card>
-        {
-          doc.image
-            ? (
-              <Image
-                src={image}
-                wrapped
-                ui={false}
-                size="medium"
-              />
-            )
-            : null
-        }
-        <Card.Content>
-          <Card.Header>
-            {doc.name}
-          </Card.Header>
-          <Card.Description>
-            {doc.description}
-          </Card.Description>
-        </Card.Content>
-        <Card.Content extra>
-          Price:
-          &nbsp;
-          {formatUSD({ amount: Object.values(doc.price)[0] })}
-        </Card.Content>
-      </Card>
-    </StyledCard>
+      <StyledCard
+        basic
+        loading={fetchingImage}
+        compact
+      >
+        <Card>
+          {
+            doc.image
+              ? (
+                <Image
+                  src={image}
+                  wrapped
+                  ui={false}
+                  size="medium"
+                />
+              )
+              : null
+          }
+          <Card.Content>
+            <Card.Header>
+              {doc.name}
+            </Card.Header>
+            <Card.Description>
+              {doc.description}
+            </Card.Description>
+          </Card.Content>
+          <Card.Content extra>
+            Price:
+            &nbsp;
+            {formatUSD({ amount: Object.values(doc.price)[0] })}
+          </Card.Content>
+        </Card>
+      </StyledCard>
+    </Link>
   );
 };
 
