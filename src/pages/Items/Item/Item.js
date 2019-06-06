@@ -71,10 +71,10 @@ const Item = ({
   const [fetchingImage, setFetchingImage] = useState(false);
   const [image, setImage] = useState(null);
 
-  const getImage = async () => {
+  const getImage = async (dishItem) => {
     setFetchingImage(true);
     try {
-      const picture = await Storage.get(ITEM.image);
+      const picture = await Storage.get(dishItem.image);
       setImage(picture);
       setFetchingImage(false);
     } catch (error) {
@@ -83,7 +83,7 @@ const Item = ({
   };
 
   useEffect(() => {
-    if (ITEM.image !== null) getImage();
+    if (ITEM.image !== null) getImage(ITEM);
   }, []);
 
   const updateItem = async (name, description, price, picture) => {
@@ -104,7 +104,7 @@ const Item = ({
         IMAGE_URI = key;
       }
 
-      await fetch(`${API_ITEMS}/${ITEM._id}`, {
+      const updatedDishItem = await fetch(`${API_ITEMS}/${ITEM._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -117,6 +117,8 @@ const Item = ({
           },
         }),
       });
+
+      const updatedDishItemPayload = await updatedDishItem.json();
 
       const getItemsAgain = await fetch(`${API_ITEMS}?companyId=${companyId}&limit=50`, {
         headers: {
@@ -131,7 +133,7 @@ const Item = ({
       setOpen(false);
       // ITEM = find(propEq('_id', id))(items.docs);
       // console.log('updated item', ITEM);
-      getImage();
+      getImage(updatedDishItemPayload);
     } catch (error) {
       console.log(error); // eslint-disable-line
     }
@@ -255,7 +257,7 @@ const Item = ({
           )
           : null
       }
-      {/* {
+      {
         ITEM
         && ITEM.name
           ? (
@@ -269,7 +271,7 @@ const Item = ({
             />
           )
           : null
-      } */}
+      }
 
       {
         ITEM
