@@ -90,10 +90,19 @@ const Item = ({
     // console.log(name, description, price, picture);
     try {
       setUpdating(true);
-      if (ITEM.image) await Storage.remove(ITEM.image);
+      if (
+        ITEM.image
+        && picture !== undefined
+      ) {
+        await Storage.remove(ITEM.image);
+      }
 
       let IMAGE_URI = '';
-      if (picture !== null && picture.name) {
+      if (
+        picture !== null
+        && picture !== undefined
+        && picture.name
+      ) {
         const PUT = await Storage.put(
           (`${uuidv4()}-${picture.name}`).replace(/\s/g, ''),
           picture,
@@ -112,7 +121,9 @@ const Item = ({
         },
         body: JSON.stringify({
           item: {
-            ...ITEM,
+            name,
+            description,
+            price,
             image: IMAGE_URI.length > 0 ? IMAGE_URI : null,
           },
         }),
