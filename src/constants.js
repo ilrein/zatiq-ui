@@ -17,8 +17,8 @@ export const CAPTURE_ITEM = 'CAPTURE_ITEM';
 export const CAPTURE_RESERVATIONS = 'CAPTURE_RESERVATIONS';
 
 // Endpoints
-export const API_USERS = `${process.env.REACT_APP_API_URL}/api/users`;
-export const API_COMPANY = `${process.env.REACT_APP_API_URL}/api/companies`;
-export const API_LOCATIONS = `${process.env.REACT_APP_API_URL}/api/locations`;
-export const API_MENUS = `${process.env.REACT_APP_API_URL}/api/menus`;
-export const API_ITEMS = `${process.env.REACT_APP_API_URL}/api/items`;
+export const API_USERS = `${process.env.API_URL}/api/users`;
+export const API_COMPANY = `${process.env.API_URL}/api/companies`;
+export const API_LOCATIONS = `${process.env.API_URL}/api/locations`;
+export const API_MENUS = `${process.env.API_URL}/api/menus`;
+export const API_ITEMS = `${process.env.API_URL}/api/items`;
