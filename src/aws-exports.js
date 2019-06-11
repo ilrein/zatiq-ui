@@ -8,7 +8,10 @@ const awsmobile = {
     "aws_user_pools_web_client_id": "6b6rff4qhsbgrc2fjrpm99epnc",
     "oauth": {},
     "aws_user_files_s3_bucket": "zatiqappstorage-dev",
-    "aws_user_files_s3_bucket_region": "us-east-1"
+    "aws_user_files_s3_bucket_region": "us-east-1",
+    "aws_content_delivery_bucket": "zatiq-app-hosting-bucket-dev",
+    "aws_content_delivery_bucket_region": "us-east-1",
+    "aws_content_delivery_url": "https://d1tqbyzvdf4s55.cloudfront.net"
 };
 
 
