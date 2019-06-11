@@ -1,12 +1,8 @@
 // App
 export const APP_NAME = 'Zatiq';
 
-export let API_URL; // eslint-disable-line
-if (process.env.NODE_ENV === 'production') {
-  API_URL = process.env.REACT_APP_API_URL_PROD;
-} else {
-  API_URL = process.env.REACT_APP_API_URL;
-}
+export const API_URL = process.env.REACT_APP_API_URL_PROD;
+// export const API_URL = process.env.REACT_APP_API_URL;
 
 // Actions
 export const CAPTURE_COGNITO_USER = 'CAPTURE_COGNITO_USER';
