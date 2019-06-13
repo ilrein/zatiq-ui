@@ -2,3 +2,11 @@
 
 ### Base Bucket
 http://zatiq-app-hosting-bucket-dev.s3-website-us-east-1.amazonaws.com/
+
+### Feedback
+  - Phone number
+  - Opening hours
+  - Wifi, handicap friendly, kid friendly, delivery, patio, cuisine type, price range
+
+  - dish is halal, vegan, vegiitarian
+  - dish with different sizes

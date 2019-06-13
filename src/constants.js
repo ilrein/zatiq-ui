@@ -1,8 +1,8 @@
 // App
 export const APP_NAME = 'Zatiq';
 
-export const API_URL = process.env.REACT_APP_API_URL_PROD;
-// export const API_URL = process.env.REACT_APP_API_URL;
+// export const API_URL = process.env.REACT_APP_API_URL_PROD;
+export const API_URL = process.env.REACT_APP_API_URL;
 
 // Actions
 export const CAPTURE_COGNITO_USER = 'CAPTURE_COGNITO_USER';
