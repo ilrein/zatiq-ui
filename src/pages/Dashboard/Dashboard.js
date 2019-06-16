@@ -38,7 +38,6 @@ const InnerWrapper = styled.div`
 const Dashboard = ({
   userReducer,
   restaurant,
-  locations,
   captureRestaurant,
   captureUser,
 }) => {
@@ -133,7 +132,6 @@ const Dashboard = ({
 };
 
 Dashboard.propTypes = {
-  locations: PropTypes.shape().isRequired,
   userReducer: PropTypes.shape().isRequired,
   restaurant: PropTypes.shape().isRequired,
   captureRestaurant: PropTypes.func.isRequired,
