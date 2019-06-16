@@ -1,19 +1,15 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import {
-  Card,
-  Grid,
   Header,
   Divider,
 } from 'semantic-ui-react';
 import fetch from 'isomorphic-fetch';
 import isNil from 'ramda/src/isNil';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 
 import fadeIn from '../../anime/fadeIn';
 import NewUserWelcome from '../../components/NewUserWelcome';
-import LocationCard from '../../components/LocationCard';
 
 // import MenuSection from './parts/MenuSection';
 import SalesSection from './sections/SalesSection';
@@ -47,7 +43,14 @@ const Dashboard = ({
 
   const [saving, setSaving] = useState(false);
 
-  const onSubmit = async (name) => {
+  const onSubmit = async (
+    name,
+    address,
+    image,
+    phone,
+    startingTime,
+    closingTime,
+  ) => {
     setSaving(true);
 
     try {
@@ -60,17 +63,20 @@ const Dashboard = ({
         body: JSON.stringify({
           restaurant: {
             name,
-            staff: [
-              {
-                role: user.role,
-                userId: user._id,
-              },
-            ],
+            ownerId: user._id,
+            image,
+            phone,
+            startingTime,
+            closingTime,
           },
         }),
       });
   
       const result = await post.json();
+      if (result.errors) {
+        console.log(result.errors); // eslint-disable-line
+        return;
+      }
       captureRestaurant(result);
     
       const updateUser = await fetch(`${API_USERS}/${user._id}`, {
@@ -91,7 +97,7 @@ const Dashboard = ({
 
       setSaving(false);
     } catch (error) {
-      //
+      console.log(error); // eslint-disable-line
     }
   };
 
