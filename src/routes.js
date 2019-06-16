@@ -16,7 +16,7 @@ import Verify from './pages/Auth/Verify';
 
 // Main
 import Dashboard from './pages/Dashboard';
-import Company from './pages/Company';
+import Restaurant from './pages/Restaurant';
 import Locations from './pages/Locations';
 import Location from './pages/Locations/Location';
 import Reservations from './pages/Reservations';
@@ -29,7 +29,7 @@ import MainLayout from './layouts/MainLayout';
 // import BasicLayout from './layouts/BasicLayout';
 
 // Containers
-// import CompanyContainer from './containers/CompanyContainer';
+// import restaurantContainer from './containers/restaurantContainer';
 
 const Wrapper = styled.div`
   height: 100%;
@@ -72,8 +72,8 @@ const Routes = () => (
 
           <Route
             exact
-            path="/company"
-            component={Company}
+            path="/restaurant"
+            component={Restaurant}
           />
 
           <Route

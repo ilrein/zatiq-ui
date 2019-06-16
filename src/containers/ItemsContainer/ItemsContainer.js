@@ -20,16 +20,16 @@ const MenusContainer = ({
   // location,
 }) => {
   const { user, cognitoUser } = userReducer;
-  const { companyId } = user;
+  const { restaurantId } = user;
   const [jwtToken] = useState(cognitoUser.signInUserSession.accessToken.jwtToken);
   /**
-   * Check for company
+   * Check for restaurant
    * @param { sub } String
    */
-  const getItemsByCompanyId = async () => {
-    if (!isNil(companyId)) {
+  const getItemsByrestaurantId = async () => {
+    if (!isNil(restaurantId)) {
       try {
-        const get = await fetch(`${API_ITEMS}?companyId=${companyId}&limit=50`, {
+        const get = await fetch(`${API_ITEMS}?restaurantId=${restaurantId}&limit=50`, {
           headers: {
             'Content-Type': 'application/json',
             'jwt-token': jwtToken,
@@ -45,8 +45,8 @@ const MenusContainer = ({
   };
 
   useEffect(() => {
-    getItemsByCompanyId();
-  }, [companyId]);
+    getItemsByrestaurantId();
+  }, [restaurantId]);
 
   return (
     <>
@@ -64,7 +64,7 @@ MenusContainer.propTypes = {
   userReducer: PropTypes.shape().isRequired,
   captureItems: PropTypes.func.isRequired,
   // location: PropTypes.shape().isRequired,
-  // company: PropTypes.shape().isRequired,
+  // restaurant: PropTypes.shape().isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -75,6 +75,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-  ({ userReducer, company }) => ({ userReducer, company }),
+  ({ userReducer, restaurant }) => ({ userReducer, restaurant }),
   mapDispatchToProps,
 )(withRouter(MenusContainer));

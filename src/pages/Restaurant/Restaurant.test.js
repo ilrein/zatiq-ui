@@ -1,14 +1,14 @@
 import React from 'react';
 import { shallow } from 'enzyme'; // eslint-disable-line
 
-import Company from './Company';
+import Restaurant from './Restaurant';
 
 const wrapper = shallow(
-  <Company
-    company={{
+  <Restaurant
+    restaurant={{
       name: '',
     }}
-    captureCompany={() => {}}
+    captureRestaurant={() => {}}
     userReducer={{
       user: {},
       cognitoUser: {

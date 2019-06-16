@@ -19,7 +19,7 @@ import UpdateLocationModal from '../../../components/UpdateLocationModal';
 import ConfirmDeleteModal from '../../../components/ConfirmDeleteModal';
 import {
   API_LOCATIONS,
-  API_COMPANY,
+  API_RESTAURANT,
 } from '../../../constants';
 
 const find = require('ramda/src/find');
@@ -45,15 +45,15 @@ const SpreadHeader = styled.div`
 const Location = ({
   userReducer,
   locations,
-  company,
+  restaurant,
   match,
-  captureCompany,
+  captureRestaurant,
   captureLocations,
   history,
 }) => {
   const { user, cognitoUser } = userReducer;
   const [jwtToken] = useState(cognitoUser.signInUserSession.accessToken.jwtToken);
-  const { companyId } = user;
+  const { restaurantId } = user;
 
   const { params } = match;
   const { id } = params;
@@ -115,7 +115,7 @@ const Location = ({
         }),
       });
 
-      const getLocationsAgain = await fetch(`${API_LOCATIONS}?companyId=${companyId}`, {
+      const getLocationsAgain = await fetch(`${API_LOCATIONS}?restaurantId=${restaurantId}`, {
         headers: {
           'Content-Type': 'application/json',
           'jwt-token': jwtToken,
@@ -136,7 +136,7 @@ const Location = ({
     /**
      * 1. remove the image from the bucket
      * 2. delete the location object in the DB
-     * 3. update the company object to remove this location ref
+     * 3. update the restaurant object to remove this location ref
      */
     try {
       setDeleting(true);
@@ -150,22 +150,22 @@ const Location = ({
         },
       });
 
-      const put = await fetch(`${API_COMPANY}/${companyId}`, {
+      const put = await fetch(`${API_RESTAURANT}/${restaurantId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           'jwt-token': jwtToken,
         },
         body: JSON.stringify({
-          company: {
-            ...company,
-            locations: company.locations.filter(locationId => locationId !== LOCATION._id),
+          restaurant: {
+            ...restaurant,
+            locations: restaurant.locations.filter(locationId => locationId !== LOCATION._id),
           },
         }),
       });
 
-      const updateCompanyResult = await put.json();
-      captureCompany(updateCompanyResult);
+      const updaterestaurantResult = await put.json();
+      captureRestaurant(updaterestaurantResult);
 
       const getLocationsAgain = await fetch(API_LOCATIONS, {
         headers: {
@@ -274,10 +274,10 @@ const Location = ({
 Location.propTypes = {
   userReducer: PropTypes.shape().isRequired,
   locations: PropTypes.shape().isRequired,
-  company: PropTypes.shape().isRequired,
+  restaurant: PropTypes.shape().isRequired,
   match: PropTypes.shape().isRequired,
   history: PropTypes.shape().isRequired,
-  captureCompany: PropTypes.func.isRequired,
+  captureRestaurant: PropTypes.func.isRequired,
   captureLocations: PropTypes.func.isRequired,
 };
 

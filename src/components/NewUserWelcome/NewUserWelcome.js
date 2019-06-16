@@ -29,14 +29,14 @@ const NewUserWelcome = ({
       </Header>
       <Modal.Content>
         <Message info>
-          Please enter your company name to get started.
+          Please enter your restaurant name to get started.
         </Message>
 
         <Input
-          name="companyName"
+          name="restaurantName"
           onChange={(event, { value }) => setName(value)}
           value={name}
-          placeholder="Company name"
+          placeholder="restaurant name"
           fluid
           disabled={loading}
         />

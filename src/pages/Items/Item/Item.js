@@ -51,7 +51,7 @@ const Item = ({
 }) => {
   const { user, cognitoUser } = userReducer;
   const [jwtToken] = useState(cognitoUser.signInUserSession.accessToken.jwtToken);
-  const { companyId } = user;
+  const { restaurantId } = user;
 
   const { params } = match;
   const { id } = params;
@@ -131,7 +131,7 @@ const Item = ({
 
       const updatedDishItemPayload = await updatedDishItem.json();
 
-      const getItemsAgain = await fetch(`${API_ITEMS}?companyId=${companyId}&limit=50`, {
+      const getItemsAgain = await fetch(`${API_ITEMS}?restaurantId=${restaurantId}&limit=50`, {
         headers: {
           'Content-Type': 'application/json',
           'jwt-token': jwtToken,

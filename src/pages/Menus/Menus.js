@@ -9,7 +9,7 @@ import {
 import fadeIn from '../../anime/fadeIn';
 import Body from './parts/Body';
 // import {
-//   API_COMPANY,
+//   API_RESTAURANT,
 //   API_USERS,
 // } from '../../constants';
 
@@ -24,7 +24,7 @@ const InnerWrapper = styled.div`
 
 const Locations = ({
   userReducer,
-  company,
+  restaurant,
   menus,
 }) => {
   const { user, cognitoUser } = userReducer;
@@ -43,7 +43,7 @@ const Locations = ({
     <Wrapper>
       {
         user._id
-        && company._id
+        && restaurant._id
           ? (
             <InnerWrapper>
               <Header>

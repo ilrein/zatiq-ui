@@ -3,17 +3,17 @@ import { connect } from 'react-redux';
 import Body from './Body';
 import {
   CAPTURE_LOCATION,
-  CAPTURE_COMPANY,
+  CAPTURE_RESTAURANT,
 } from '../../../../constants';
 
 export default connect(
   ({
     userReducer,
-    company,
+    restaurant,
     locations,
   }) => ({
     userReducer,
-    company,
+    restaurant,
     locations,
   }),
   dispatch => ({
@@ -21,8 +21,8 @@ export default connect(
       type: CAPTURE_LOCATION,
       payload,
     }),
-    captureCompany: payload => dispatch({
-      type: CAPTURE_COMPANY,
+    captureRestaurant: payload => dispatch({
+      type: CAPTURE_RESTAURANT,
       payload,
     }),
   }),

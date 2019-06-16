@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 
 import fadeIn from '../../anime/fadeIn';
 import {
-  API_COMPANY,
+  API_RESTAURANT,
 } from '../../constants';
 
 const Wrapper = styled.div`
@@ -27,10 +27,10 @@ const InnerWrapper = styled.div`
 /* eslint-disable */
 const Reservations = ({
   // userReducer,
-  // company,
-  // captureCompany,
+  // restaurant,
+  // captureRestaurant,
 }) => {
-  // const [name, setName] = useState(company.name);
+  // const [name, setName] = useState(restaurant.name);
   // const { cognitoUser } = userReducer;
 
   // const token = cognitoUser.signInUserSession.idToken.jwtToken;
@@ -48,8 +48,8 @@ const Reservations = ({
 
 Reservations.propTypes = {
   // userReducer: PropTypes.shape().isRequired,
-  // company: PropTypes.shape().isRequired,
-  // captureCompany: PropTypes.func.isRequired,
+  // restaurant: PropTypes.shape().isRequired,
+  // captureRestaurant: PropTypes.func.isRequired,
 };
 
 export default Reservations;

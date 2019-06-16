@@ -19,11 +19,11 @@ const wrapper = shallow(
         },
       },
     }}
-    company={{
+    restaurant={{
       _id: 123,
     }}
     captureLocation={() => {}}
-    captureCompany={() => { }}
+    captureRestaurant={() => { }}
   />,
 );
 

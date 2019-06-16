@@ -2,23 +2,23 @@ import { connect } from 'react-redux';
 
 import Dashboard from './Dashboard';
 import {
-  CAPTURE_COMPANY,
+  CAPTURE_RESTAURANT,
   CAPTURE_USER,
 } from '../../constants';
 
 export default connect(
   ({
     userReducer,
-    company,
+    restaurant,
     locations,
   }) => ({
     userReducer,
-    company,
+    restaurant,
     locations,
   }),
   dispatch => ({
-    captureCompany: payload => dispatch({
-      type: CAPTURE_COMPANY,
+    captureRestaurant: payload => dispatch({
+      type: CAPTURE_RESTAURANT,
       payload,
     }),
     captureUser: payload => dispatch({

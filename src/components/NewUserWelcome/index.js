@@ -5,9 +5,9 @@ import NewUserWelcome from './NewUserWelcome';
 export default connect(
   ({
     userReducer,
-    companyReducer,
+    restaurantReducer,
   }) => ({
     userReducer,
-    companyReducer,
+    restaurantReducer,
   }),
 )(NewUserWelcome);

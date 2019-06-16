@@ -17,20 +17,20 @@ import NewLocationModal from '../../../../components/NewLocationModal';
 import LocationCard from '../../../../components/LocationCard';
 
 import {
-  API_COMPANY,
+  API_RESTAURANT,
   API_LOCATIONS,
 } from '../../../../constants';
 
 const Body = ({
   userReducer,
-  company,
+  restaurant,
   locations,
   captureLocation,
-  captureCompany,
+  captureRestaurant,
 }) => {
   // tokens
   const { user, cognitoUser } = userReducer;
-  const { companyId } = user;
+  const { restaurantId } = user;
   const [jwtToken] = useState(cognitoUser.signInUserSession.accessToken.jwtToken);
 
   // states
@@ -57,7 +57,7 @@ const Body = ({
         },
         body: JSON.stringify({
           location: {
-            companyId,
+            restaurantId,
             address: address.formatted_address,
             image: key,
           },
@@ -67,23 +67,23 @@ const Body = ({
       const newLocation = await createLocation.json();
       // console.log('newLocation', newLocation);
 
-      const updateCompanyWithLocationId = await fetch(`${API_COMPANY}/${companyId}`, {
+      const updaterestaurantWithLocationId = await fetch(`${API_RESTAURANT}/${restaurantId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           'jwt-token': jwtToken,
         },
         body: JSON.stringify({
-          company: {
-            locations: [...company.locations, newLocation._id],
+          restaurant: {
+            locations: [...restaurant.locations, newLocation._id],
           },
         }),
       });
 
-      // capture location & company here
-      const updatedCompany = await updateCompanyWithLocationId.json();
-      // console.log('updatedCompany', updatedCompany);
-      captureCompany(updatedCompany);
+      // capture location & restaurant here
+      const updatedrestaurant = await updaterestaurantWithLocationId.json();
+      // console.log('updatedrestaurant', updatedrestaurant);
+      captureRestaurant(updatedrestaurant);
       captureLocation(newLocation);
       toast.success(`Created new location @ ${address.formatted_address}`);
       
@@ -159,9 +159,9 @@ const Body = ({
 Body.propTypes = {
   locations: PropTypes.shape().isRequired,
   captureLocation: PropTypes.func.isRequired,
-  captureCompany: PropTypes.func.isRequired,
+  captureRestaurant: PropTypes.func.isRequired,
   userReducer: PropTypes.shape().isRequired,
-  company: PropTypes.shape().isRequired,
+  restaurant: PropTypes.shape().isRequired,
 };
 
 export default Body;

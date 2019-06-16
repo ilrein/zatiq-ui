@@ -15,7 +15,7 @@ const wrapper = shallow(
         },
       },
     }}
-    company={{
+    restaurant={{
       _id: 123,
     }}
   />,

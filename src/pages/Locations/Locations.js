@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import fadeIn from '../../anime/fadeIn';
 import Body from './parts/Body';
 // import {
-//   API_COMPANY,
+//   API_RESTAURANT,
 //   API_USERS,
 // } from '../../constants';
 
@@ -24,17 +24,17 @@ const InnerWrapper = styled.div`
 
 const Locations = ({
   userReducer,
-  company,
+  restaurant,
 }) => {
   const { user } = userReducer;
 
-  const heading = `${company.name} Locations`;
+  const heading = `${restaurant.name} Locations`;
 
   return (
     <Wrapper>
       {
         user._id
-        && company._id
+        && restaurant._id
           ? (
             <InnerWrapper>
               <Header>
@@ -51,7 +51,7 @@ const Locations = ({
 
 Locations.propTypes = {
   userReducer: PropTypes.shape().isRequired,
-  company: PropTypes.shape().isRequired,
+  restaurant: PropTypes.shape().isRequired,
 };
 
 export default Locations;

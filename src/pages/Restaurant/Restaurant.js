@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 
 import fadeIn from '../../anime/fadeIn';
 import {
-  API_COMPANY,
+  API_RESTAURANT,
 } from '../../constants';
 
 const Wrapper = styled.div`
@@ -23,12 +23,12 @@ const InnerWrapper = styled.div`
   width: 100%;
 `;
 
-const Company = ({
+const Restaurant = ({
   userReducer,
-  company,
-  captureCompany,
+  restaurant,
+  captureRestaurant,
 }) => {
-  const [name, setName] = useState(company.name);
+  const [name, setName] = useState(restaurant.name);
   const { cognitoUser } = userReducer;
 
   const token = cognitoUser.signInUserSession.idToken.jwtToken;
@@ -39,21 +39,21 @@ const Company = ({
     setSaving(true);
 
     try {
-      const post = await fetch(API_COMPANY, {
+      const post = await fetch(API_RESTAURANT, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'jwt-token': token,
         },
         body: JSON.stringify({
-          company: {
+          restaurant: {
             name,
           },
         }),
       });
   
       const result = await post.json();
-      captureCompany(result);
+      captureRestaurant(result);
       setSaving(false);
       toast.success(`Updated ${name}`);
     } catch (error) {
@@ -90,10 +90,10 @@ const Company = ({
   );
 };
 
-Company.propTypes = {
+Restaurant.propTypes = {
   userReducer: PropTypes.shape().isRequired,
-  company: PropTypes.shape().isRequired,
-  captureCompany: PropTypes.func.isRequired,
+  restaurant: PropTypes.shape().isRequired,
+  captureRestaurant: PropTypes.func.isRequired,
 };
 
-export default Company;
+export default Restaurant;

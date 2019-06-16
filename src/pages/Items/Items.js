@@ -44,7 +44,7 @@ const Items = ({
   captureItems,
 }) => {
   const { cognitoUser, user } = userReducer;
-  const { companyId } = user;
+  const { restaurantId } = user;
   const [jwtToken] = useState(cognitoUser.signInUserSession.accessToken.jwtToken);
 
   // new dish states
@@ -77,7 +77,7 @@ const Items = ({
         },
         body: JSON.stringify({
           item: {
-            companyId,
+            restaurantId,
             name,
             description,
             image: image.name ? IMAGE_URI : null,

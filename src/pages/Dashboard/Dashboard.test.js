@@ -18,11 +18,11 @@ it('renders without crashing', () => {
           },
         },
       }}
-      company={{
+      restaurant={{
         _id: 123,
       }}
       locations={{}}
-      captureCompany={() => {}}
+      captureRestaurant={() => {}}
       captureUser={() => {}}
     />,
   );

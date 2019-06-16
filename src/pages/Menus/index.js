@@ -5,16 +5,16 @@ import Menus from './Menus';
 export default connect(
   ({
     userReducer,
-    company,
+    restaurant,
     menus,
   }) => ({
     userReducer,
-    company,
+    restaurant,
     menus,
   }),
   // dispatch => ({
-  //   captureCompany: payload => dispatch({
-  //     type: CAPTURE_COMPANY,
+  //   captureRestaurant: payload => dispatch({
+  //     type: CAPTURE_RESTAURANT,
   //     payload,
   //   }),
   //   captureUser: payload => dispatch({

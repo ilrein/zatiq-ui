@@ -20,7 +20,7 @@ import SalesSection from './sections/SalesSection';
 import DishesSection from './sections/DishesSection';
 
 import {
-  API_COMPANY,
+  API_RESTAURANT,
   API_USERS,
 } from '../../constants';
 
@@ -37,9 +37,9 @@ const InnerWrapper = styled.div`
 
 const Dashboard = ({
   userReducer,
-  company,
+  restaurant,
   locations,
-  captureCompany,
+  captureRestaurant,
   captureUser,
 }) => {
   const { user, cognitoUser } = userReducer;
@@ -52,14 +52,14 @@ const Dashboard = ({
     setSaving(true);
 
     try {
-      const post = await fetch(API_COMPANY, {
+      const post = await fetch(API_RESTAURANT, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'jwt-token': token,
         },
         body: JSON.stringify({
-          company: {
+          restaurant: {
             name,
             staff: [
               {
@@ -72,7 +72,7 @@ const Dashboard = ({
       });
   
       const result = await post.json();
-      captureCompany(result);
+      captureRestaurant(result);
     
       const updateUser = await fetch(`${API_USERS}/${user._id}`, {
         method: 'PUT',
@@ -82,7 +82,7 @@ const Dashboard = ({
         },
         body: JSON.stringify({
           user: {
-            companyId: result._id,
+            restaurantId: result._id,
           },
         }),
       });
@@ -104,11 +104,11 @@ const Dashboard = ({
             ? (
               <InnerWrapper>
                 <Header as="h1">
-                  {company.name}
+                  {restaurant.name}
                 </Header>
                 <Divider />
                 {
-                  isNil(company._id)
+                  isNil(restaurant._id)
                     ? (
                       <NewUserWelcome
                         open
@@ -121,41 +121,6 @@ const Dashboard = ({
 
                 <SalesSection />
 
-                <Divider />
-
-                <Grid>
-                  <Grid.Row columns="5">
-                    <Grid.Column>
-                      <Link to="/locations">
-                        <Header>
-                          Locations
-                        </Header>
-                      </Link>
-                    </Grid.Column>
-                  </Grid.Row>
-                  <Grid.Row columns="3">
-                    {
-                      locations.totalDocs > 0
-                        ? (
-                          locations.docs.map(location => (
-                            <Grid.Column key={location._id}>
-                              <Link to={`/locations/${location._id}`}>
-                                <LocationCard location={location} />
-                              </Link>
-                            </Grid.Column>
-                          ))
-                        )
-                        : (
-                          <Grid.Column>
-                            <Card
-                              header="No locations created yet"
-                              description={<Link to="/locations">Create one now.</Link>}
-                            />
-                          </Grid.Column>
-                        )
-                    }
-                  </Grid.Row>
-                </Grid>
                 <Divider />
                 <DishesSection />
               </InnerWrapper>
@@ -170,8 +135,8 @@ const Dashboard = ({
 Dashboard.propTypes = {
   locations: PropTypes.shape().isRequired,
   userReducer: PropTypes.shape().isRequired,
-  company: PropTypes.shape().isRequired,
-  captureCompany: PropTypes.func.isRequired,
+  restaurant: PropTypes.shape().isRequired,
+  captureRestaurant: PropTypes.func.isRequired,
   captureUser: PropTypes.func.isRequired,
 };
 

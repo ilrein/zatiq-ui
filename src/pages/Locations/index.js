@@ -5,16 +5,16 @@ import Locations from './Locations';
 export default connect(
   ({
     userReducer,
-    company,
+    restaurant,
     locations,
   }) => ({
     userReducer,
-    company,
+    restaurant,
     locations,
   }),
   // dispatch => ({
-  //   captureCompany: payload => dispatch({
-  //     type: CAPTURE_COMPANY,
+  //   captureRestaurant: payload => dispatch({
+  //     type: CAPTURE_RESTAURANT,
   //     payload,
   //   }),
   //   captureUser: payload => dispatch({

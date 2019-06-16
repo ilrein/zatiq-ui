@@ -9,27 +9,28 @@ import isNil from 'ramda/src/isNil';
 import { withRouter } from 'react-router-dom';
 
 import {
-  API_LOCATIONS,
-  CAPTURE_LOCATIONS,
+  API_RESTAURANT,
+  CAPTURE_RESTAURANT,
 } from '../../constants';
 
-const LocationsContainer = ({
+const RestaurantContainer = ({
   children,
   userReducer,
-  captureLocations,
+  captureRestaurant,
   // location,
+  restaurant,
 }) => {
   const { user, cognitoUser } = userReducer;
-  const { companyId } = user;
+  const { restaurantId } = user;
   const [jwtToken] = useState(cognitoUser.signInUserSession.accessToken.jwtToken);
   /**
-   * Check for company
+   * Check for restaurant
    * @param { sub } String
    */
-  const getLocationsByCompanyId = async () => {
-    if (!isNil(companyId)) {
+  const getrestaurant = async () => {
+    if (!isNil(restaurantId) && isNil(restaurant._id)) {
       try {
-        const get = await fetch(`${API_LOCATIONS}?companyId=${companyId}`, {
+        const get = await fetch(`${API_RESTAURANT}/${restaurantId}`, {
           headers: {
             'Content-Type': 'application/json',
             'jwt-token': jwtToken,
@@ -37,16 +38,20 @@ const LocationsContainer = ({
         });
 
         const result = await get.json();
-        captureLocations(result);
+        captureRestaurant(result);
       } catch (error) {
         console.log(error); // eslint-disable-line
       }
+    } else if (!isNil(restaurantId) && !isNil(restaurant._id)) {
+      // return;
+    } else {
+      captureRestaurant({ _id: null });
     }
   };
 
   useEffect(() => {
-    getLocationsByCompanyId();
-  }, [companyId]);
+    getrestaurant();
+  }, [restaurantId]);
 
   return (
     <>
@@ -55,26 +60,25 @@ const LocationsContainer = ({
   );
 };
 
-LocationsContainer.propTypes = {
+RestaurantContainer.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.shape()),
     PropTypes.string,
     PropTypes.node,
   ]).isRequired,
   userReducer: PropTypes.shape().isRequired,
-  captureLocations: PropTypes.func.isRequired,
-  // location: PropTypes.shape().isRequired,
-  // company: PropTypes.shape().isRequired,
+  captureRestaurant: PropTypes.func.isRequired,
+  restaurant: PropTypes.shape().isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
-  captureLocations: payload => dispatch({
-    type: CAPTURE_LOCATIONS,
+  captureRestaurant: payload => dispatch({
+    type: CAPTURE_RESTAURANT,
     payload,
   }),
 });
 
 export default connect(
-  ({ userReducer, company }) => ({ userReducer, company }),
+  ({ userReducer, restaurant }) => ({ userReducer, restaurant }),
   mapDispatchToProps,
-)(withRouter(LocationsContainer));
+)(withRouter(RestaurantContainer));

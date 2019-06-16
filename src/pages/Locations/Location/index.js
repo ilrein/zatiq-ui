@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import Location from './Location';
 
 import {
-  CAPTURE_COMPANY,
+  CAPTURE_RESTAURANT,
   CAPTURE_LOCATIONS,
 } from '../../../constants';
 
@@ -12,15 +12,15 @@ export default connect(
   ({
     userReducer,
     locations,
-    company,
+    restaurant,
   }) => ({
     userReducer,
     locations,
-    company,
+    restaurant,
   }),
   dispatch => ({
-    captureCompany: payload => dispatch({
-      type: CAPTURE_COMPANY,
+    captureRestaurant: payload => dispatch({
+      type: CAPTURE_RESTAURANT,
       payload,
     }),
     captureLocations: payload => dispatch({

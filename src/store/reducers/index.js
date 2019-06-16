@@ -3,15 +3,13 @@ import {
 } from 'redux';
 
 import userReducer from './userReducer';
-import companyReducer from './companyReducer';
-import locationsReducer from './locationsReducer';
+import restaurantReducer from './restaurantReducer';
 import menusReducer from './menusReducer';
 import itemsReducer from './itemsReducer';
 
 const rootReducer = combineReducers({
   userReducer,
-  company: companyReducer,
-  locations: locationsReducer,
+  restaurant: restaurantReducer,
   menus: menusReducer,
   items: itemsReducer,
 });
