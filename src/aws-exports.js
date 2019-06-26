@@ -7,6 +7,8 @@ const awsmobile = {
     "aws_user_pools_id": "us-east-1_xt26JO3HK",
     "aws_user_pools_web_client_id": "1i5c6gh8j9b884f1dj5gnd69ek",
     "oauth": {},
+    "aws_user_files_s3_bucket": "zstorage-prod",
+    "aws_user_files_s3_bucket_region": "us-east-1",
     "aws_content_delivery_bucket": "zatiq-application-20190618184818-hostingbucket-prod",
     "aws_content_delivery_bucket_region": "us-east-1",
     "aws_content_delivery_url": "http://zatiq-application-20190618184818-hostingbucket-prod.s3-website-us-east-1.amazonaws.com"

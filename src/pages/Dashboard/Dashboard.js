@@ -64,8 +64,9 @@ const Dashboard = ({
           restaurant: {
             name,
             ownerId: user._id,
+            address,
             image,
-            phone,
+            phoneNumber: phone,
             startingTime,
             closingTime,
           },
