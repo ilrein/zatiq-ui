@@ -1,3 +1,4 @@
+// Core Libs
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import {
@@ -7,7 +8,10 @@ import {
 import fetch from 'isomorphic-fetch';
 import isNil from 'ramda/src/isNil';
 import PropTypes from 'prop-types';
+import uuidv4 from 'uuid/v4';
+import { Storage } from 'aws-amplify';
 
+// UI parts
 import fadeIn from '../../anime/fadeIn';
 import NewUserModal from '../../components/NewUserModal';
 
@@ -47,7 +51,7 @@ const Dashboard = ({
     name,
     address,
     image,
-    phone,
+    phoneNumber,
     startingTime,
     closingTime,
   ) => {
@@ -65,8 +69,8 @@ const Dashboard = ({
             name,
             ownerId: user._id,
             address,
-            image,
-            phoneNumber: phone,
+            image: null,
+            phoneNumber,
             startingTime,
             closingTime,
           },
@@ -74,11 +78,38 @@ const Dashboard = ({
       });
   
       const result = await post.json();
+
       if (result.errors) {
         console.log(result.errors); // eslint-disable-line
         return;
       }
-      captureRestaurant(result);
+
+      // upload the image after creating the restaurant
+      // namespace it with its ID
+      const PUT = await Storage.put(
+        (`${result._id}/${uuidv4()}-${image.name}`).replace(/\s/g, ''),
+        image,
+        { level: 'public' },
+      );
+  
+      const { key } = PUT; 
+
+      const updatedRestaurantWithImage = await fetch(`${API_RESTAURANT}/${result._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'jwt-token': token,
+        },
+        body: JSON.stringify({
+          restaurant: {
+            image: key,
+          },
+        }),
+      });
+
+      const finalRestaurantObject = await updatedRestaurantWithImage.json();
+
+      captureRestaurant(finalRestaurantObject);
     
       const updateUser = await fetch(`${API_USERS}/${user._id}`, {
         method: 'PUT',
@@ -88,7 +119,7 @@ const Dashboard = ({
         },
         body: JSON.stringify({
           user: {
-            restaurantId: result._id,
+            restaurantId: finalRestaurantObject._id,
           },
         }),
       });

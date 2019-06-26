@@ -9,8 +9,6 @@ import {
   Form,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import uuidv4 from 'uuid/v4';
-import { Storage } from 'aws-amplify';
 
 import { APP_NAME } from '../../constants';
 import PlacesAutoComplete from '../PlacesAutoComplete';
@@ -27,37 +25,20 @@ const NewUserModal = ({
   const [phone, setPhone] = useState('');
   const [startingTime, setStartingTime] = useState('');
   const [closingTime, setClosingTime] = useState('');
-  const [uploadingImage, setUploadingImage] = useState(false);
 
   const heading = `Welcome to ${APP_NAME}!`;
 
   const handleSubmit = async () => {
     const { formatted_address } = address;
-    /**
-     * removes any whitespace while generating a unique ID
-     */
-    try {
-      setUploadingImage(true);
-      const PUT = await Storage.put(
-        (`${uuidv4()}-${image.name}`).replace(/\s/g, ''),
-        image,
-        { level: 'public' },
-      );
-  
-      const { key } = PUT; 
-
-      onSubmit(
-        name,
-        formatted_address,
-        key,
-        phone, 
-        startingTime, 
-        closingTime,
-      );
-      setUploadingImage(false);
-    } catch (error) {
-      console.log(error); // eslint-disable-line
-    }
+    
+    onSubmit(
+      name,
+      formatted_address,
+      image,
+      phone, 
+      startingTime, 
+      closingTime,
+    );
   };
 
   return (
@@ -157,7 +138,7 @@ const NewUserModal = ({
             type="submit"
             onClick={handleSubmit}
             style={{ marginTop: '1rem' }}
-            loading={loading || uploadingImage}
+            loading={loading}
             disabled={
               name === ''
               || address.formatted_address === undefined
