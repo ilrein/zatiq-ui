@@ -15,7 +15,6 @@ import {
 import AuthContainer from '../../containers/AuthContainer';
 import UserContainer from '../../containers/UserContainer';
 import RestaurantContainer from '../../containers/RestaurantContainer';
-import LocationsContainer from '../../containers/LocationsContainer';
 import MenusContainer from '../../containers/MenusContainer';
 import ItemsContainer from '../../containers/ItemsContainer';
 // import Footer from '../../components/Footer';

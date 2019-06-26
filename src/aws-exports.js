@@ -2,16 +2,14 @@
 
 const awsmobile = {
     "aws_project_region": "us-east-1",
-    "aws_cognito_identity_pool_id": "us-east-1:280473e1-ba89-44bb-b8ad-42c2f19e7904",
+    "aws_cognito_identity_pool_id": "us-east-1:6e63fec8-a0d1-4269-a891-5ca703756db2",
     "aws_cognito_region": "us-east-1",
-    "aws_user_pools_id": "us-east-1_VKPqFnURu",
-    "aws_user_pools_web_client_id": "6b6rff4qhsbgrc2fjrpm99epnc",
+    "aws_user_pools_id": "us-east-1_xt26JO3HK",
+    "aws_user_pools_web_client_id": "1i5c6gh8j9b884f1dj5gnd69ek",
     "oauth": {},
-    "aws_user_files_s3_bucket": "zatiqappstorage-dev",
-    "aws_user_files_s3_bucket_region": "us-east-1",
-    "aws_content_delivery_bucket": "zatiq-app-hosting-bucket-dev",
+    "aws_content_delivery_bucket": "zatiq-application-20190618184818-hostingbucket-prod",
     "aws_content_delivery_bucket_region": "us-east-1",
-    "aws_content_delivery_url": "https://d1tqbyzvdf4s55.cloudfront.net"
+    "aws_content_delivery_url": "http://zatiq-application-20190618184818-hostingbucket-prod.s3-website-us-east-1.amazonaws.com"
 };
 
 

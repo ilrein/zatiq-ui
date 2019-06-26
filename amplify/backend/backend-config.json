@@ -1,16 +1,11 @@
 {
 	"auth": {
-		"cognito6caaf341": {
+		"cognito8b044cef": {
 			"service": "Cognito",
 			"providerPlugin": "awscloudformation"
 		}
 	},
-	"storage": {
-		"zatiqstorage": {
-			"service": "S3",
-			"providerPlugin": "awscloudformation"
-		}
-	},
+	"storage": {},
 	"hosting": {
 		"S3AndCloudFront": {
 			"service": "S3AndCloudFront",

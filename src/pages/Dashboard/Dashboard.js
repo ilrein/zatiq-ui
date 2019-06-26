@@ -9,7 +9,7 @@ import isNil from 'ramda/src/isNil';
 import PropTypes from 'prop-types';
 
 import fadeIn from '../../anime/fadeIn';
-import NewUserWelcome from '../../components/NewUserWelcome';
+import NewUserModal from '../../components/NewUserModal';
 
 // import MenuSection from './parts/MenuSection';
 import SalesSection from './sections/SalesSection';
@@ -115,7 +115,7 @@ const Dashboard = ({
                 {
                   isNil(restaurant._id)
                     ? (
-                      <NewUserWelcome
+                      <NewUserModal
                         open
                         onSubmit={onSubmit}
                         loading={saving}

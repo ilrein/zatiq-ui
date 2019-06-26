@@ -1,17 +1,17 @@
 import React from 'react';
 import { mount } from 'enzyme'; // eslint-disable-line
 
-import NewUserWelcome from './NewUserWelcome';
+import NewUserModal from './NewUserModal';
 
 const wrapper = mount(
-  <NewUserWelcome
+  <NewUserModal
     onSubmit={() => {}}
     open
     loading={false}
   />,
 );
 
-describe('NewUserWelcome', () => {
+describe('NewUserModal', () => {
   it('renders without crashing', () => {
     expect(wrapper).toBeTruthy();
   });

@@ -16,7 +16,7 @@ import { APP_NAME } from '../../constants';
 import PlacesAutoComplete from '../PlacesAutoComplete';
 import Dropzone from '../Dropzone';
 
-const NewUserWelcome = ({
+const NewUserModal = ({
   onSubmit,
   open,
   loading,
@@ -175,10 +175,10 @@ const NewUserWelcome = ({
   );
 };
 
-NewUserWelcome.propTypes = {
+NewUserModal.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
 };
 
-export default NewUserWelcome;
+export default NewUserModal;
