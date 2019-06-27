@@ -2,7 +2,6 @@ import React from 'react';
 import {
   Menu,
   Icon,
-  // Label,
 } from 'semantic-ui-react';
 import { Auth } from 'aws-amplify';
 import { toast } from 'react-toastify';
@@ -25,8 +24,8 @@ const Navbar = ({
       history.push('/');
       localStorage.clear();
       clearUser();
-    } catch {
-      // history.push('/');
+    } catch (e) {
+      toast.error(JSON.stringify(e));
     }
   };
 
@@ -41,6 +40,9 @@ const Navbar = ({
       <Menu.Item
         name="hamburger"
         onClick={toggleMenu}
+        style={{
+          padding: 0,
+        }}
       >
         {menuButton}
       </Menu.Item>

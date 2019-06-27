@@ -12,15 +12,19 @@ import { withRouter } from 'react-router-dom';
 import {
   APP_NAME,
 } from '../../constants';
+
+// Containers
 import AuthContainer from '../../containers/AuthContainer';
 import UserContainer from '../../containers/UserContainer';
 import RestaurantContainer from '../../containers/RestaurantContainer';
 import MenusContainer from '../../containers/MenusContainer';
 import ItemsContainer from '../../containers/ItemsContainer';
-// import Footer from '../../components/Footer';
 
+// Components
 import Navbar from '../../components/Navbar';
+import AnimatedHamburger from '../../components/AnimatedHamburger';
 
+// utils
 import fadeIn from '../../anime/fadeIn';
 
 const Wrapper = styled.div`
@@ -71,22 +75,6 @@ const MainLayout = ({ history, children }) => {
 
                     <Menu.Item
                       as="a"
-                      onClick={() => history.push('/locations')}
-                    >
-                      <Icon name="building" />
-                      Locations
-                    </Menu.Item>
-
-                    {/* <Menu.Item
-                      as="a"
-                      onClick={() => history.push('/menus')}
-                    >
-                      <Icon name="book" />
-                      Menus
-                    </Menu.Item> */}
-
-                    <Menu.Item
-                      as="a"
                       onClick={() => history.push('/items')}
                     >
                       <Icon name="coffee" />
@@ -98,7 +86,7 @@ const MainLayout = ({ history, children }) => {
                       onClick={() => history.push('/restaurant')}
                     >
                       <Icon name="building outline" />
-                      restaurant
+                      Restaurant
                     </Menu.Item>
                   </Sidebar>
 
@@ -110,9 +98,7 @@ const MainLayout = ({ history, children }) => {
                       <Navbar
                         toggleMenu={toggleVisible}
                         menuButton={(
-                          <Icon
-                            name="sidebar"
-                          />
+                          <AnimatedHamburger open={visible} />
                         )}
                       />
                       {children}
@@ -132,13 +118,9 @@ const MainLayout = ({ history, children }) => {
 MainLayout.propTypes = {
   children: PropTypes.node.isRequired,
   history: PropTypes.shape().isRequired,
-  // user: PropTypes.shape(),
-  // clearUser: PropTypes.func.isRequired,
 };
 
-// MainLayout.defaultProps = {
-//   user: {},
-// };
+MainLayout.defaultProps = {};
 
 export default connect(
   ({ userReducer }) => ({ user: userReducer.user }),
