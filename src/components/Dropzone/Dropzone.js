@@ -20,11 +20,10 @@ const Dropzone = ({
   defaultDropMessage,
 }) => {
   const onDrop = useCallback((acceptedFiles) => {
-    acceptedFiles.map((file) => { // eslint-disable-line
-      Object.assign(file, {
-        preview: URL.createObjectURL(file),
-      });
-    });
+    acceptedFiles.map(file => Object.assign(file, {
+      preview: URL.createObjectURL(file),
+    }));
+    
     handleDrop(acceptedFiles[0]);
   }, []);
 
