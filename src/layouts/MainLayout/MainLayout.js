@@ -80,7 +80,7 @@ const MainLayout = ({ history, children }) => {
 
                     <Menu.Item
                       as="a"
-                      onClick={() => pushAndToggle('/items')}
+                      onClick={() => pushAndToggle('/dishes')}
                     >
                       <Icon name="coffee" />
                       Dishes

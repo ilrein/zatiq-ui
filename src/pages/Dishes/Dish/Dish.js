@@ -42,7 +42,7 @@ const SpreadHeader = styled.div`
   align-items: center;
 `;
 
-const Item = ({
+const Dish = ({
   userReducer,
   items,
   match,
@@ -302,7 +302,7 @@ const Item = ({
   );
 };
 
-Item.propTypes = {
+Dish.propTypes = {
   items: PropTypes.shape().isRequired,
   userReducer: PropTypes.shape().isRequired,
   match: PropTypes.shape().isRequired,
@@ -310,4 +310,4 @@ Item.propTypes = {
   captureItems: PropTypes.func.isRequired,
 };
 
-export default Item;
+export default Dish;

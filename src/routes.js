@@ -21,8 +21,8 @@ import Locations from './pages/Locations';
 import Location from './pages/Locations/Location';
 import Reservations from './pages/Reservations';
 import Menus from './pages/Menus';
-import Items from './pages/Items';
-import Item from './pages/Items/Item';
+import Dishes from './pages/Dishes';
+import Dish from './pages/Dishes/Dish';
 
 // Layouts
 import MainLayout from './layouts/MainLayout';
@@ -96,14 +96,14 @@ const Routes = () => (
 
           <Route
             exact
-            path="/items"
-            component={Items}
+            path="/dishes"
+            component={Dishes}
           />
 
           <Route
             exact
-            path="/items/:id"
-            component={Item}
+            path="/dishes/:id"
+            component={Dish}
           />
 
           <Route

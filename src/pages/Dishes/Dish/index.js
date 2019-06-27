@@ -1,7 +1,10 @@
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
-import { CAPTURE_ITEMS } from '../../constants';
-import Items from './Items';
+import Dish from './Dish';
+import {
+  CAPTURE_ITEMS,
+} from '../../../constants';
 
 export default connect(
   ({
@@ -17,4 +20,4 @@ export default connect(
       payload,
     }),
   }),
-)(Items);
+)(withRouter(Dish));

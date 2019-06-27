@@ -1,10 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme'; // eslint-disable-line
 
-import Items from './Items';
+import Dishes from './Dishes';
 
 const wrapper = shallow(
-  <Items
+  <Dishes
     items={{
       totalDocs: 0,
       docs: [],
