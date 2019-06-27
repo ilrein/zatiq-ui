@@ -29,13 +29,6 @@ console.log('Connected to', API_URL, pkg.version); // eslint-disable-line
 
 const HomePage = () => (
   <Wrapper>
-    {/* 
-    <Link to="/register">
-      Register
-    </Link>
-    <Link to="/login">
-      Login
-    </Link> */}
     <Grid>
       <Grid.Column
         computer="8"

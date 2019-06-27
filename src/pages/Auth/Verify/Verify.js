@@ -1,23 +1,34 @@
 import React, { Component } from 'react';
 import {
-  Container,
-  Header,
+  Grid,
+  Image,
   Form,
   Message,
+  Header,
 } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { Auth } from 'aws-amplify';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 
+// utils
 import fadeIn from '../../../anime/fadeIn';
+import PrimaryButton from '../../../components/PrimaryButton';
+
+// images
+import Logo from '../../../images/logo.png';
+import WaiterService from '../../../images/waiter-service.png';
 
 const Wrapper = styled.div`
   background-color: #eee;
   padding-top: 2rem;
   min-height: 100%;
   animation: ${fadeIn} 1s ease;
+`;
+
+const Caption = styled.p`
+  padding: 0.5rem 0;
 `;
 
 class Verify extends Component {
@@ -38,7 +49,6 @@ class Verify extends Component {
     const {
       email,
       verificationCode,
-      // loading,
     } = this.state;
 
     this.setState(prevState => ({
@@ -73,49 +83,91 @@ class Verify extends Component {
 
     return (
       <Wrapper>
-        <Container>
-          <Header as="h1">
-            A verification code has been sent to your email.
-          </Header>
-
-          {
-            errorMsg
-              ? (
-                <Message error>
-                  {errorMsg}
-                </Message>
-              )
-              : null
-          }
-
-          <Form>
-            <Form.Input
-              label="Email"
-              type="email"
-              value={email}
-              required
-              name="email"
-              onChange={(event, data) => this.setValue(data)}
+        <Grid>
+          <Grid.Column
+            computer="8"
+            tablet="8"
+            mobile="16"
+            style={{
+              padding: '4rem',
+            }}
+          >
+            <Image
+              src={Logo}
+              size="small"
+              style={{
+                marginBottom: '3rem',
+              }}
             />
 
-            <Form.Input
-              label="Verification Code"
-              type="text"
-              value={verificationCode}
-              required
-              name="verificationCode"
-              onChange={(event, data) => this.setValue(data)}
-            />
+            <Header as="h1">
+              Thanks for signing up to be a Zatiq Partner
+            </Header>
 
-            <Form.Button
-              primary
-              onClick={this.submit}
-              loading={loading}
-            >
-              Submit
-            </Form.Button>
-          </Form>
-        </Container>
+            <p>
+              A confirmation code has been sent to your email.
+            </p>
+
+            {
+              errorMsg
+                ? (
+                  <Message error>
+                    {errorMsg}
+                  </Message>
+                )
+                : null
+            }
+
+            <Form>
+              <Form.Input
+                label="Email"
+                type="email"
+                value={email}
+                required
+                name="email"
+                onChange={(event, data) => this.setValue(data)}
+                placeholder="hello@gmail.com"
+              />
+
+              <Form.Input
+                label="Verification Code"
+                type="text"
+                value={verificationCode}
+                required
+                name="verificationCode"
+                onChange={(event, data) => this.setValue(data)}
+                placeholder="413231"
+              />
+
+              <PrimaryButton
+                primary
+                onClick={this.submit}
+                loading={loading}
+                style={{ marginBottom: '6rem' }}
+              >
+                Submit
+              </PrimaryButton>
+
+              <Form.Field>
+                Already a member? Log in
+                <Link to="/">
+                  &nbsp;here
+                </Link>
+              </Form.Field>
+            </Form>
+          </Grid.Column>
+
+          <Grid.Column
+            computer="8"
+            tablet="8"
+            mobile="16"
+          >
+            <Image
+              src={WaiterService}
+              size="huge"
+            />
+          </Grid.Column>
+        </Grid>
       </Wrapper>
     );
   }

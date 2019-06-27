@@ -22,3 +22,6 @@ export const API_RESTAURANT = `${API_URL}/api/restaurants`;
 export const API_LOCATIONS = `${API_URL}/api/locations`;
 export const API_MENUS = `${API_URL}/api/menus`;
 export const API_ITEMS = `${API_URL}/api/items`;
+
+// Kulers
+export const ORANGE = '#F05E63';

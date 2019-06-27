@@ -6,11 +6,12 @@ import {
 } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { Auth } from 'aws-amplify';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 
 import fadeIn from '../../../anime/fadeIn';
+import PrimaryButton from '../../../components/PrimaryButton';
 
 const Wrapper = styled.div`
   animation: ${fadeIn} 1s ease;
@@ -93,9 +94,19 @@ class Login extends Component {
               onChange={(event, data) => this.setValue(data)}
             />
 
+            <PrimaryButton
+              onClick={this.handleSubmit}
+              color="pink"
+              loading={loading}
+              style={{ marginBottom: '8rem' }}
+            >
+              Login
+            </PrimaryButton>
+
             <Form.Field>
+              Not a member yet? Sign up
               <Link to="/register">
-                Register an account
+                &nbsp;here
               </Link>
             </Form.Field>
 
@@ -104,14 +115,6 @@ class Login extends Component {
                 Verify an email
               </Link>
             </Form.Field>
-
-            <Form.Button
-              onClick={this.handleSubmit}
-              primary
-              loading={loading}
-            >
-              Submit
-            </Form.Button>
           </Form>
         </Segment>
       </Wrapper>

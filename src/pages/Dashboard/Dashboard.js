@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import {
   Header,
   Divider,
+  Segment,
+  Image,
 } from 'semantic-ui-react';
 import fetch from 'isomorphic-fetch';
 import isNil from 'ramda/src/isNil';
@@ -162,7 +164,11 @@ const Dashboard = ({
                 <DishesSection />
               </InnerWrapper>
             )
-            : <div>user id not found</div>
+            : (
+              <Segment loading>
+                <Image src="https://via.placeholder.com/500" />
+              </Segment>
+            )
         }
       </Wrapper>
     </>
