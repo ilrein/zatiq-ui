@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import {
-  Container,
   Form,
-  Header,
   Segment,
-  Divider,
   Message,
 } from 'semantic-ui-react';
 import styled from 'styled-components';
@@ -16,9 +13,6 @@ import { toast } from 'react-toastify';
 import fadeIn from '../../../anime/fadeIn';
 
 const Wrapper = styled.div`
-  height: 100%;
-  padding: 2rem 0;
-  background-color: #eee;
   animation: ${fadeIn} 1s ease;
 `;
 
@@ -66,68 +60,60 @@ class Login extends Component {
   render() {
     const {
       loading,
-      // email,
-      // password,
       errorMsg,
     } = this.state;
 
     return (
       <Wrapper>
-        <Container>
-          <Header as="h1">
-            Login
-          </Header>
-          <Segment
-            color="blue"
-          >
-            {
-              errorMsg
-                ? (
-                  <Message error>
-                    {errorMsg}
-                  </Message>
-                )
-                : null
-            }
-            <Form>
-              <Form.Input
-                label="Email"
-                type="email"
-                name="email"
-                onChange={(event, data) => this.setValue(data)}
-              />
+        <Segment
+          basic
+          style={{ padding: 0 }}
+        >
+          {
+            errorMsg
+              ? (
+                <Message error>
+                  {errorMsg}
+                </Message>
+              )
+              : null
+          }
+          <Form>
+            <Form.Input
+              label="Email"
+              type="email"
+              name="email"
+              onChange={(event, data) => this.setValue(data)}
+            />
 
-              <Form.Input
-                label="Password"
-                type="password"
-                name="password"
-                onChange={(event, data) => this.setValue(data)}
-              />
+            <Form.Input
+              label="Password"
+              type="password"
+              name="password"
+              onChange={(event, data) => this.setValue(data)}
+            />
 
-              <Divider />
+            <Form.Field>
+              <Link to="/register">
+                Register an account
+              </Link>
+            </Form.Field>
 
-              <Form.Field>
-                <Link to="/register">
-                  Register an account
-                </Link>
-              </Form.Field>
+            <Form.Field>
+              <Link to="/verify">
+                Verify an email
+              </Link>
+            </Form.Field>
 
-              <Form.Field>
-                <Link to="/verify">
-                  Verify an email
-                </Link>
-              </Form.Field>
-
-              <Form.Button
-                onClick={this.handleSubmit}
-                primary
-                loading={loading}
-              >
-                Submit
-              </Form.Button>
-            </Form>
-          </Segment>
-        </Container>
+            <Form.Button
+              onClick={this.handleSubmit}
+              primary
+              loading={loading}
+            >
+              Submit
+            </Form.Button>
+          </Form>
+        </Segment>
       </Wrapper>
     );
   }
