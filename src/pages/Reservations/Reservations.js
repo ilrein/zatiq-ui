@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import {
   Form,
   Button,
+  Header,
 } from 'semantic-ui-react';
 import styled from 'styled-components';
 import fetch from 'isomorphic-fetch';
@@ -40,6 +41,9 @@ const Reservations = ({
   return (
     <Wrapper>
       <InnerWrapper>
+        <Header>
+          Reservations
+        </Header>
         Coming soon.
       </InnerWrapper>
     </Wrapper>

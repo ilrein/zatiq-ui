@@ -40,6 +40,11 @@ const MainLayout = ({ history, children }) => {
 
   const toggleVisible = () => setVisible(!visible);
 
+  const pushAndToggle = (path) => {
+    toggleVisible();
+    history.push(path);
+  };
+
   return (
     <AuthContainer>
       <UserContainer>
@@ -59,7 +64,7 @@ const MainLayout = ({ history, children }) => {
                   >
                     <Menu.Item
                       as="a"
-                      onClick={() => history.push('/dashboard')}
+                      onClick={() => pushAndToggle('/dashboard')}
                       style={{ fontSize: '1.75rem' }}
                     >
                       {APP_NAME}
@@ -67,7 +72,7 @@ const MainLayout = ({ history, children }) => {
 
                     <Menu.Item
                       as="a"
-                      onClick={() => history.push('/reservations')}
+                      onClick={() => pushAndToggle('/reservations')}
                     >
                       <Icon name="hourglass outline" />
                       Reservations
@@ -75,7 +80,7 @@ const MainLayout = ({ history, children }) => {
 
                     <Menu.Item
                       as="a"
-                      onClick={() => history.push('/items')}
+                      onClick={() => pushAndToggle('/items')}
                     >
                       <Icon name="coffee" />
                       Dishes
@@ -83,7 +88,7 @@ const MainLayout = ({ history, children }) => {
 
                     <Menu.Item
                       as="a"
-                      onClick={() => history.push('/restaurant')}
+                      onClick={() => pushAndToggle('/restaurant')}
                     >
                       <Icon name="building outline" />
                       Restaurant

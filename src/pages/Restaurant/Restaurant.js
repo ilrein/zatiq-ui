@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {
   Form,
   Button,
+  Header,
 } from 'semantic-ui-react';
 import styled from 'styled-components';
 import fetch from 'isomorphic-fetch';
@@ -64,6 +65,11 @@ const Restaurant = ({
   return (
     <Wrapper>
       <InnerWrapper>
+        <Header>
+          Edit
+          &nbsp;
+          {restaurant.name}
+        </Header>
         <Form>
           <Form.Field>
             <label>
