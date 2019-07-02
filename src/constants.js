@@ -1,6 +1,5 @@
 /*
- * needs to be swapped when deploying to prod
- * API_URL
+ * API_URL needs to be swapped when deploying to prod
  */
 
 // export const API_URL = process.env.REACT_APP_API_URL_PROD;

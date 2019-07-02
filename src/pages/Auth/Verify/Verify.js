@@ -61,7 +61,7 @@ class Verify extends Component {
       )
         .then(() => {
           toast.success(`Verified ${email}`);
-          history.push('/login');
+          history.push('/');
         })
         .catch(({ message }) => {
           this.setState(prevState => ({
