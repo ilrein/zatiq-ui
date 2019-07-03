@@ -19,7 +19,7 @@ import fadeIn from '../../../anime/fadeIn';
 import UpdateItemModal from '../../../components/UpdateItemModal';
 import ConfirmDeleteModal from '../../../components/ConfirmDeleteModal';
 import {
-  API_ITEMS,
+  API_DISHES,
 } from '../../../constants';
 
 const find = require('ramda/src/find');
@@ -113,7 +113,7 @@ const Dish = ({
         IMAGE_URI = key;
       }
 
-      const updatedDishItem = await fetch(`${API_ITEMS}/${ITEM._id}`, {
+      const updatedDishItem = await fetch(`${API_DISHES}/${ITEM._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -131,7 +131,7 @@ const Dish = ({
 
       const updatedDishItemPayload = await updatedDishItem.json();
 
-      const getItemsAgain = await fetch(`${API_ITEMS}?restaurantId=${restaurantId}&limit=50`, {
+      const getItemsAgain = await fetch(`${API_DISHES}?restaurantId=${restaurantId}&limit=50`, {
         headers: {
           'Content-Type': 'application/json',
           'jwt-token': jwtToken,
@@ -159,7 +159,7 @@ const Dish = ({
       setDeleting(true);
       await Storage.remove(ITEM.image);
 
-      await fetch(`${API_ITEMS}/${ITEM._id}`, {
+      await fetch(`${API_DISHES}/${ITEM._id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -167,7 +167,7 @@ const Dish = ({
         },
       });
 
-      const getItemsAgain = await fetch(API_ITEMS, {
+      const getItemsAgain = await fetch(API_DISHES, {
         headers: {
           'Content-Type': 'application/json',
           'jwt-token': jwtToken,

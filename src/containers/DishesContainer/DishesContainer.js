@@ -9,14 +9,14 @@ import isNil from 'ramda/src/isNil';
 import { withRouter } from 'react-router-dom';
 
 import {
-  API_MENUS,
-  CAPTURE_MENUS,
+  API_DISHES,
+  CAPTURE_ITEMS,
 } from '../../constants';
 
-const MenusContainer = ({
+const DishesContainer = ({
   children,
   userReducer,
-  captureMenus,
+  captureItems,
   // location,
 }) => {
   const { user, cognitoUser } = userReducer;
@@ -26,10 +26,10 @@ const MenusContainer = ({
    * Check for restaurant
    * @param { sub } String
    */
-  const getMenusByrestaurantId = async () => {
+  const getItemsByrestaurantId = async () => {
     if (!isNil(restaurantId)) {
       try {
-        const get = await fetch(`${API_MENUS}?restaurantId=${restaurantId}`, {
+        const get = await fetch(`${API_DISHES}?restaurantId=${restaurantId}&limit=50`, {
           headers: {
             'Content-Type': 'application/json',
             'jwt-token': jwtToken,
@@ -37,7 +37,7 @@ const MenusContainer = ({
         });
 
         const result = await get.json();
-        captureMenus(result);
+        captureItems(result);
       } catch (error) {
         console.log(error); // eslint-disable-line
       }
@@ -45,7 +45,7 @@ const MenusContainer = ({
   };
 
   useEffect(() => {
-    getMenusByrestaurantId();
+    getItemsByrestaurantId();
   }, [restaurantId]);
 
   return (
@@ -55,21 +55,21 @@ const MenusContainer = ({
   );
 };
 
-MenusContainer.propTypes = {
+DishesContainer.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.shape()),
     PropTypes.string,
     PropTypes.node,
   ]).isRequired,
   userReducer: PropTypes.shape().isRequired,
-  captureMenus: PropTypes.func.isRequired,
+  captureItems: PropTypes.func.isRequired,
   // location: PropTypes.shape().isRequired,
   // restaurant: PropTypes.shape().isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
-  captureMenus: payload => dispatch({
-    type: CAPTURE_MENUS,
+  captureItems: payload => dispatch({
+    type: CAPTURE_ITEMS,
     payload,
   }),
 });
@@ -77,4 +77,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   ({ userReducer, restaurant }) => ({ userReducer, restaurant }),
   mapDispatchToProps,
-)(withRouter(MenusContainer));
+)(withRouter(DishesContainer));

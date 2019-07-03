@@ -14,7 +14,7 @@ import uuidv4 from 'uuid/v4';
 
 import fadeIn from '../../anime/fadeIn';
 import {
-  API_ITEMS,
+  API_DISHES,
 } from '../../constants';
 import NewItemModal from '../../components/NewItemModal';
 import DishCard from '../../components/DishCard';
@@ -69,7 +69,7 @@ const Items = ({
         IMAGE_URI = key;
       }
       
-      await fetch(API_ITEMS, {
+      await fetch(API_DISHES, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -86,7 +86,7 @@ const Items = ({
         }),
       });
 
-      const getItems = await fetch(API_ITEMS, {
+      const getItems = await fetch(API_DISHES, {
         headers: {
           'Content-Type': 'application/json',
           'jwt-token': jwtToken,

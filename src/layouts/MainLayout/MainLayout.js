@@ -17,8 +17,7 @@ import {
 import AuthContainer from '../../containers/AuthContainer';
 import UserContainer from '../../containers/UserContainer';
 import RestaurantContainer from '../../containers/RestaurantContainer';
-import MenusContainer from '../../containers/MenusContainer';
-import ItemsContainer from '../../containers/ItemsContainer';
+import DishesContainer from '../../containers/DishesContainer';
 
 // Components
 import Navbar from '../../components/Navbar';
@@ -49,71 +48,69 @@ const MainLayout = ({ history, children }) => {
     <AuthContainer>
       <UserContainer>
         <RestaurantContainer>
-          <MenusContainer>
-            <ItemsContainer>
-              <Wrapper>
-                <Sidebar.Pushable>
-                  <Sidebar
-                    as={Menu}
-                    animation="push"
-                    icon="labeled"
-                    inverted
-                    vertical
-                    visible={visible}
-                    width="thin"
+          <DishesContainer>
+            <Wrapper>
+              <Sidebar.Pushable>
+                <Sidebar
+                  as={Menu}
+                  animation="push"
+                  icon="labeled"
+                  inverted
+                  vertical
+                  visible={visible}
+                  width="thin"
+                >
+                  <Menu.Item
+                    as="a"
+                    onClick={() => pushAndToggle('/dashboard')}
+                    style={{ fontSize: '1.75rem' }}
                   >
-                    <Menu.Item
-                      as="a"
-                      onClick={() => pushAndToggle('/dashboard')}
-                      style={{ fontSize: '1.75rem' }}
-                    >
-                      {APP_NAME}
-                    </Menu.Item>
+                    {APP_NAME}
+                  </Menu.Item>
 
-                    <Menu.Item
-                      as="a"
-                      onClick={() => pushAndToggle('/reservations')}
-                    >
-                      <Icon name="hourglass outline" />
-                      Reservations
-                    </Menu.Item>
-
-                    <Menu.Item
-                      as="a"
-                      onClick={() => pushAndToggle('/dishes')}
-                    >
-                      <Icon name="coffee" />
-                      Dishes
-                    </Menu.Item>
-
-                    <Menu.Item
-                      as="a"
-                      onClick={() => pushAndToggle('/restaurant')}
-                    >
-                      <Icon name="building outline" />
-                      Restaurant
-                    </Menu.Item>
-                  </Sidebar>
-
-                  <Sidebar.Pusher
-                    dimmed={visible}
-                    onClick={visible ? toggleVisible : null}
+                  <Menu.Item
+                    as="a"
+                    onClick={() => pushAndToggle('/reservations')}
                   >
-                    <Section>
-                      <Navbar
-                        toggleMenu={toggleVisible}
-                        menuButton={(
-                          <AnimatedHamburger open={visible} />
-                        )}
-                      />
-                      {children}
-                      {/* <Footer /> */}
-                    </Section>
-                  </Sidebar.Pusher>
-                </Sidebar.Pushable>
-              </Wrapper>
-            </ItemsContainer>
-          </MenusContainer>
+                    <Icon name="hourglass outline" />
+                    Reservations
+                  </Menu.Item>
+
+                  <Menu.Item
+                    as="a"
+                    onClick={() => pushAndToggle('/dishes')}
+                  >
+                    <Icon name="coffee" />
+                    Dishes
+                  </Menu.Item>
+
+                  <Menu.Item
+                    as="a"
+                    onClick={() => pushAndToggle('/restaurant')}
+                  >
+                    <Icon name="building outline" />
+                    Restaurant
+                  </Menu.Item>
+                </Sidebar>
+
+                <Sidebar.Pusher
+                  dimmed={visible}
+                  onClick={visible ? toggleVisible : null}
+                >
+                  <Section>
+                    <Navbar
+                      toggleMenu={toggleVisible}
+                      menuButton={(
+                        <AnimatedHamburger open={visible} />
+                      )}
+                    />
+                    {children}
+                    {/* <Footer /> */}
+                  </Section>
+                </Sidebar.Pusher>
+              </Sidebar.Pushable>
+            </Wrapper>
+          </DishesContainer>
         </RestaurantContainer>
       </UserContainer>
     </AuthContainer>
