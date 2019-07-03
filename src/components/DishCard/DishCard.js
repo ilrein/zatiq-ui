@@ -25,8 +25,6 @@ const DishCard = ({ doc }) => {
   const [fetchingImage, setFetchingImage] = useState(false);
   const [image, setImage] = useState(null);
 
-  // console.log(doc);
-
   const getImage = async () => {
     setFetchingImage(true);
     try {

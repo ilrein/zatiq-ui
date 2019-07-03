@@ -10,9 +10,9 @@ import Welcome from './welcome';
 
 import InitialLaunchModal from '../src/components/InitialLaunchModal/InitialLaunchModal';
 import NewDishModal from '../src/components/NewDishModal';
-import DynamicSizeModal from '../src/components/DynamicSizeModal';
+import DynamicSizeFormInput from '../src/components/DynamicSizeFormInput';
 import DynamicIngredientModal from '../src/components/DynamicIngredientModal';
-import NewTagModal from '../src/components/NewTagModal';
+import ImageContainer from '../src/containers/ImageContainer';
 
 storiesOf('Welcome', module)
   .add('to Storybook', () => <Welcome />);
@@ -31,9 +31,9 @@ storiesOf('NewDishModal', module)
     />
   ));
 
-storiesOf('DynamicSizeModal', module)
+storiesOf('DynamicSizeFormInput', module)
   .add('Open', () => (
-    <DynamicSizeModal
+    <DynamicSizeFormInput
       open
     />
   ));
@@ -45,9 +45,7 @@ storiesOf('DynamicIngredientModal', module)
     />
   ));
 
-storiesOf('NewTagModal', module)
-  .add('Open', () => (
-    <NewTagModal
-      open
-    />
+storiesOf('ImageContainer', module)
+  .add('Without imageKey', () => (
+    <ImageContainer />
   ));
