@@ -14,7 +14,7 @@ const DishesSection = ({
   <Grid>
     <Grid.Row columns="1">
       <Grid.Column>
-        <Link to="/items">
+        <Link to="/dishes">
           <Header>
             Dishes
           </Header>
@@ -22,7 +22,7 @@ const DishesSection = ({
         {
           items.totalDocs === 0
             ? (
-              <Link to="/items">
+              <Link to="/dishes">
                 <div>
                   Add your first dish now.
                 </div>

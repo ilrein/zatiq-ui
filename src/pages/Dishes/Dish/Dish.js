@@ -179,7 +179,7 @@ const Dish = ({
 
       setDeleting(false);
       setDeleteModalOpen(false);
-      history.push('/items');
+      history.push('/dishes');
     } catch (error) {
       console.log(error); // eslint-disable-line
     }

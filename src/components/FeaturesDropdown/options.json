@@ -1,0 +1,24 @@
+{
+  "options": [
+    {
+      "key": "FAMILY_FRIENDLY",
+      "text": "Family Friendly",
+      "value": "FAMILY_FRIENDLY"
+    },
+    {
+      "key": "WIFI",
+      "text": "Wi-Fi",
+      "value": "WIFI"
+    },
+    {
+      "key": "WHEELCHAIR_ACCESSIBLE",
+      "text": "Wheelchair Accessible",
+      "value": "WHEELCHAIR_ACCESSIBLE"
+    },
+    {
+      "key": "PATIO",
+      "text": "Patio",
+      "value": "PATIO"
+    }
+  ]
+}

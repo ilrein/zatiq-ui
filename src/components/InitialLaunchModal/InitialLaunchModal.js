@@ -15,6 +15,7 @@ import { APP_NAME } from '../../constants';
 
 // components
 import CuisineDropdown from '../CuisineDropdown';
+import FeaturesDropdown from '../FeaturesDropdown';
 import PlacesAutoComplete from '../PlacesAutoComplete';
 import Dropzone from '../Dropzone';
 
@@ -34,6 +35,9 @@ const InitialLaunchModal = ({
   const [image, setImage] = useState(null);
   const [phone, setPhone] = useState('');
 
+  // features
+  const [features, setFeatures] = useState([]);
+
   // prices
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
@@ -52,6 +56,7 @@ const InitialLaunchModal = ({
       formatted_address,
       description,
       cuisineType,
+      features,
       image,
       phone,
       minPrice,
@@ -101,7 +106,6 @@ const InitialLaunchModal = ({
             value={description}
             label="Description"
             placeholder={copy.descriptionPlaceholder}
-            fluid
             disabled={loading}
             required
           />
@@ -112,6 +116,18 @@ const InitialLaunchModal = ({
             </label>
             <CuisineDropdown
               onChange={(event, { value }) => setCuisineType(value)}
+              fluid
+              required
+              disabled={loading}
+            />
+          </div>
+
+          <div className="field">
+            <label>
+              Features
+            </label>
+            <FeaturesDropdown
+              onChange={(event, { value }) => setFeatures(value)}
               fluid
               required
               disabled={loading}

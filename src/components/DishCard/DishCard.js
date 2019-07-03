@@ -44,7 +44,7 @@ const DishCard = ({ doc }) => {
 
   return (
     <Link
-      to={`/items/${doc._id}`}
+      to={`/dishes/${doc._id}`}
       key={doc._id}
       style={{ height: 'max-content' }}
     >
