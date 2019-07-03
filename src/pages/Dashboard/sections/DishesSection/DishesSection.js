@@ -14,11 +14,9 @@ const DishesSection = ({
   <Grid>
     <Grid.Row columns="1">
       <Grid.Column>
-        <Link to="/dishes">
-          <Header>
-            Dishes
-          </Header>
-        </Link>
+        <Header>
+          Dishes
+        </Header>
         {
           items.totalDocs === 0
             ? (
