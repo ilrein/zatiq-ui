@@ -15,7 +15,7 @@ import { Storage } from 'aws-amplify';
 
 // UI parts
 import fadeIn from '../../anime/fadeIn';
-import NewUserModal from '../../components/NewUserModal';
+import InitialLaunchModal from '../../components/InitialLaunchModal';
 
 // import MenuSection from './parts/MenuSection';
 import SalesSection from './sections/SalesSection';
@@ -53,8 +53,11 @@ const Dashboard = ({
     name,
     address,
     description,
+    cuisineType,
     image,
     phoneNumber,
+    minPrice,
+    maxPrice,
     startingTime,
     closingTime,
   ) => {
@@ -73,8 +76,11 @@ const Dashboard = ({
             ownerId: user._id,
             address,
             description,
+            cuisineType,
             image: null,
             phoneNumber,
+            priceRangeMin: minPrice,
+            priceRangeMax: maxPrice,
             startingTime,
             closingTime,
           },
@@ -151,7 +157,7 @@ const Dashboard = ({
                 {
                   isNil(restaurant._id)
                     ? (
-                      <NewUserModal
+                      <InitialLaunchModal
                         open
                         onSubmit={onSubmit}
                         loading={saving}

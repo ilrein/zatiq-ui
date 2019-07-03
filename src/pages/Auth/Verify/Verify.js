@@ -27,10 +27,6 @@ const Wrapper = styled.div`
   animation: ${fadeIn} 1s ease;
 `;
 
-const Caption = styled.p`
-  padding: 0.5rem 0;
-`;
-
 class Verify extends Component {
   state = {
     loading: false,

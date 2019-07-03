@@ -14,13 +14,14 @@ import PropTypes from 'prop-types';
 import { APP_NAME } from '../../constants';
 
 // components
+import CuisineDropdown from '../CuisineDropdown';
 import PlacesAutoComplete from '../PlacesAutoComplete';
 import Dropzone from '../Dropzone';
 
 // copy
 import { copy } from './copy.json';
 
-const NewUserModal = ({
+const InitialLaunchModal = ({
   onSubmit,
   open,
   loading,
@@ -29,8 +30,15 @@ const NewUserModal = ({
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
   const [description, setDescription] = useState('');
+  const [cuisineType, setCuisineType] = useState('');
   const [image, setImage] = useState(null);
   const [phone, setPhone] = useState('');
+
+  // prices
+  const [minPrice, setMinPrice] = useState('');
+  const [maxPrice, setMaxPrice] = useState('');
+
+  // start/close times
   const [startingTime, setStartingTime] = useState('');
   const [closingTime, setClosingTime] = useState('');
 
@@ -43,8 +51,11 @@ const NewUserModal = ({
       name,
       formatted_address,
       description,
+      cuisineType,
       image,
-      phone, 
+      phone,
+      minPrice,
+      maxPrice,
       startingTime, 
       closingTime,
     );
@@ -87,13 +98,25 @@ const NewUserModal = ({
 
           <Form.TextArea
             onChange={(event, { value }) => setDescription(value)}
-            value={phone}
+            value={description}
             label="Description"
             placeholder={copy.descriptionPlaceholder}
             fluid
             disabled={loading}
             required
           />
+
+          <div className="field required">
+            <label>
+              Cuisine Type
+            </label>
+            <CuisineDropdown
+              onChange={(event, { value }) => setCuisineType(value)}
+              fluid
+              required
+              disabled={loading}
+            />
+          </div>
 
           <div className="field required">
             <label>
@@ -129,7 +152,38 @@ const NewUserModal = ({
             disabled={loading}
             required
             type="tel"
+            minLength={10}
+            maxLength={12}
           />
+
+          <Form.Group widths="equal">
+            <Form.Input
+              onChange={(event, { value }) => setMinPrice(value)}
+              value={minPrice}
+              label="Min. Price"
+              fluid
+              disabled={loading}
+              required
+              type="number"
+              placeholder="11.99"
+              min="0.00"
+              max="100.00"
+              step="0.01"
+            />
+            <Form.Input
+              onChange={(event, { value }) => setMaxPrice(value)}
+              value={maxPrice}
+              label="Max Price"
+              fluid
+              disabled={loading}
+              required
+              type="number"
+              placeholder="34.99"
+              min="0.00"
+              max="100.00"
+              step="0.01"
+            />
+          </Form.Group>
 
           <Form.Group widths="equal">
             <Form.Input
@@ -161,8 +215,12 @@ const NewUserModal = ({
             disabled={
               name === ''
               || address.formatted_address === undefined
+              || description === null
               || image === null
+              || cuisineType === ''
               || phone === ''
+              || minPrice === ''
+              || maxPrice === ''
               || startingTime === ''
               || closingTime === ''
             }
@@ -175,10 +233,10 @@ const NewUserModal = ({
   );
 };
 
-NewUserModal.propTypes = {
+InitialLaunchModal.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
 };
 
-export default NewUserModal;
+export default InitialLaunchModal;

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import NewUserModal from './NewUserModal';
+import InitialLaunchModal from './InitialLaunchModal';
 
 export default connect(
   ({
@@ -10,4 +10,4 @@ export default connect(
     userReducer,
     restaurantReducer,
   }),
-)(NewUserModal);
+)(InitialLaunchModal);

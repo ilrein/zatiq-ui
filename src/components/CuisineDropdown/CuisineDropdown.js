@@ -8,6 +8,7 @@ const CuisineDropdown = ({ ...restProps }) => (
     fluid
     options={options}
     selection
+    search
     placeholder="Italian"
     {...restProps}
   />
