@@ -1,0 +1,54 @@
+{
+  "options": [
+    {
+      "key": "AMERICAN",
+      "text": "American",
+      "value": "AMERICAN"
+    },
+    {
+      "key": "CHINESE",
+      "text": "Chinese",
+      "value": "CHINESE"
+    },
+    {
+      "key": "MEXICAN",
+      "text": "Mexican",
+      "value": "MEXICAN"
+    },
+    {
+      "key": "ITALIAN",
+      "text": "Italian",
+      "value": "ITALIAN"
+    },
+    {
+      "key": "GREEK",
+      "text": "Greek",
+      "value": "GREEK"
+    },
+    {
+      "key": "THAI",
+      "text": "Thai",
+      "value": "THAI"
+    },
+    {
+      "key": "INDIAN",
+      "text": "Indian",
+      "value": "INDIAN"
+    },
+    {
+      "key": "MEDITERRANEAN",
+      "text": "Meditteranean",
+      "value": "MEDITERRANEAN"
+    },
+    {
+      "key": "MIDDLE_EASTERN",
+      "text": "Middle Eastern",
+      "value": "MIDDLE_EASTERN"
+    },
+    {
+      "key": "RUSSIAN",
+      "text": "Russian",
+      "value": "RUSSIAN"
+    }
+  ]
+}

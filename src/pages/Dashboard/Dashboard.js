@@ -52,6 +52,7 @@ const Dashboard = ({
   const onSubmit = async (
     name,
     address,
+    description,
     image,
     phoneNumber,
     startingTime,
@@ -71,6 +72,7 @@ const Dashboard = ({
             name,
             ownerId: user._id,
             address,
+            description,
             image: null,
             phoneNumber,
             startingTime,

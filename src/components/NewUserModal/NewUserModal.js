@@ -10,17 +10,25 @@ import {
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
+// constants
 import { APP_NAME } from '../../constants';
+
+// components
 import PlacesAutoComplete from '../PlacesAutoComplete';
 import Dropzone from '../Dropzone';
+
+// copy
+import { copy } from './copy.json';
 
 const NewUserModal = ({
   onSubmit,
   open,
   loading,
 }) => {
+  // form values
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
+  const [description, setDescription] = useState('');
   const [image, setImage] = useState(null);
   const [phone, setPhone] = useState('');
   const [startingTime, setStartingTime] = useState('');
@@ -34,6 +42,7 @@ const NewUserModal = ({
     onSubmit(
       name,
       formatted_address,
+      description,
       image,
       phone, 
       startingTime, 
@@ -75,6 +84,16 @@ const NewUserModal = ({
               placeholder="Location Address"
             />
           </div>
+
+          <Form.TextArea
+            onChange={(event, { value }) => setDescription(value)}
+            value={phone}
+            label="Description"
+            placeholder={copy.descriptionPlaceholder}
+            fluid
+            disabled={loading}
+            required
+          />
 
           <div className="field required">
             <label>

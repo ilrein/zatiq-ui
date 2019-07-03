@@ -41,7 +41,7 @@ const Dropzone = ({
       <Segment placeholder>
         <input {...getInputProps()} />
         <Heading icon>
-          <Icon name="pdf file outline" />
+          <Icon name="image outline" />
           {
             isDragActive
               ? <p>Drop the file here ...</p>
