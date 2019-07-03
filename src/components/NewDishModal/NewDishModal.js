@@ -14,6 +14,7 @@ import styled from 'styled-components';
 
 // Components
 import Dropzone from '../Dropzone';
+import DynamicSizeFormInput from '../DynamicSizeFormInput';
 
 const SpreadHeader = styled(Header)`
   display: flex !important;
@@ -33,7 +34,8 @@ const NewDishModal = ({
   const [description, setDescription] = useState('');
   const [image, setImage] = useState('');
 
-  // dynamic size
+  // dynamic sizes
+  const [hasDynamicSizes, setHasDynamicSizes] = useState(false);
   // const [dynamicSizeModalIsOpen, setDynamicSizeModalIsOpen] = useState(false);
   // const [sizes, setSizes] = useState([]);
 
@@ -70,20 +72,30 @@ const NewDishModal = ({
           />
 
           <Segment color="orange">
-            <Form.Input
-              label="Base Price"
-              placeholder="12.99"
-              onChange={(event, { value }) => setPrice(value)}
-              value={price}
-              required
-              type="number"
-              min="0.00"
-              max="100.00"
-              step="0.01"
-            />
+            {
+              hasDynamicSizes
+                ? (
+                  <DynamicSizeFormInput />
+                )
+                : (
+                  <Form.Input
+                    label="Base Price"
+                    placeholder="12.99"
+                    onChange={(event, { value }) => setPrice(value)}
+                    value={price}
+                    required
+                    type="number"
+                    min="0.00"
+                    max="100.00"
+                    step="0.01"
+                  />
+                )
+            }
             <Checkbox
               toggle
               label="Has Multiple Sizes"
+              onChange={() => setHasDynamicSizes(!hasDynamicSizes)}
+              checked={hasDynamicSizes}
             />
           </Segment>
 
