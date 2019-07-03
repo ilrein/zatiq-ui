@@ -1,18 +1,13 @@
 import React from 'react';
 import { shallow } from 'enzyme'; // eslint-disable-line
 
-import NewLocationModal from './NewLocationModal';
+import NewDishModal from './NewDishModal';
 
 const wrapper = shallow(
-  <NewLocationModal
-    onSubmit={() => {}}
-    onClose={() => {}}
-    open
-    loading={false}
-  />,
+  <NewDishModal />,
 );
 
-describe('NewLocationModal', () => {
+describe('NewDishModal', () => {
   it('renders without crashing', () => {
     expect(wrapper).toBeTruthy();
   });

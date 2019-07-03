@@ -6,10 +6,13 @@ import {
   Icon,
   Form,
   Image,
+  Segment,
+  Checkbox,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+// Components
 import Dropzone from '../Dropzone';
 
 const SpreadHeader = styled(Header)`
@@ -18,16 +21,21 @@ const SpreadHeader = styled(Header)`
   justify-content: space-between;
 `;
 
-const NewItemModal = ({
+const NewDishModal = ({
   onSubmit,
   open,
   loading,
   onClose,
 }) => {
+  // base states
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState('');
+
+  // dynamic size
+  // const [dynamicSizeModalIsOpen, setDynamicSizeModalIsOpen] = useState(false);
+  // const [sizes, setSizes] = useState([]);
 
   return (
     <Modal
@@ -61,21 +69,27 @@ const NewItemModal = ({
             required
           />
 
-          <Form.Input
-            label="Price"
-            placeholder="12.99"
-            onChange={(event, { value }) => setPrice(value)}
-            value={price}
-            required
-            type="number"
-            min="0.00"
-            max="100.00"
-            step="0.01"
-          />
+          <Segment color="orange">
+            <Form.Input
+              label="Base Price"
+              placeholder="12.99"
+              onChange={(event, { value }) => setPrice(value)}
+              value={price}
+              required
+              type="number"
+              min="0.00"
+              max="100.00"
+              step="0.01"
+            />
+            <Checkbox
+              toggle
+              label="Has Multiple Sizes"
+            />
+          </Segment>
 
           <div className="field">
             <label>
-              Image
+              Image (Optional)
             </label>
             {
               image
@@ -124,11 +138,11 @@ const NewItemModal = ({
   );
 };
 
-NewItemModal.propTypes = {
+NewDishModal.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
-export default NewItemModal;
+export default NewDishModal;

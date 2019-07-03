@@ -16,7 +16,7 @@ import fadeIn from '../../anime/fadeIn';
 import {
   API_DISHES,
 } from '../../constants';
-import NewItemModal from '../../components/NewItemModal';
+import NewDishModal from '../../components/NewDishModal';
 import DishCard from '../../components/DishCard';
 
 const Wrapper = styled.div`
@@ -148,7 +148,7 @@ const Items = ({
               </Grid>
             )
         }
-        <NewItemModal
+        <NewDishModal
           open={newItemModalIsOpen}
           onClose={() => setNewItemModalOpen(false)}
           loading={savingNewItem}
