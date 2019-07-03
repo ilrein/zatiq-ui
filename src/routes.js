@@ -16,10 +16,7 @@ import Verify from './pages/Auth/Verify';
 // Main
 import Dashboard from './pages/Dashboard';
 import Restaurant from './pages/Restaurant';
-import Locations from './pages/Locations';
-import Location from './pages/Locations/Location';
 import Reservations from './pages/Reservations';
-import Menus from './pages/Menus';
 import Dishes from './pages/Dishes';
 import Dish from './pages/Dishes/Dish';
 
@@ -71,18 +68,6 @@ const Routes = () => (
 
           <Route
             exact
-            path="/locations"
-            component={Locations}
-          />
-
-          <Route
-            exact
-            path="/locations/:id"
-            component={Location}
-          />
-
-          <Route
-            exact
             path="/reservations"
             component={Reservations}
           />
@@ -97,12 +82,6 @@ const Routes = () => (
             exact
             path="/dishes/:id"
             component={Dish}
-          />
-
-          <Route
-            exact
-            path="/menus"
-            component={Menus}
           />
         </MainLayout>
       </Switch>
