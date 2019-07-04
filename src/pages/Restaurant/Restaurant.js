@@ -11,7 +11,8 @@ import styled from 'styled-components';
 import fetch from 'isomorphic-fetch';
 import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
-import Dropzone from '../../components/Dropzone';
+import { Storage } from 'aws-amplify';
+import uuidv4 from 'uuid/v4';
 
 // animations
 import fadeIn from '../../anime/fadeIn';
@@ -26,6 +27,7 @@ import PlacesAutoComplete from '../../components/PlacesAutoComplete';
 import CuisineDropdown from '../../components/CuisineDropdown';
 import FeaturesDropdown from '../../components/FeaturesDropdown';
 import ImageContainer from '../../containers/ImageContainer';
+import Dropzone from '../../components/Dropzone';
 
 const Wrapper = styled.div`
   display: flex;
@@ -89,9 +91,9 @@ const Restaurant = ({
             name,
             address,
             description,
-            cuisine: cuisineType,
+            cuisineType,
             features,
-            image: picture || image,
+            image: picture ? null : image,
             priceRangeMin: minPrice,
             priceRangeMax: maxPrice,
             phone,
@@ -102,7 +104,33 @@ const Restaurant = ({
       });
   
       const result = await post.json();
-      captureRestaurant(result);
+      // remove the old image from the bucket
+      await Storage.remove(`${restaurant._id}/${image}`);
+
+      // upload the image after creating the restaurant
+      // namespace it with its ID
+      const PUT = await Storage.put(
+        (`${restaurant._id}/${uuidv4()}-${image.name}`).replace(/\s/g, ''),
+        image,
+        { level: 'public' },
+      );
+  
+      const { key } = PUT; 
+
+      const updatedRestaurantWithImage = await fetch(`${API_RESTAURANT}/${result._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'jwt-token': token,
+        },
+        body: JSON.stringify({
+          restaurant: {
+            image: key,
+          },
+        }),
+      });
+
+      captureRestaurant(updatedRestaurantWithImage);
       setSaving(false);
       toast.success(`Updated ${name}`);
     } catch (error) {
@@ -184,6 +212,7 @@ const Restaurant = ({
                     <>
                       <ImageContainer
                         imageKey={image}
+                        size="medium"
                       />
 
                       <Button
@@ -211,7 +240,10 @@ const Restaurant = ({
                   && picture !== undefined
                   ? (
                     <>
-                      <Image src={picture.preview} />
+                      <Image
+                        src={picture.preview}
+                        size="medium"
+                      />
 
                       <Button
                         icon="remove"

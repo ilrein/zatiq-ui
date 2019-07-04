@@ -25,6 +25,7 @@ import {
   API_RESTAURANT,
   API_USERS,
 } from '../../constants';
+import { toast } from 'react-toastify';
 
 const Wrapper = styled.div`
   display: flex;
@@ -138,6 +139,7 @@ const Dashboard = ({
 
       const updateUserResult = await updateUser.json();
       captureUser(updateUserResult);
+      toast.success('Created restaurant!');
 
       setSaving(false);
     } catch (error) {
