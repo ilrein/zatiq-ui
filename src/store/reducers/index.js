@@ -4,14 +4,12 @@ import {
 
 import userReducer from './userReducer';
 import restaurantReducer from './restaurantReducer';
-import menusReducer from './menusReducer';
-import itemsReducer from './itemsReducer';
+import dishesReducer from './dishesReducer';
 
 const rootReducer = combineReducers({
   userReducer,
   restaurant: restaurantReducer,
-  menus: menusReducer,
-  items: itemsReducer,
+  dishes: dishesReducer,
 });
 
 export default rootReducer;

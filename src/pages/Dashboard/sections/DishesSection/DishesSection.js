@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import DishCard from '../../../../components/DishCard';
 
 const DishesSection = ({
-  items,
+  dishes,
 }) => (
   <Grid>
     <Grid.Row columns="1">
@@ -18,7 +18,7 @@ const DishesSection = ({
           Dishes
         </Header>
         {
-          items.totalDocs === 0
+          dishes.totalDocs === 0
             ? (
               <Link to="/dishes">
                 <div>
@@ -36,9 +36,9 @@ const DishesSection = ({
       stackable="true"
     >
       {
-        items.totalDocs > 0
+        dishes.totalDocs > 0
           ? (
-            items.docs.map(DOC => (
+            dishes.docs.map(DOC => (
               <Grid.Column key={DOC._id}>
                 <DishCard doc={DOC} />
               </Grid.Column>
@@ -51,7 +51,7 @@ const DishesSection = ({
 );
 
 DishesSection.propTypes = {
-  items: PropTypes.shape().isRequired,
+  dishes: PropTypes.shape().isRequired,
 };
 
 export default DishesSection;

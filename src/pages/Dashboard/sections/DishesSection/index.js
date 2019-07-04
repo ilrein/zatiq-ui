@@ -5,9 +5,9 @@ import DishesSection from './DishesSection';
 export default connect(
   ({
     // userReducer,
-    items,
+    dishes,
   }) => ({
     // userReducer,
-    items,
+    dishes,
   }),
 )(DishesSection);

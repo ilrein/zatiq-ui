@@ -3,7 +3,7 @@ import {
   CAPTURE_ITEM,
 } from '../../constants';
 
-function itemsReducer(state = {
+function dishesReducer(state = {
   docs: [],
   totalDocs: 0,
 }, action) {
@@ -22,4 +22,4 @@ function itemsReducer(state = {
   }
 }
 
-export default itemsReducer;
+export default dishesReducer;

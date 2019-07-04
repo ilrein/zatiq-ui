@@ -34,13 +34,13 @@ const SpreadHeader = styled.div`
   display: flex !important;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-dishes: center;
   margin: 1rem 0 2rem 0;
 `;
 
 const Items = ({
   userReducer,
-  items,
+  dishes,
   captureItems,
 }) => {
   const { cognitoUser, user } = userReducer;
@@ -122,7 +122,7 @@ const Items = ({
           </Button>
         </SpreadHeader>
         {
-          items.totalDocs === 0
+          dishes.totalDocs === 0
             ? (
               <>
                 <p>
@@ -138,7 +138,7 @@ const Items = ({
                 stackable
               >
                 {
-                  items.docs.map(DOC => (
+                  dishes.docs.map(DOC => (
                     <DishCard
                       key={DOC._id}
                       doc={DOC}
@@ -161,7 +161,7 @@ const Items = ({
 
 Items.propTypes = {
   userReducer: PropTypes.shape().isRequired,
-  items: PropTypes.shape().isRequired,
+  dishes: PropTypes.shape().isRequired,
   captureItems: PropTypes.func.isRequired,
 };
 

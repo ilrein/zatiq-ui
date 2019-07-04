@@ -4,11 +4,13 @@ import {
   Button,
   Header,
   Tab,
+  Image,
 } from 'semantic-ui-react';
 import styled from 'styled-components';
 import fetch from 'isomorphic-fetch';
 import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
+import Dropzone from '../../components/Dropzone';
 
 import fadeIn from '../../anime/fadeIn';
 import {
@@ -43,6 +45,9 @@ const Restaurant = ({
 
   // features
   const [features, setFeatures] = useState(restaurant.features);
+
+  // image
+  const [image, setImage] = useState(null);
 
   // prices
   const [minPrice, setMinPrice] = useState(restaurant.priceRangeMin);
@@ -148,6 +153,31 @@ const Restaurant = ({
                 value={features}
               />
             </div>
+
+            <div className="field required">
+              <label>
+                Image
+              </label>
+              {
+                image
+                  ? (
+                    <>
+                      <Image src={image.preview} />
+
+                      <Button
+                        icon="remove"
+                        onClick={() => setImage(null)}
+                      />
+                    </>
+                  )
+                  : (
+                    <Dropzone
+                      handleDrop={picture => setImage(picture)}
+                      defaultDropMessage="Click to upload an image of your restaurant's interior"
+                    />
+                  )
+              }
+            </div>
   
             <Button
               type="submit"
@@ -163,7 +193,7 @@ const Restaurant = ({
     },
     {
       menuItem: 'Payment',
-      render: () => <Tab.Pane>Payment details</Tab.Pane>
+      render: () => <Tab.Pane>Payment details</Tab.Pane>,
     },
   ];
 

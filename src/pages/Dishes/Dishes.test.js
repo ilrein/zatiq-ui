@@ -5,7 +5,7 @@ import Dishes from './Dishes';
 
 const wrapper = shallow(
   <Dishes
-    items={{
+    dishes={{
       totalDocs: 0,
       docs: [],
     }}

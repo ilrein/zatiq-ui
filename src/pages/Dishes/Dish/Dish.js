@@ -39,12 +39,12 @@ const SpreadHeader = styled.div`
   display: flex !important;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-dishes: center;
 `;
 
 const Dish = ({
   userReducer,
-  items,
+  dishes,
   match,
   captureItems,
   history,
@@ -57,7 +57,7 @@ const Dish = ({
   const { id } = params;
 
   // grab the dish from redux array rather than another request
-  const ITEM = find(propEq('_id', id))(items.docs);
+  const ITEM = find(propEq('_id', id))(dishes.docs);
 
   // update
   const [open, setOpen] = useState(false);
@@ -142,7 +142,7 @@ const Dish = ({
       captureItems(updatedItems);
       setUpdating(false);
       setOpen(false);
-      // ITEM = find(propEq('_id', id))(items.docs);
+      // ITEM = find(propEq('_id', id))(dishes.docs);
       // console.log('updated item', ITEM);
       getImage(updatedDishItemPayload);
     } catch (error) {
@@ -303,7 +303,7 @@ const Dish = ({
 };
 
 Dish.propTypes = {
-  items: PropTypes.shape().isRequired,
+  dishes: PropTypes.shape().isRequired,
   userReducer: PropTypes.shape().isRequired,
   match: PropTypes.shape().isRequired,
   history: PropTypes.shape().isRequired,

@@ -6,10 +6,10 @@ import Dishes from './Dishes';
 export default connect(
   ({
     userReducer,
-    items,
+    dishes,
   }) => ({
     userReducer,
-    items,
+    dishes,
   }),
   dispatch => ({
     captureItems: payload => dispatch({
