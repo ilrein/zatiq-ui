@@ -1,3 +1,4 @@
+// Core
 import React, { useState } from 'react';
 import {
   Form,
@@ -12,13 +13,19 @@ import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 import Dropzone from '../../components/Dropzone';
 
+// animations
 import fadeIn from '../../anime/fadeIn';
+
+// constants
 import {
   API_RESTAURANT,
 } from '../../constants';
+
+// components
 import PlacesAutoComplete from '../../components/PlacesAutoComplete';
 import CuisineDropdown from '../../components/CuisineDropdown';
 import FeaturesDropdown from '../../components/FeaturesDropdown';
+import ImageContainer from '../../containers/ImageContainer';
 
 const Wrapper = styled.div`
   display: flex;
@@ -40,18 +47,20 @@ const Restaurant = ({
   const [address, setAddress] = useState(restaurant.address);
   const [description, setDescription] = useState(restaurant.description);
   const [cuisineType, setCuisineType] = useState(restaurant.cuisine);
-  // const [image, setImage] = useState(restaurant.image);
-  const [phone, setPhone] = useState(restaurant.phone);
 
   // features
   const [features, setFeatures] = useState(restaurant.features);
 
   // image
-  const [image, setImage] = useState(null);
+  const [image] = useState(restaurant.image);
+  const [picture, setPicture] = useState(undefined);
 
   // prices
   const [minPrice, setMinPrice] = useState(restaurant.priceRangeMin);
   const [maxPrice, setMaxPrice] = useState(restaurant.priceRangeMax);
+
+  // phone
+  const [phone, setPhone] = useState(restaurant.phone);
 
   // start/close times
   const [startingTime, setStartingTime] = useState(restaurant.startingTime);
@@ -69,8 +78,8 @@ const Restaurant = ({
     setSaving(true);
 
     try {
-      const post = await fetch(API_RESTAURANT, {
-        method: 'POST',
+      const post = await fetch(`${API_RESTAURANT}/${restaurant._id}`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           'jwt-token': token,
@@ -78,6 +87,16 @@ const Restaurant = ({
         body: JSON.stringify({
           restaurant: {
             name,
+            address,
+            description,
+            cuisine: cuisineType,
+            features,
+            image: picture || image,
+            priceRangeMin: minPrice,
+            priceRangeMax: maxPrice,
+            phone,
+            startingTime,
+            closingTime,
           },
         }),
       });
@@ -160,22 +179,59 @@ const Restaurant = ({
               </label>
               {
                 image
+                  && picture === undefined
                   ? (
                     <>
-                      <Image src={image.preview} />
+                      <ImageContainer
+                        imageKey={image}
+                      />
 
                       <Button
                         icon="remove"
-                        onClick={() => setImage(null)}
+                        onClick={() => setPicture(null)}
                       />
                     </>
                   )
-                  : (
+                  : null
+              }
+
+              {
+                picture === null
+                  ? (
                     <Dropzone
-                      handleDrop={picture => setImage(picture)}
-                      defaultDropMessage="Click to upload an image of your restaurant's interior"
+                      handleDrop={PIC => setPicture(PIC)}
+                      defaultDropMessage="Upload a new restaurant image"
                     />
                   )
+                  : null
+              }
+
+              {
+                picture !== null
+                  && picture !== undefined
+                  ? (
+                    <>
+                      <Image src={picture.preview} />
+
+                      <Button
+                        icon="remove"
+                        onClick={() => setPicture(null)}
+                      />
+                    </>
+                  )
+                  : null
+              }
+
+              {
+                restaurant.image === null
+                  && picture === undefined
+                  ? (
+                    <Dropzone
+                      handleDrop={PIC => setPicture(PIC)}
+                      defaultDropMessage="Upload a new restaurant image"
+                    />
+                  )
+                  : null
               }
             </div>
   

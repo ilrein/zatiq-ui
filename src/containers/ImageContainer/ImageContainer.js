@@ -18,7 +18,7 @@ const ImageContainer = (imageKey, ...restProps) => {
   const getImage = async () => {
     setFetchingImage(true);
     try {
-      const picture = await Storage.get(imageKey);
+      const picture = await Storage.get(imageKey.imageKey);
       setImage(picture);
       setFetchingImage(false);
     } catch (error) {
@@ -34,8 +34,10 @@ const ImageContainer = (imageKey, ...restProps) => {
     <>
       {
         image
+        || fetchingImage
           ? (
             <Image
+              size="medium"
               src={image}
               {...restProps}
             />
