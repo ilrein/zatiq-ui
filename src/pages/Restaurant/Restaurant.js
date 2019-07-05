@@ -29,6 +29,9 @@ import FeaturesDropdown from '../../components/FeaturesDropdown';
 import ImageContainer from '../../containers/ImageContainer';
 import Dropzone from '../../components/Dropzone';
 
+// tab secitons
+import PaymentDetails from './PaymentDetails';
+
 const Wrapper = styled.div`
   display: flex;
   animation: ${fadeIn} 1s ease;
@@ -281,7 +284,7 @@ const Restaurant = ({
     },
     {
       menuItem: 'Payment',
-      render: () => <Tab.Pane>Payment details</Tab.Pane>,
+      render: () => <PaymentDetails />,
     },
   ];
 

@@ -5,6 +5,7 @@ import {
   Message,
   Grid,
   Image,
+  List,
 } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { Auth } from 'aws-amplify';
@@ -14,7 +15,11 @@ import { toast } from 'react-toastify';
 
 // utils
 import fadeIn from '../../../anime/fadeIn';
-import copy from './copy.json';
+import {
+  register,
+  passwordStrength1,
+  passwordStrength2,
+} from './copy.json';
 import PrimaryButton from '../../../components/PrimaryButton';
 
 // images
@@ -159,8 +164,22 @@ class Register extends Component {
             />
 
             <Caption>
-              {copy.home.register}
+              {register}
             </Caption>
+
+            <Message>
+              <Message.Header>
+                Passwords must:
+              </Message.Header>
+              <List as="ul">
+                <List.Item as="li">
+                  {passwordStrength1}
+                </List.Item>
+                <List.Item as="li">
+                  {passwordStrength2}
+                </List.Item>
+              </List>
+            </Message>
 
             <Segment
               basic
