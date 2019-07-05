@@ -28,6 +28,7 @@ import CuisineDropdown from '../../components/CuisineDropdown';
 import FeaturesDropdown from '../../components/FeaturesDropdown';
 import ImageContainer from '../../containers/ImageContainer';
 import Dropzone from '../../components/Dropzone';
+import PrimaryButton from '../../components/PrimaryButton';
 
 // tab secitons
 import PaymentDetails from './PaymentDetails';
@@ -51,7 +52,7 @@ const Restaurant = ({
   const [name, setName] = useState(restaurant.name);
   const [address, setAddress] = useState(restaurant.address);
   const [description, setDescription] = useState(restaurant.description);
-  const [cuisineType, setCuisineType] = useState(restaurant.cuisine);
+  const [cuisineType, setCuisineType] = useState(restaurant.cuisineType);
 
   // features
   const [features, setFeatures] = useState(restaurant.features);
@@ -79,7 +80,7 @@ const Restaurant = ({
   const { cognitoUser } = userReducer;
   const token = cognitoUser.signInUserSession.idToken.jwtToken;
 
-  const onSubmit = async () => {
+  const onUpdate = async () => {
     setSaving(true);
 
     try {
@@ -96,7 +97,7 @@ const Restaurant = ({
             description,
             cuisineType,
             features,
-            image: picture ? null : image,
+            // image: picture ? null : image,
             priceRangeMin: minPrice,
             priceRangeMax: maxPrice,
             phone,
@@ -107,33 +108,37 @@ const Restaurant = ({
       });
   
       const result = await post.json();
-      // remove the old image from the bucket
-      await Storage.remove(`${restaurant._id}/${image}`);
+      // // remove the old image from the bucket
+      // await Storage.remove(
+      //   `${restaurant._id}/${image}`,
+      //   { level: 'public' },
+      // );
 
-      // upload the image after creating the restaurant
-      // namespace it with its ID
-      const PUT = await Storage.put(
-        (`${restaurant._id}/${uuidv4()}-${image.name}`).replace(/\s/g, ''),
-        image,
-        { level: 'public' },
-      );
+      // // upload the image after creating the restaurant
+      // // namespace it with its ID
+      // const PUT = await Storage.put(
+      //   (`${restaurant._id}/${uuidv4()}-${image.name}`).replace(/\s/g, ''),
+      //   image,
+      //   { level: 'public' },
+      // );
   
-      const { key } = PUT; 
+      // const { key } = PUT; 
 
-      const updatedRestaurantWithImage = await fetch(`${API_RESTAURANT}/${result._id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'jwt-token': token,
-        },
-        body: JSON.stringify({
-          restaurant: {
-            image: key,
-          },
-        }),
-      });
+      // const updatedRestaurantWithImage = await fetch(`${API_RESTAURANT}/${result._id}`, {
+      //   method: 'PUT',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //     'jwt-token': token,
+      //   },
+      //   body: JSON.stringify({
+      //     restaurant: {
+      //       image: key,
+      //     },
+      //   }),
+      // });
 
-      captureRestaurant(updatedRestaurantWithImage);
+      // captureRestaurant(updatedRestaurantWithImage);
+      captureRestaurant(result)
       setSaving(false);
       toast.success(`Updated ${name}`);
     } catch (error) {
@@ -270,14 +275,14 @@ const Restaurant = ({
               }
             </div>
   
-            <Button
+            <PrimaryButton
               type="submit"
               primary
-              onClick={onSubmit}
+              onClick={onUpdate}
               loading={saving}
             >
-              Submit
-            </Button>
+              Update
+            </PrimaryButton>
           </Form>
         </Tab.Pane>
       ),
