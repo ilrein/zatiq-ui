@@ -97,7 +97,6 @@ const Restaurant = ({
             description,
             cuisineType,
             features,
-            // image: picture ? null : image,
             priceRangeMin: minPrice,
             priceRangeMax: maxPrice,
             phone,
@@ -108,37 +107,39 @@ const Restaurant = ({
       });
   
       const result = await post.json();
-      // // remove the old image from the bucket
-      // await Storage.remove(
-      //   `${restaurant._id}/${image}`,
-      //   { level: 'public' },
-      // );
+      
+      // if the image is being changed...
+      if (picture) {
+        // remove the old image from the bucket
+        await Storage.remove(image);
 
-      // // upload the image after creating the restaurant
-      // // namespace it with its ID
-      // const PUT = await Storage.put(
-      //   (`${restaurant._id}/${uuidv4()}-${image.name}`).replace(/\s/g, ''),
-      //   image,
-      //   { level: 'public' },
-      // );
-  
-      // const { key } = PUT; 
+        // upload the image after creating the restaurant
+        // namespace it with its ID
+        const PUT = await Storage.put(
+          (`${restaurant._id}/${uuidv4()}-${picture.name}`).replace(/\s/g, ''),
+          picture,
+          { level: 'public' },
+        );
+    
+        const { key } = PUT; 
 
-      // const updatedRestaurantWithImage = await fetch(`${API_RESTAURANT}/${result._id}`, {
-      //   method: 'PUT',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     'jwt-token': token,
-      //   },
-      //   body: JSON.stringify({
-      //     restaurant: {
-      //       image: key,
-      //     },
-      //   }),
-      // });
+        const updatedRestaurantWithImage = await fetch(`${API_RESTAURANT}/${result._id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'jwt-token': token,
+          },
+          body: JSON.stringify({
+            restaurant: {
+              image: key,
+            },
+          }),
+        });
 
-      // captureRestaurant(updatedRestaurantWithImage);
-      captureRestaurant(result)
+        captureRestaurant(updatedRestaurantWithImage);
+      } else {
+        captureRestaurant(result);
+      }
       setSaving(false);
       toast.success(`Updated ${name}`);
     } catch (error) {
