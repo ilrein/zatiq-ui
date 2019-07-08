@@ -61,19 +61,19 @@ const Restaurant = ({
   const [image] = useState(restaurant.image);
   const [picture, setPicture] = useState(undefined);
 
-  // prices
-  const [minPrice, setMinPrice] = useState(restaurant.priceRangeMin);
-  const [maxPrice, setMaxPrice] = useState(restaurant.priceRangeMax);
-
   // phone
-  const [phone, setPhone] = useState(restaurant.phone);
+  const [phone, setPhone] = useState(restaurant.phoneNumber);
+
+  // price range
+  const [priceRangeMin, setPriceRangeMin] = useState(restaurant.priceRangeMin ? restaurant.priceRangeMin.$numberDecimal : '');
+  const [priceRangeMax, setPriceRangeMax] = useState(restaurant.priceRangeMax ? restaurant.priceRangeMax.$numberDecimal : '');
 
   // start/close times
   const [startingTime, setStartingTime] = useState(restaurant.startingTime);
   const [closingTime, setClosingTime] = useState(restaurant.closingTime);
 
   // update states
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
   const [saving, setSaving] = useState(false);
 
   // tokens
@@ -97,8 +97,8 @@ const Restaurant = ({
             description,
             cuisineType,
             features,
-            priceRangeMin: minPrice,
-            priceRangeMax: maxPrice,
+            priceRangeMin,
+            priceRangeMax,
             phone,
             startingTime,
             closingTime,
@@ -136,7 +136,9 @@ const Restaurant = ({
           }),
         });
 
-        captureRestaurant(updatedRestaurantWithImage);
+        const updatedRestaurant = await updatedRestaurantWithImage.json();
+
+        captureRestaurant(updatedRestaurant);
       } else {
         captureRestaurant(result);
       }
@@ -275,12 +277,87 @@ const Restaurant = ({
                   : null
               }
             </div>
+
+            <Form.Input
+              onChange={(event, { value }) => setPhone(value)}
+              value={phone}
+              label="Phone Number"
+              placeholder="416-123-4567"
+              fluid
+              disabled={loading}
+              required
+              type="tel"
+              minLength={10}
+              maxLength={12}
+            />
+
+            <Form.Group widths="equal">
+              <Form.Input
+                onChange={(event, { value }) => setPriceRangeMin(value)}
+                value={priceRangeMin}
+                label="Min. Price"
+                fluid
+                disabled={loading}
+                required
+                type="number"
+                placeholder="11.99"
+                min="0.00"
+                max="100.00"
+                step="0.01"
+              />
+              <Form.Input
+                onChange={(event, { value }) => setPriceRangeMax(value)}
+                value={priceRangeMax}
+                label="Max Price"
+                fluid
+                disabled={loading}
+                required
+                type="number"
+                placeholder="34.99"
+                min="0.00"
+                max="100.00"
+                step="0.01"
+              />
+            </Form.Group>
+
+            <Form.Group widths="equal">
+              <Form.Input
+                onChange={(event, { value }) => setStartingTime(value)}
+                value={startingTime}
+                label="Starting Time"
+                fluid
+                disabled={loading}
+                required
+                type="time"
+              />
+              <Form.Input
+                onChange={(event, { value }) => setClosingTime(value)}
+                value={closingTime}
+                label="Closing Time"
+                fluid
+                disabled={loading}
+                required
+                type="time"
+              />
+            </Form.Group>
   
             <PrimaryButton
               type="submit"
               primary
               onClick={onUpdate}
               loading={saving}
+              disabled={
+                name === ''
+                || address === ''
+                || description === null
+                || picture === null
+                || cuisineType === ''
+                || phone === ''
+                || priceRangeMin === ''
+                || priceRangeMax === ''
+                || startingTime === ''
+                || closingTime === ''
+              }
             >
               Update
             </PrimaryButton>
