@@ -118,7 +118,7 @@ const Items = ({
             onClick={() => setNewItemModalOpen(true)}
           >
             <Icon name="plus" />
-            New Item
+            New Dish
           </Button>
         </SpreadHeader>
         {

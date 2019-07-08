@@ -93,7 +93,7 @@ const NewDishModal = ({
             }
             <Checkbox
               toggle
-              label="Has Multiple Sizes"
+              label="Has Price Variations (such as size or quantity)"
               onChange={() => setHasDynamicSizes(!hasDynamicSizes)}
               checked={hasDynamicSizes}
             />
