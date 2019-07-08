@@ -111,12 +111,16 @@ const Restaurant = ({
       // if the image is being changed...
       if (picture) {
         // remove the old image from the bucket
-        await Storage.remove(image);
+        await Storage.remove(restaurant.image);
+
+        const pictureName = (`${uuidv4()}-${picture.name}`).replace(/\s/g, '');
+
+        const picturePathWithName = (`${restaurant._id}/${pictureName}`);
 
         // upload the image after creating the restaurant
         // namespace it with its ID
         const PUT = await Storage.put(
-          (`${restaurant._id}/${uuidv4()}-${picture.name}`).replace(/\s/g, ''),
+          picturePathWithName,
           picture,
           { level: 'public' },
         );
