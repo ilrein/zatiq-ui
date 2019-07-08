@@ -61,8 +61,8 @@ const Restaurant = ({
   const [image] = useState(restaurant.image);
   const [picture, setPicture] = useState(undefined);
 
-  // phone
-  const [phone, setPhone] = useState(restaurant.phoneNumber);
+  // phoneNumber
+  const [phoneNumber, setPhoneNumber] = useState(restaurant.phoneNumber);
 
   // price range
   const [priceRangeMin, setPriceRangeMin] = useState(restaurant.priceRangeMin ? restaurant.priceRangeMin.$numberDecimal : '');
@@ -99,7 +99,7 @@ const Restaurant = ({
             features,
             priceRangeMin,
             priceRangeMax,
-            phone,
+            phoneNumber,
             startingTime,
             closingTime,
           },
@@ -139,6 +139,8 @@ const Restaurant = ({
         const updatedRestaurant = await updatedRestaurantWithImage.json();
 
         captureRestaurant(updatedRestaurant);
+        // setPicture(undefined);
+        // getImage(key)
       } else {
         captureRestaurant(result);
       }
@@ -279,8 +281,8 @@ const Restaurant = ({
             </div>
 
             <Form.Input
-              onChange={(event, { value }) => setPhone(value)}
-              value={phone}
+              onChange={(event, { value }) => setPhoneNumber(value)}
+              value={phoneNumber}
               label="Phone Number"
               placeholder="416-123-4567"
               fluid
@@ -352,7 +354,7 @@ const Restaurant = ({
                 || description === null
                 || picture === null
                 || cuisineType === ''
-                || phone === ''
+                || phoneNumber === ''
                 || priceRangeMin === ''
                 || priceRangeMax === ''
                 || startingTime === ''
