@@ -72,7 +72,6 @@ const NewDishModal = ({
             placeholder="Sweet and sour..."
             onChange={(event, { value }) => setDescription(value)}
             value={description}
-            required
           />
 
           <Segment color="orange">
@@ -143,7 +142,6 @@ const NewDishModal = ({
             disabled={
               name === ''
               || price === ''
-              || description === ''
             }
           >
             Submit

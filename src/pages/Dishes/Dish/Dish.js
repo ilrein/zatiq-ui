@@ -16,7 +16,7 @@ import fetch from 'isomorphic-fetch';
 import uuidv4 from 'uuid/v4';
 
 import fadeIn from '../../../anime/fadeIn';
-import UpdateItemModal from '../../../components/UpdateItemModal';
+import UpdateDishModal from '../../../components/UpdateDishModal';
 import ConfirmDeleteModal from '../../../components/ConfirmDeleteModal';
 import {
   API_DISHES,
@@ -272,7 +272,7 @@ const Dish = ({
         ITEM
         && ITEM.name
           ? (
-            <UpdateItemModal
+            <UpdateDishModal
               open={open}
               onClose={() => setOpen(false)}
               onSubmit={updateItem}

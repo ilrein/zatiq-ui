@@ -18,7 +18,7 @@ const SpreadHeader = styled(Header)`
   justify-content: space-between;
 `;
 
-const UpdateItemModal = ({
+const UpdateDishModal = ({
   onSubmit,
   open,
   loading,
@@ -147,7 +147,7 @@ const UpdateItemModal = ({
   );
 };
 
-UpdateItemModal.propTypes = {
+UpdateDishModal.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
@@ -156,8 +156,8 @@ UpdateItemModal.propTypes = {
   image: PropTypes.string,
 };
 
-UpdateItemModal.defaultProps = {
+UpdateDishModal.defaultProps = {
   image: '',
 };
 
-export default UpdateItemModal;
+export default UpdateDishModal;

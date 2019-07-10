@@ -31,15 +31,17 @@ const DishesSection = ({
       </Grid.Column>
     </Grid.Row>
 
-    <Grid.Row
-      columns={4}
-      stackable="true"
-    >
+    <Grid.Row>
       {
         dishes.totalDocs > 0
           ? (
             dishes.docs.map(DOC => (
-              <Grid.Column key={DOC._id}>
+              <Grid.Column
+                key={DOC._id}
+                largeScreen={4}
+                tablet={8}
+                mobile={16}
+              >
                 <DishCard doc={DOC} />
               </Grid.Column>
             ))

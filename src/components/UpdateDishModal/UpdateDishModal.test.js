@@ -1,10 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme'; // eslint-disable-line
 
-import UpdateItemModal from './UpdateItemModal';
+import UpdateDishModal from './UpdateDishModal';
 
 const wrapper = shallow(
-  <UpdateItemModal
+  <UpdateDishModal
     onSubmit={() => {}}
     onClose={() => {}}
     open
@@ -12,7 +12,7 @@ const wrapper = shallow(
   />,
 );
 
-describe('UpdateItemModal', () => {
+describe('UpdateDishModal', () => {
   it('renders without crashing', () => {
     expect(wrapper).toBeTruthy();
   });
