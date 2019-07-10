@@ -3,10 +3,10 @@ import {
   Form,
 } from 'semantic-ui-react';
 
-const DynamicSizeFormInput = () => (
+const DynamicVariationFormInput = () => (
   <Form.Group widths="equal">
     <Form.Input
-      label="Size"
+      label="Variation"
       placeholder="Small"
     />
     <Form.Input
@@ -16,4 +16,4 @@ const DynamicSizeFormInput = () => (
   </Form.Group>
 );
 
-export default DynamicSizeFormInput;
+export default DynamicVariationFormInput;

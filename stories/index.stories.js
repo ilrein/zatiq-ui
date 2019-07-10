@@ -10,7 +10,7 @@ import Welcome from './welcome';
 
 import InitialLaunchModal from '../src/components/InitialLaunchModal/InitialLaunchModal';
 import NewDishModal from '../src/components/NewDishModal';
-import DynamicSizeFormInput from '../src/components/DynamicSizeFormInput';
+import DynamicVariationFormInput from '../src/components/DynamicVariationFormInput';
 import DynamicIngredientModal from '../src/components/DynamicIngredientModal';
 import ImageContainer from '../src/containers/ImageContainer';
 
@@ -31,9 +31,9 @@ storiesOf('NewDishModal', module)
     />
   ));
 
-storiesOf('DynamicSizeFormInput', module)
+storiesOf('DynamicVariationFormInput', module)
   .add('Open', () => (
-    <DynamicSizeFormInput
+    <DynamicVariationFormInput
       open
     />
   ));

@@ -1,3 +1,4 @@
+// Core
 import React, { useState } from 'react';
 import {
   Modal,
@@ -12,9 +13,11 @@ import {
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import range from 'ramda/src/range';
+
 // Components
 import Dropzone from '../Dropzone';
-import DynamicSizeFormInput from '../DynamicSizeFormInput';
+import DynamicVariationFormInput from '../DynamicVariationFormInput';
 
 const SpreadHeader = styled(Header)`
   display: flex !important;
@@ -34,8 +37,9 @@ const NewDishModal = ({
   const [description, setDescription] = useState('');
   const [image, setImage] = useState('');
 
-  // dynamic sizes
-  const [hasDynamicSizes, setHasDynamicSizes] = useState(false);
+  // dynamic variances in dish via quantity, toppings etc
+  const [hasVariations, setHasVariations] = useState(false);
+  const [totalVariations, setTotalVariations] = useState(0);
   // const [dynamicSizeModalIsOpen, setDynamicSizeModalIsOpen] = useState(false);
   // const [sizes, setSizes] = useState([]);
 
@@ -73,9 +77,9 @@ const NewDishModal = ({
 
           <Segment color="orange">
             {
-              hasDynamicSizes
+              hasVariations
                 ? (
-                  <DynamicSizeFormInput />
+                  <DynamicVariationFormInput />
                 )
                 : (
                   <Form.Input
@@ -94,8 +98,8 @@ const NewDishModal = ({
             <Checkbox
               toggle
               label="Has Price Variations (such as size or quantity)"
-              onChange={() => setHasDynamicSizes(!hasDynamicSizes)}
-              checked={hasDynamicSizes}
+              onChange={() => setHasVariations(!hasVariations)}
+              checked={hasVariations}
             />
           </Segment>
 

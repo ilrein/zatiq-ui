@@ -54,38 +54,57 @@ const Items = ({
   const createNewDish = async (name, description, price, image) => {
     try {
       setSavingNewItem(true);
-      let IMAGE_URI;
-      if (image.name) {
-        /**
-         * removes any whitespace while generating a unique ID
-         */
-        const PUT = await Storage.put(
-          (`${uuidv4()}-${image.name}`).replace(/\s/g, ''),
-          image,
-          { level: 'public' },
-        );
 
-        const { key } = PUT;
-        IMAGE_URI = key;
-      }
-      
-      await fetch(API_DISHES, {
+      // create the dish first
+      const DISH_POST = await fetch(API_DISHES, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'jwt-token': jwtToken,
         },
         body: JSON.stringify({
-          item: {
+          dish: {
             restaurantId,
             name,
             description,
-            image: image.name ? IMAGE_URI : null,
+            image: null,
             price,
           },
         }),
       });
 
+      const NEW_DISH = await DISH_POST.json();
+
+      // if there is an image as well
+      // upload it, then update the dish with it
+      if (image.name) {
+        /**
+         * removes any whitespace while generating a unique ID
+         */
+        const PUT = await Storage.put(
+          (`${restaurantId}/dishes/${uuidv4()}-${image.name}`).replace(/\s/g, ''),
+          image,
+          { level: 'public' },
+        );
+
+        const { key } = PUT;
+
+        // update the dish with the image
+        await fetch(`${API_DISHES}/${NEW_DISH._id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'jwt-token': jwtToken,
+          },
+          body: JSON.stringify({
+            dish: {
+              image: key,
+            },
+          }),
+        });
+      }
+
+      // query for dishes again now that a new insert was made
       const getItems = await fetch(API_DISHES, {
         headers: {
           'Content-Type': 'application/json',
