@@ -87,7 +87,6 @@ const Dish = ({
   }, []);
 
   const updateItem = async (name, description, price, picture) => {
-    // console.log(name, description, price, picture);
     try {
       setUpdating(true);
       if (
@@ -120,7 +119,7 @@ const Dish = ({
           'jwt-token': jwtToken,
         },
         body: JSON.stringify({
-          item: {
+          dish: {
             name,
             description,
             price,

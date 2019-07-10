@@ -9,11 +9,12 @@ import {
   Image,
   Segment,
   Checkbox,
+  Message,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import range from 'ramda/src/range';
+// import range from 'ramda/src/range';
 
 // Components
 import Dropzone from '../Dropzone';
@@ -30,6 +31,7 @@ const NewDishModal = ({
   open,
   loading,
   onClose,
+  // serversideErrors,
 }) => {
   // base states
   const [name, setName] = useState('');
@@ -58,6 +60,9 @@ const NewDishModal = ({
         />
       </SpreadHeader>
       <Modal.Content>
+        {
+
+        }
         <Form>
           <Form.Input
             label="Name"

@@ -51,6 +51,9 @@ const Items = ({
   const [newItemModalIsOpen, setNewItemModalOpen] = useState(false);
   const [savingNewItem, setSavingNewItem] = useState(false);
 
+  // serverside errors
+  const [serversideErrors, setServersideErrors] = useState([]);
+
   const createNewDish = async (name, description, price, image) => {
     try {
       setSavingNewItem(true);
@@ -117,7 +120,10 @@ const Items = ({
       toast.success(`Successfully created ${name}`);
       setNewItemModalOpen(false);
       setSavingNewItem(false);
+      setServersideErrors([]);
     } catch (error) {
+      setSavingNewItem(false);
+      setServersideErrors(error);
       console.log(error) // eslint-disable-line
     }
   };
@@ -172,6 +178,7 @@ const Items = ({
           onClose={() => setNewItemModalOpen(false)}
           loading={savingNewItem}
           onSubmit={createNewDish}
+          errors={serversideErrors}
         />
       </InnerWrapper>
     </Wrapper>

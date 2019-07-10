@@ -41,15 +41,15 @@ const DishCard = ({ doc }) => {
   }, []);
 
   return (
-    <Link
-      to={`/dishes/${doc._id}`}
+    <StyledCard
+      basic
+      loading={fetchingImage}
+      compact
       key={doc._id}
-      style={{ height: 'max-content' }}
     >
-      <StyledCard
-        basic
-        loading={fetchingImage}
-        compact
+      <Link
+        to={`/dishes/${doc._id}`}
+        style={{ height: 'max-content' }}
       >
         <Card>
           {
@@ -78,8 +78,8 @@ const DishCard = ({ doc }) => {
             {formatUSD({ amount: Object.values(doc.price)[0] })}
           </Card.Content>
         </Card>
-      </StyledCard>
-    </Link>
+      </Link>
+    </StyledCard>
   );
 };
 
