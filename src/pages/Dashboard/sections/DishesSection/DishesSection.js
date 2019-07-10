@@ -39,24 +39,9 @@ const DishesSection = ({
               <>
                 <Grid.Column
                   key={DOC._id}
-                  only="mobile"
-                  width={16}
-                >
-                  <DishCard doc={DOC} />
-                </Grid.Column>
-
-                <Grid.Column
-                  key={DOC._id}
-                  only="tablet"
-                  width={8}
-                >
-                  <DishCard doc={DOC} />
-                </Grid.Column>
-
-                <Grid.Column
-                  key={DOC._id}
-                  only="largeScreen"
-                  width={4}
+                  mobile={16}
+                  tablet={8}
+                  computer={4}
                 >
                   <DishCard doc={DOC} />
                 </Grid.Column>
