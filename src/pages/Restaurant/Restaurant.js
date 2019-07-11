@@ -24,14 +24,16 @@ import {
 
 // components
 import PlacesAutoComplete from '../../components/PlacesAutoComplete';
-import CuisineDropdown from '../../components/CuisineDropdown';
 import FeaturesDropdown from '../../components/FeaturesDropdown';
 import ImageContainer from '../../containers/ImageContainer';
 import Dropzone from '../../components/Dropzone';
 import PrimaryButton from '../../components/PrimaryButton';
 
-// tab secitons
+// tabs
 import PaymentDetails from './PaymentDetails';
+
+// dropdown data
+import { options } from '../../data/cuisineType.json';
 
 const Wrapper = styled.div`
   display: flex;
@@ -192,18 +194,17 @@ const Restaurant = ({
               required
             />
   
-            <div className="field required">
-              <label>
-                Cuisine Type
-              </label>
-              <CuisineDropdown
-                onChange={(event, { value }) => setCuisineType(value)}
-                fluid
-                required
-                disabled={loading}
-                value={cuisineType}
-              />
-            </div>
+            <Form.Dropdown
+              label="Cuisine Type"
+              value={cuisineType}
+              onChange={(event, { value }) => setCuisineType(value)}
+              fluid
+              required
+              options={options}
+              selection
+              search
+              placeholder="Italian"
+            />
   
             <div className="field">
               <label>

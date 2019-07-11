@@ -14,13 +14,16 @@ import PropTypes from 'prop-types';
 import { APP_NAME } from '../../constants';
 
 // components
-import CuisineDropdown from '../CuisineDropdown';
+// import CuisineDropdown from '../CuisineDropdown';
 import FeaturesDropdown from '../FeaturesDropdown';
 import PlacesAutoComplete from '../PlacesAutoComplete';
 import Dropzone from '../Dropzone';
 
 // copy
 import { copy } from './copy.json';
+
+// dropdown data
+import { options } from '../../data/cuisineType.json';
 
 const InitialLaunchModal = ({
   onSubmit,
@@ -110,17 +113,16 @@ const InitialLaunchModal = ({
             required
           />
 
-          <div className="field required">
-            <label>
-              Cuisine Type
-            </label>
-            <CuisineDropdown
-              onChange={(event, { value }) => setCuisineType(value)}
-              fluid
-              required
-              disabled={loading}
-            />
-          </div>
+          <Form.Dropdown
+            label="Cuisine Type"
+            onChange={(event, { value }) => setCuisineType(value)}
+            fluid
+            required
+            options={options}
+            selection
+            search
+            placeholder="Italian"
+          />
 
           <div className="field">
             <label>
