@@ -54,7 +54,13 @@ const Items = ({
   // serverside errors
   const [serversideErrors, setServersideErrors] = useState([]);
 
-  const createNewDish = async (name, description, price, image) => {
+  const createNewDish = async (
+    name,
+    description,
+    price,
+    image,
+    dietaryCategories,
+  ) => {
     try {
       setSavingNewItem(true);
 
@@ -72,6 +78,7 @@ const Items = ({
             description,
             image: null,
             price,
+            dietaryCategories,
           },
         }),
       });
@@ -81,6 +88,7 @@ const Items = ({
       // if there is an image as well
       // upload it, then update the dish with it
       if (image.name) {
+        console.log('uploading image...', NEW_DISH);
         /**
          * removes any whitespace while generating a unique ID
          */

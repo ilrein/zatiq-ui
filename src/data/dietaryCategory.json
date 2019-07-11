@@ -1,54 +1,39 @@
 {
   "options": [
     {
-      "key": "AMERICAN",
-      "text": "American",
-      "value": "AMERICAN"
+      "key": "DAIRY_FREE",
+      "text": "Dairy Free",
+      "value": "DAIRY_FREE"
     },
     {
-      "key": "CHINESE",
-      "text": "Chinese",
-      "value": "CHINESE"
+      "key": "VEGETARIAN",
+      "text": "Vegetarian",
+      "value": "VEGETARIAN"
     },
     {
-      "key": "MEXICAN",
-      "text": "Mexican",
-      "value": "MEXICAN"
+      "key": "VEGAN",
+      "text": "Vegan",
+      "value": "VEGAN"
     },
     {
-      "key": "ITALIAN",
-      "text": "Italian",
-      "value": "ITALIAN"
+      "key": "PEANUT_FREE",
+      "text": "Peanut Free",
+      "value": "PEANUT_FREE"
     },
     {
-      "key": "GREEK",
-      "text": "Greek",
-      "value": "GREEK"
+      "key": "GLUTEN_FREE",
+      "text": "Gluten Free",
+      "value": "GLUTEN_FREE"
     },
     {
-      "key": "THAI",
-      "text": "Thai",
-      "value": "THAI"
+      "key": "KOSHER",
+      "text": "Kosher",
+      "value": "KOSHER"
     },
     {
-      "key": "INDIAN",
-      "text": "Indian",
-      "value": "INDIAN"
-    },
-    {
-      "key": "MEDITERRANEAN",
-      "text": "Meditteranean",
-      "value": "MEDITERRANEAN"
-    },
-    {
-      "key": "MIDDLE_EASTERN",
-      "text": "Middle Eastern",
-      "value": "MIDDLE_EASTERN"
-    },
-    {
-      "key": "RUSSIAN",
-      "text": "Russian",
-      "value": "RUSSIAN"
+      "key": "HALAL",
+      "text": "Halal",
+      "value": "HALAL"
     }
   ]
 }

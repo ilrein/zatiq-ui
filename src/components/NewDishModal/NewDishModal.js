@@ -20,6 +20,9 @@ import styled from 'styled-components';
 import Dropzone from '../Dropzone';
 import DynamicVariationFormInput from '../DynamicVariationFormInput';
 
+// options
+import { options } from '../../data/dietaryCategory.json';
+
 const SpreadHeader = styled(Header)`
   display: flex !important;
   flex-direction: row;
@@ -37,11 +40,12 @@ const NewDishModal = ({
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
+  const [dietaryCategories, setDietaryCategories] = useState([]);
   const [image, setImage] = useState('');
 
   // dynamic variances in dish via quantity, toppings etc
   const [hasVariations, setHasVariations] = useState(false);
-  const [totalVariations, setTotalVariations] = useState(0);
+  // const [totalVariations, setTotalVariations] = useState(0);
   // const [dynamicSizeModalIsOpen, setDynamicSizeModalIsOpen] = useState(false);
   // const [sizes, setSizes] = useState([]);
 
@@ -132,11 +136,22 @@ const NewDishModal = ({
             }
           </div>
 
+          <Form.Dropdown
+            label="Dietary Category"
+            onChange={(event, { value }) => setDietaryCategories(value)}
+            fluid
+            options={options}
+            selection
+            search
+            placeholder="Dairy Free"
+            multiple
+          />
+
           <Button
             primary
             type="submit"
             onClick={() => {
-              onSubmit(name, description, price, image);
+              onSubmit(name, description, price, image, dietaryCategories);
               setName('');
               setDescription('');
               setPrice('');

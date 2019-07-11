@@ -145,8 +145,6 @@ const Restaurant = ({
         const updatedRestaurant = await updatedRestaurantWithImage.json();
 
         captureRestaurant(updatedRestaurant);
-        // setPicture(undefined);
-        // getImage(key)
       } else {
         captureRestaurant(result);
       }
