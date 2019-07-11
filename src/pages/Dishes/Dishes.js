@@ -158,18 +158,24 @@ const Items = ({
             )
             : (
               <Grid
-                columns={4}
-                divided
                 stackable
               >
-                {
-                  dishes.docs.map(DOC => (
-                    <DishCard
-                      key={DOC._id}
-                      doc={DOC}
-                    />
-                  ))
-                }
+                <Grid.Row>
+                  {
+                    dishes.docs.map(DOC => (
+                      <Grid.Column
+                        key={DOC._id}
+                        mobile={16}
+                        tablet={8}
+                        computer={4}
+                      >
+                        <DishCard
+                          doc={DOC}
+                        />
+                      </Grid.Column>
+                    ))
+                  }
+                </Grid.Row>
               </Grid>
             )
         }
