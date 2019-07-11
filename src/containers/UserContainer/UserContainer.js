@@ -22,6 +22,9 @@ const UserContainer = ({
   children,
 }) => {
   const [cognitoUser] = useState(userReducer.cognitoUser);
+
+  // connection error, server is down
+  const [connectionError, setConnectionError] = useState(false);
   /**
    * @function {}
    * looks for a user object on /api/users/
@@ -64,9 +67,12 @@ const UserContainer = ({
           console.log(error); // eslint-disable-line
         }
       }
+
+      setConnectionError(false);
       captureUser(user);
     } catch (error) {
       console.log(error); // eslint-disable-line
+      setConnectionError(true);
     }
   };
 
@@ -76,7 +82,15 @@ const UserContainer = ({
 
   return (
     <>
-      {children}
+      {
+        connectionError
+          ? (
+            <>
+              Connection error. Please try again later.
+            </>
+          )
+          : children
+      }
     </>
   );
 };

@@ -36,16 +36,14 @@ const DishesSection = ({
         dishes.totalDocs > 0
           ? (
             dishes.docs.map(DOC => (
-              <>
-                <Grid.Column
-                  key={DOC._id}
-                  mobile={16}
-                  tablet={8}
-                  computer={4}
-                >
-                  <DishCard doc={DOC} />
-                </Grid.Column>
-              </>
+              <Grid.Column
+                key={DOC._id}
+                mobile={16}
+                tablet={8}
+                computer={4}
+              >
+                <DishCard doc={DOC} />
+              </Grid.Column>
             ))
           )
           : null
