@@ -63,8 +63,22 @@ const Items = ({
   ) => {
     try {
       setSavingNewItem(true);
+      
+      let IMAGE_URI = null;
+      if (image.name) {
+        /**
+         * removes any whitespace while generating a unique ID
+         */
+        const PUT = await Storage.put(
+          (`${restaurantId}/dishes/${uuidv4()}-${image.name}`).replace(/\s/g, ''),
+          image,
+          { level: 'public' },
+        );
 
-      // create the dish first
+        const { key } = PUT;  
+        IMAGE_URI = key;
+      }
+
       const DISH_POST = await fetch(API_DISHES, {
         method: 'POST',
         headers: {
@@ -76,44 +90,14 @@ const Items = ({
             restaurantId,
             name,
             description,
-            image: null,
+            image: IMAGE_URI,
             price,
             dietaryCategories,
           },
         }),
       });
 
-      const NEW_DISH = await DISH_POST.json();
-
-      // if there is an image as well
-      // upload it, then update the dish with it
-      if (image.name) {
-        console.log('uploading image...', NEW_DISH);
-        /**
-         * removes any whitespace while generating a unique ID
-         */
-        const PUT = await Storage.put(
-          (`${restaurantId}/dishes/${uuidv4()}-${image.name}`).replace(/\s/g, ''),
-          image,
-          { level: 'public' },
-        );
-
-        const { key } = PUT;
-
-        // update the dish with the image
-        await fetch(`${API_DISHES}/${NEW_DISH._id}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            'jwt-token': jwtToken,
-          },
-          body: JSON.stringify({
-            dish: {
-              image: key,
-            },
-          }),
-        });
-      }
+      await DISH_POST.json();
 
       // query for dishes again now that a new insert was made
       const getItems = await fetch(API_DISHES, {
