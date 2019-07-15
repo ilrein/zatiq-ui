@@ -9,12 +9,12 @@ import {
   Image,
   Segment,
   Checkbox,
-  Message,
+  // Message,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-// import range from 'ramda/src/range';
+import range from 'ramda/src/range';
 
 // Components
 import Dropzone from '../Dropzone';
@@ -45,9 +45,24 @@ const NewDishModal = ({
 
   // dynamic variances in dish via quantity, toppings etc
   const [hasVariations, setHasVariations] = useState(false);
-  // const [totalVariations, setTotalVariations] = useState(0);
+  const [totalVariations, setTotalVariations] = useState(1);
   // const [dynamicSizeModalIsOpen, setDynamicSizeModalIsOpen] = useState(false);
   // const [sizes, setSizes] = useState([]);
+
+  const calculateTotalVariations = (modification) => {
+    switch (modification) {
+      case 'increment':
+        setTotalVariations(totalVariations + 1);
+        break;
+      case 'decrement':
+        if (totalVariations !== 1) {
+          setTotalVariations(totalVariations - 1);
+        }
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
     <Modal
@@ -87,7 +102,29 @@ const NewDishModal = ({
             {
               hasVariations
                 ? (
-                  <DynamicVariationFormInput />
+                  <>
+                    {
+                      range(0, totalVariations).map(() => (
+                        <DynamicVariationFormInput />
+                      ))
+                    }
+                    <Button.Group style={{ marginBottom: '1rem' }}>
+                      <Button
+                        type="button"
+                        onClick={() => calculateTotalVariations('decrement')}
+                        disabled={totalVariations === 1}
+                      >
+                        <Icon name="minus" />
+                      </Button>
+                      <Button
+                        type="button"
+                        onClick={() => calculateTotalVariations('increment')}
+                      >
+                        <Icon name="plus" />
+                      </Button>
+                    </Button.Group>
+                    <br />
+                  </>
                 )
                 : (
                   <Form.Input
