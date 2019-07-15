@@ -29,3 +29,6 @@ export const API_DISHES = `${API_URL}/api/dishes`;
 
 // Kulers
 export const ORANGE = '#F05E63';
+
+// Misc
+export const TOGGLE_SIDEBAR = 'TOGGLE_SIDEBAR';

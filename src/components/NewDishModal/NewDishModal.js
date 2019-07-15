@@ -64,9 +64,9 @@ const NewDishModal = ({
         />
       </SpreadHeader>
       <Modal.Content>
-        {
-
-        }
+        {/* {
+          Message ?
+        } */}
         <Form>
           <Form.Input
             label="Name"

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Menu,
   Sidebar,
@@ -40,9 +40,23 @@ const MainLayout = ({ history, children }) => {
   const toggleVisible = () => setVisible(!visible);
 
   const pushAndToggle = (path) => {
-    toggleVisible();
+    setVisible(!visible);
     history.push(path);
   };
+
+  const handleKeyPress = (e) => {
+    console.log(visible);
+    if (e.code === 'KeyQ') {
+      setVisible(!visible);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('keyup', handleKeyPress);
+    return () => {
+      window.removeEventListener('keyup', handleKeyPress);
+    };
+  }, []); // eslint-disable-line
 
   return (
     <AuthContainer>
@@ -94,7 +108,7 @@ const MainLayout = ({ history, children }) => {
                 </Sidebar>
 
                 <Sidebar.Pusher
-                  dimmed={visible}
+                  // dimmed={visible}
                   onClick={visible ? toggleVisible : null}
                 >
                   <Section>
