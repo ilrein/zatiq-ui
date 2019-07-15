@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import {
   Menu,
   Sidebar,
@@ -6,8 +6,6 @@ import {
 } from 'semantic-ui-react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 
 import {
   APP_NAME,
@@ -34,20 +32,22 @@ const Wrapper = styled.div`
 
 const Section = styled.section``;
 
-const MainLayout = ({ history, children }) => {
-  const [visible, setVisible] = useState(false);
-
-  const toggleVisible = () => setVisible(!visible);
+const MainLayout = ({
+  history,
+  children,
+  misc,
+  toggleSidebar,
+}) => {
+  const { sidebarIsOpen } = misc;
 
   const pushAndToggle = (path) => {
-    setVisible(!visible);
+    toggleSidebar();
     history.push(path);
   };
 
   const handleKeyPress = (e) => {
-    console.log(visible);
     if (e.code === 'KeyQ') {
-      setVisible(!visible);
+      toggleSidebar();
     }
   };
 
@@ -71,7 +71,7 @@ const MainLayout = ({ history, children }) => {
                   icon="labeled"
                   inverted
                   vertical
-                  visible={visible}
+                  visible={sidebarIsOpen}
                   width="thin"
                 >
                   <Menu.Item
@@ -108,14 +108,14 @@ const MainLayout = ({ history, children }) => {
                 </Sidebar>
 
                 <Sidebar.Pusher
-                  // dimmed={visible}
-                  onClick={visible ? toggleVisible : null}
+                  dimmed={sidebarIsOpen}
+                  onClick={sidebarIsOpen ? toggleSidebar : null}
                 >
                   <Section>
                     <Navbar
-                      toggleMenu={toggleVisible}
+                      toggleMenu={toggleSidebar}
                       menuButton={(
-                        <AnimatedHamburger open={visible} />
+                        <AnimatedHamburger open={sidebarIsOpen} />
                       )}
                     />
                     {children}
@@ -134,10 +134,10 @@ const MainLayout = ({ history, children }) => {
 MainLayout.propTypes = {
   children: PropTypes.node.isRequired,
   history: PropTypes.shape().isRequired,
+  misc: PropTypes.shape().isRequired,
+  toggleSidebar: PropTypes.func.isRequired,
 };
 
 MainLayout.defaultProps = {};
 
-export default connect(
-  ({ userReducer }) => ({ user: userReducer.user }),
-)(withRouter(MainLayout));
+export default MainLayout;
