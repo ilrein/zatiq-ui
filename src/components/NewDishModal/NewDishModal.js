@@ -18,7 +18,6 @@ import range from 'ramda/src/range';
 
 // Components
 import Dropzone from '../Dropzone';
-import DynamicVariationFormInput from '../DynamicVariationFormInput';
 
 // options
 import { options } from '../../data/dietaryCategory.json';
@@ -46,6 +45,7 @@ const NewDishModal = ({
   // dynamic variances in dish via quantity, toppings etc
   const [hasVariations, setHasVariations] = useState(false);
   const [totalVariations, setTotalVariations] = useState(1);
+  const [variationData, setVariationData] = useState(null);
   // const [dynamicSizeModalIsOpen, setDynamicSizeModalIsOpen] = useState(false);
   // const [sizes, setSizes] = useState([]);
 
@@ -105,7 +105,23 @@ const NewDishModal = ({
                   <>
                     {
                       range(0, totalVariations).map(() => (
-                        <DynamicVariationFormInput />
+                        <Form.Group
+                          widths="equal"
+                          key={Math.random()}
+                        >
+                          <Form.Input
+                            label="Variation"
+                            placeholder="Small"
+                            onChange={(event, { value }) => setVariationData([
+                              ...variationData,
+                              
+                            ])}
+                          />
+                          <Form.Input
+                            label="Price"
+                            placeholder="10.99"
+                          />
+                        </Form.Group>
                       ))
                     }
                     <Button.Group style={{ marginBottom: '1rem' }}>
