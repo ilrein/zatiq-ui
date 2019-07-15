@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 // Core
 import React, { useState } from 'react';
 import {
@@ -14,7 +15,10 @@ import {
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import range from 'ramda/src/range';
+// import range from 'ramda/src/range';
+import dropLast from 'ramda/src/dropLast';
+import update from 'ramda/src/update';
+import keys from 'ramda/src/keys';
 
 // Components
 import Dropzone from '../Dropzone';
@@ -44,19 +48,26 @@ const NewDishModal = ({
 
   // dynamic variances in dish via quantity, toppings etc
   const [hasVariations, setHasVariations] = useState(false);
-  const [totalVariations, setTotalVariations] = useState(1);
-  const [variationData, setVariationData] = useState(null);
+  const [variationData, setVariationData] = useState([{}]);
   // const [dynamicSizeModalIsOpen, setDynamicSizeModalIsOpen] = useState(false);
   // const [sizes, setSizes] = useState([]);
 
   const calculateTotalVariations = (modification) => {
     switch (modification) {
       case 'increment':
-        setTotalVariations(totalVariations + 1);
+        setVariationData([
+          ...variationData,
+          {
+            [variationData.length]: {
+              key: '',
+              value: '',
+            },
+          },
+        ]);
         break;
       case 'decrement':
-        if (totalVariations !== 1) {
-          setTotalVariations(totalVariations - 1);
+        if (variationData.length !== 1) {
+          setVariationData(dropLast(1, variationData));
         }
         break;
       default:
@@ -104,31 +115,43 @@ const NewDishModal = ({
                 ? (
                   <>
                     {
-                      range(0, totalVariations).map(() => (
+                      variationData.map((currentValue, index) => (
                         <Form.Group
                           widths="equal"
-                          key={Math.random()}
+                          key={index}
                         >
                           <Form.Input
                             label="Variation"
                             placeholder="Small"
-                            onChange={(event, { value }) => setVariationData([
-                              ...variationData,
-                              
-                            ])}
+                            onChange={(event, { value }) => {
+                              const updated = update(index, {
+                                ...variationData[index],
+                                key: value,
+                              });
+                              setVariationData(updated);
+                            }}
+                            value={variationData[index].key}
                           />
                           <Form.Input
                             label="Price"
                             placeholder="10.99"
+                            onChange={(event, { value }) => {
+                              const updated = update(index, {
+                                ...variationData[index],
+                                value,
+                              });
+                              setVariationData(updated);
+                            }}
                           />
                         </Form.Group>
                       ))
                     }
+
                     <Button.Group style={{ marginBottom: '1rem' }}>
                       <Button
                         type="button"
                         onClick={() => calculateTotalVariations('decrement')}
-                        disabled={totalVariations === 1}
+                        disabled={variationData.length === 1}
                       >
                         <Icon name="minus" />
                       </Button>
@@ -204,11 +227,12 @@ const NewDishModal = ({
             primary
             type="submit"
             onClick={() => {
-              onSubmit(name, description, price, image, dietaryCategories);
-              setName('');
-              setDescription('');
-              setPrice('');
-              setImage('');
+              console.log(variationData);
+              // onSubmit(name, description, price, image, dietaryCategories);
+              // setName('');
+              // setDescription('');
+              // setPrice('');
+              // setImage('');
             }}
             style={{ marginTop: '1rem' }}
             loading={loading}
