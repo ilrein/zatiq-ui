@@ -8,12 +8,15 @@ import {
   Icon,
   Divider,
   Table,
+  Breadcrumb,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { Storage } from 'aws-amplify';
 import formatUSD from 'format-usd';
 import fetch from 'isomorphic-fetch';
 import uuidv4 from 'uuid/v4';
+import dayjs from 'dayjs';
+import { Link } from 'react-router-dom';
 
 import fadeIn from '../../../anime/fadeIn';
 import UpdateDishModal from '../../../components/UpdateDishModal';
@@ -40,6 +43,7 @@ const SpreadHeader = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-dishes: center;
+  margin-top: 1rem;
 `;
 
 const Dish = ({
@@ -141,8 +145,6 @@ const Dish = ({
       captureItems(updatedItems);
       setUpdating(false);
       setOpen(false);
-      // ITEM = find(propEq('_id', id))(dishes.docs);
-      // console.log('updated item', ITEM);
       getImage(updatedDishItemPayload);
     } catch (error) {
       console.log(error); // eslint-disable-line
@@ -191,6 +193,23 @@ const Dish = ({
         && ITEM
           ? (
             <InnerWrapper>
+              <Breadcrumb>
+                <Link to="/dashboard">
+                  <Breadcrumb.Section>
+                    Dashboard
+                  </Breadcrumb.Section>
+                </Link>
+                <Breadcrumb.Divider>/</Breadcrumb.Divider>
+                <Link to="/dishes">
+                  <Breadcrumb.Section>
+                    Dishes
+                  </Breadcrumb.Section>
+                </Link>
+                <Breadcrumb.Divider>/</Breadcrumb.Divider>
+                <Breadcrumb.Section active>
+                  Dish
+                </Breadcrumb.Section>
+              </Breadcrumb>
               <SpreadHeader>
                 <Header style={{ margin: 0 }}>
                   {ITEM.name}
@@ -234,31 +253,64 @@ const Dish = ({
                       />
                     </Segment>
                   )
-                  : null
+                  : (
+                    <>
+                      This dish has no image.
+                    </>
+                  )
               }
 
               <Table
-                basic="very"
                 celled
-                collapsing
+                striped
+                // collapsing
               >
                 <Table.Header>
                   <Table.Row>
-                    <Table.HeaderCell>
-                      Description
-                    </Table.HeaderCell>
-                    <Table.HeaderCell>
-                      Price
+                    <Table.HeaderCell colSpan="2">
+                      Details
                     </Table.HeaderCell>
                   </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                  <Table.Row>
+                  <Table.Row colSpan="2">
                     <Table.Cell>
-                      {ITEM.description}
+                      Description
+                    </Table.Cell>
+                    <Table.Cell>
+                      {
+                        ITEM.description || 'null'
+                      }
+                    </Table.Cell>
+                  </Table.Row>
+
+                  <Table.Row colSpan="2">
+                    <Table.Cell>
+                      Price
                     </Table.Cell>
                     <Table.Cell>
                       {formatUSD({ amount: Object.values(ITEM.price)[0] })}
+                    </Table.Cell>
+                  </Table.Row>
+
+                  {/* {
+                    ITEM.variations
+                  } */}
+
+                  <Table.Row colSpan="2">
+                    <Table.Cell>
+                      Created On
+                    </Table.Cell>
+                    <Table.Cell>
+                      {dayjs(ITEM.createdOn).format('ddd, MMMM YY h:MM A')}
+                    </Table.Cell>
+                  </Table.Row>
+                  <Table.Row colSpan="2">
+                    <Table.Cell>
+                      Updated On
+                    </Table.Cell>
+                    <Table.Cell>
+                      {dayjs(ITEM.updatedOn).format('ddd, MMMM YY h:MM A')}
                     </Table.Cell>
                   </Table.Row>
                 </Table.Body>
