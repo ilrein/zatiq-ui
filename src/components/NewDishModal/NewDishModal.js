@@ -15,10 +15,9 @@ import {
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-// import range from 'ramda/src/range';
+// Ramda utils for calculating variations
 import dropLast from 'ramda/src/dropLast';
 import update from 'ramda/src/update';
-import keys from 'ramda/src/keys';
 
 // Components
 import Dropzone from '../Dropzone';
@@ -46,7 +45,8 @@ const NewDishModal = ({
   const [dietaryCategories, setDietaryCategories] = useState([]);
   const [image, setImage] = useState('');
 
-  // dynamic variances in dish via quantity, toppings etc
+  // dynamic variances in dish
+  // things like quantity or size
   const [hasVariations, setHasVariations] = useState(false);
   const [variationData, setVariationData] = useState([{}]);
   // const [dynamicSizeModalIsOpen, setDynamicSizeModalIsOpen] = useState(false);
@@ -59,8 +59,8 @@ const NewDishModal = ({
           ...variationData,
           {
             [variationData.length]: {
-              key: '',
-              value: '',
+              name: '',
+              price: '',
             },
           },
         ]);
@@ -73,6 +73,16 @@ const NewDishModal = ({
       default:
         break;
     }
+  };
+
+  const resetState = () => {
+    setName('');
+    setDescription('');
+    setPrice('');
+    setImage('');
+    setDietaryCategories([]);
+    setHasVariations(false);
+    setVariationData([{}]);
   };
 
   return (
@@ -125,20 +135,24 @@ const NewDishModal = ({
                             placeholder="Small"
                             onChange={(event, { value }) => {
                               const updated = update(index, {
-                                ...variationData[index],
-                                key: value,
+                                name: value,
+                                price: variationData[index].value,
                               });
                               setVariationData(updated);
                             }}
-                            value={variationData[index].key}
+                            value={variationData[index].name}
                           />
                           <Form.Input
                             label="Price"
                             placeholder="10.99"
+                            type="number"
+                            min="0.00"
+                            max="100.00"
+                            step="0.01"
                             onChange={(event, { value }) => {
                               const updated = update(index, {
-                                ...variationData[index],
-                                value,
+                                name: variationData[index].name,
+                                price: value,
                               });
                               setVariationData(updated);
                             }}
@@ -227,19 +241,18 @@ const NewDishModal = ({
             primary
             type="submit"
             onClick={() => {
-              console.log(variationData);
-              // onSubmit(name, description, price, image, dietaryCategories);
-              // setName('');
-              // setDescription('');
-              // setPrice('');
-              // setImage('');
+              onSubmit(
+                name,
+                description,
+                price,
+                variationData,
+                image,
+                dietaryCategories,
+              );
+              resetState();
             }}
             style={{ marginTop: '1rem' }}
             loading={loading}
-            disabled={
-              name === ''
-              || price === ''
-            }
           >
             Submit
           </Button>
