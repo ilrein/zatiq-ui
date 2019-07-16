@@ -59,7 +59,7 @@ const DishCard = ({ doc }) => {
                   src={image}
                   wrapped
                   ui={false}
-                  size="medium"
+                  size="tiny"
                 />
               )
               : null
