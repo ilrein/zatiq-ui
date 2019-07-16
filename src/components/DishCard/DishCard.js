@@ -44,7 +44,6 @@ const DishCard = ({ doc }) => {
     <StyledCard
       basic
       loading={fetchingImage}
-      compact
       key={doc._id}
     >
       <Link

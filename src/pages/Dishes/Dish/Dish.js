@@ -199,13 +199,13 @@ const Dish = ({
                     Dashboard
                   </Breadcrumb.Section>
                 </Link>
-                <Breadcrumb.Divider>/</Breadcrumb.Divider>
+                <Breadcrumb.Divider icon="right chevron" />
                 <Link to="/dishes">
                   <Breadcrumb.Section>
                     Dishes
                   </Breadcrumb.Section>
                 </Link>
-                <Breadcrumb.Divider>/</Breadcrumb.Divider>
+                <Breadcrumb.Divider icon="right chevron" />
                 <Breadcrumb.Section active>
                   Dish
                 </Breadcrumb.Section>
