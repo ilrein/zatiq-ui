@@ -39,7 +39,7 @@ const SpreadHeader = styled.div`
   margin: 1rem 0 2rem 0;
 `;
 
-const Items = ({
+const Dishes = ({
   userReducer,
   dishes,
   captureItems,
@@ -186,10 +186,10 @@ const Items = ({
   );
 };
 
-Items.propTypes = {
+Dishes.propTypes = {
   userReducer: PropTypes.shape().isRequired,
   dishes: PropTypes.shape().isRequired,
   captureItems: PropTypes.func.isRequired,
 };
 
-export default Items;
+export default Dishes;

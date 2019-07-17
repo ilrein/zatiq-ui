@@ -9,6 +9,8 @@ import {
   Divider,
   Table,
   Breadcrumb,
+  Label,
+  List,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { Storage } from 'aws-amplify';
@@ -87,7 +89,10 @@ const Dish = ({
   };
 
   useEffect(() => {
-    if (ITEM.image !== null) getImage(ITEM);
+    if (
+      ITEM
+      && ITEM.image !== null
+    ) getImage(ITEM);
   }, []);
 
   const updateItem = async (name, description, price, picture) => {
@@ -253,17 +258,12 @@ const Dish = ({
                       />
                     </Segment>
                   )
-                  : (
-                    <>
-                      This dish has no image.
-                    </>
-                  )
+                  : null
               }
 
               <Table
                 celled
                 striped
-                // collapsing
               >
                 <Table.Header>
                   <Table.Row>
@@ -289,7 +289,50 @@ const Dish = ({
                       Price
                     </Table.Cell>
                     <Table.Cell>
-                      {formatUSD({ amount: Object.values(ITEM.price)[0] })}
+                      {
+                        ITEM.price
+                          ? formatUSD({ amount: Object.values(ITEM.price)[0] })
+                          : null
+                      }
+                    </Table.Cell>
+                  </Table.Row>
+
+                  <Table.Row colSpan="2">
+                    <Table.Cell>
+                      Variations
+                    </Table.Cell>
+                    <Table.Cell>
+                      {
+                        ITEM.variations.length > 0
+                          ? ITEM.variations.map(variation => (
+                            <List divided>
+                              <List.Item>
+                                <Label horizontal>
+                                  {variation.name}
+                                </Label>
+                                {formatUSD({ amount: Object.values(variation.price) })}
+                              </List.Item>
+                            </List>
+                          ))
+                          : null
+                      }
+                    </Table.Cell>
+                  </Table.Row>
+
+                  <Table.Row colSpan="2">
+                    <Table.Cell>
+                      Dietary Categories
+                    </Table.Cell>
+                    <Table.Cell>
+                      {
+                        ITEM.dietaryCategories.length > 0
+                          ? ITEM.dietaryCategories.map(category => (
+                            <Label>
+                              {category}
+                            </Label>
+                          ))
+                          : null
+                      }
                     </Table.Cell>
                   </Table.Row>
 
