@@ -50,8 +50,10 @@ const NewDishModal = ({
   // things like quantity or size
   const [hasVariations, setHasVariations] = useState(false);
   const [variationData, setVariationData] = useState([]);
-  // const [dynamicSizeModalIsOpen, setDynamicSizeModalIsOpen] = useState(false);
-  // const [sizes, setSizes] = useState([]);
+
+  // does it have dynamic toppings (free)
+  const [hasAdditionalFreeToppings, setHasAdditionalFreeToppings] = useState(false);
+  const [additionalFreeToppingsData, setAdditionalFreeToppingsData] = useState([]);
 
   const calculateTotalVariations = (modification) => {
     switch (modification) {
@@ -114,8 +116,33 @@ const NewDishModal = ({
             required
           />
 
+          <div className="field">
+            <label>
+              Image (Optional)
+            </label>
+            {
+              image
+                ? (
+                  <>
+                    <Image src={image.preview} />
+
+                    <Button
+                      icon="remove"
+                      onClick={() => setImage(null)}
+                    />
+                  </>
+                )
+                : (
+                  <Dropzone
+                    handleDrop={picture => setImage(picture)}
+                    defaultDropMessage="Optional dish image. Click or drag to upload."
+                  />
+                )
+            }
+          </div>
+
           <Form.TextArea
-            label="Description"
+            label="Description (Optional)"
             placeholder="Sweet and sour..."
             onChange={(event, { value }) => setDescription(value)}
             value={description}
@@ -210,33 +237,24 @@ const NewDishModal = ({
             />
           </Segment>
 
-          <div className="field">
-            <label>
-              Image (Optional)
-            </label>
-            {
-              image
-                ? (
-                  <>
-                    <Image src={image.preview} />
-
-                    <Button
-                      icon="remove"
-                      onClick={() => setImage(null)}
-                    />
-                  </>
-                )
-                : (
-                  <Dropzone
-                    handleDrop={picture => setImage(picture)}
-                    defaultDropMessage="Optional dish image. Click or drag to upload."
-                  />
-                )
-            }
-          </div>
+          <Segment color="blue">
+            <Checkbox
+              toggle
+              label="Has optional free toppings"
+              onChange={(event, { checked }) => {
+                setHasAdditionalFreeToppings(!hasAdditionalFreeToppings);
+                // if (checked) {
+                //   setVariationData([{}]);
+                //   return;
+                // }
+                // setVariationData([]);
+              }}
+              checked={hasAdditionalFreeToppings}
+            />
+          </Segment>
 
           <Form.Dropdown
-            label="Dietary Category"
+            label="Dietary Category (Optional)"
             onChange={(event, { value }) => setDietaryCategories(value)}
             fluid
             options={options}
