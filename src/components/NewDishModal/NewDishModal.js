@@ -18,6 +18,7 @@ import styled from 'styled-components';
 // Ramda utils for calculating variations
 import dropLast from 'ramda/src/dropLast';
 import update from 'ramda/src/update';
+import isEmpty from 'ramda/src/isEmpty';
 
 // Components
 import Dropzone from '../Dropzone';
@@ -48,7 +49,7 @@ const NewDishModal = ({
   // dynamic variances in dish
   // things like quantity or size
   const [hasVariations, setHasVariations] = useState(false);
-  const [variationData, setVariationData] = useState([{}]);
+  const [variationData, setVariationData] = useState([]);
   // const [dynamicSizeModalIsOpen, setDynamicSizeModalIsOpen] = useState(false);
   // const [sizes, setSizes] = useState([]);
 
@@ -89,6 +90,7 @@ const NewDishModal = ({
     <Modal
       open={open}
       size="small"
+      className="fade-in"
     >
       <SpreadHeader>
         <>New Dish</>
@@ -196,7 +198,14 @@ const NewDishModal = ({
             <Checkbox
               toggle
               label="Has Price Variations (such as size or quantity)"
-              onChange={() => setHasVariations(!hasVariations)}
+              onChange={(event, { checked }) => {
+                setHasVariations(!hasVariations);
+                if (checked) {
+                  setVariationData([{}]);
+                  return;
+                }
+                setVariationData([]);
+              }}
               checked={hasVariations}
             />
           </Segment>
@@ -240,19 +249,48 @@ const NewDishModal = ({
           <Button
             primary
             type="submit"
-            onClick={() => {
-              onSubmit(
-                name,
-                description,
-                price,
-                variationData,
-                image,
-                dietaryCategories,
-              );
+            onClick={(e) => {
+              e.preventDefault();
+              
+              if (
+                variationData.length === 1
+                && isEmpty(variationData[0])
+              ) {
+                onSubmit(
+                  name,
+                  description,
+                  price,
+                  variationData,
+                  image,
+                  dietaryCategories,
+                );
+              } else {
+                onSubmit(
+                  name,
+                  description,
+                  '',
+                  variationData,
+                  image,
+                  dietaryCategories,
+                );
+              }
+
               resetState();
             }}
             style={{ marginTop: '1rem' }}
             loading={loading}
+            disabled={
+              name === ''
+              || (
+                price === ''
+                && variationData.length === 0
+              )
+              || (
+                variationData.length === 1
+                && isEmpty(variationData[0])
+                && price === ''
+              )
+            }
           >
             Submit
           </Button>

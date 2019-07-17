@@ -9,6 +9,7 @@ import AWS_EXPORTS from './aws-exports';
 
 import 'semantic-ui-css/semantic.min.css';
 import './global.css';
+import './anime/animista.css';
 import configureStore from './store';
 
 const store = configureStore();
