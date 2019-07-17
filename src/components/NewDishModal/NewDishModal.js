@@ -148,7 +148,18 @@ const NewDishModal = ({
             value={description}
           />
 
-          <Segment color="orange">
+          <Form.Dropdown
+            label="Dietary Category (Optional)"
+            onChange={(event, { value }) => setDietaryCategories(value)}
+            fluid
+            options={options}
+            selection
+            search
+            placeholder="Dairy Free"
+            multiple
+          />
+
+          <Segment color="black">
             {
               hasVariations
                 ? (
@@ -237,7 +248,7 @@ const NewDishModal = ({
             />
           </Segment>
 
-          <Segment color="blue">
+          <Segment color="black">
             <Checkbox
               toggle
               label="Has optional free toppings"
@@ -252,17 +263,6 @@ const NewDishModal = ({
               checked={hasAdditionalFreeToppings}
             />
           </Segment>
-
-          <Form.Dropdown
-            label="Dietary Category (Optional)"
-            onChange={(event, { value }) => setDietaryCategories(value)}
-            fluid
-            options={options}
-            selection
-            search
-            placeholder="Dairy Free"
-            multiple
-          />
 
           <Button
             primary
