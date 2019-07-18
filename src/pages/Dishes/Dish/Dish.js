@@ -27,6 +27,9 @@ import {
   API_DISHES,
 } from '../../../constants';
 
+// utils
+import humanizeConstant from '../../../utils/humanizeConstant';
+
 const find = require('ramda/src/find');
 const propEq = require('ramda/src/propEq');
 
@@ -332,8 +335,11 @@ const Dish = ({
                           ? ITEM.dietaryCategories.map(category => (
                             <Label
                               key={category}
+                              style={{
+                                textTransform: 'capitalize',
+                              }}
                             >
-                              {category}
+                              {humanizeConstant(category)}
                             </Label>
                           ))
                           : null
