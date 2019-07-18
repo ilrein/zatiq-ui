@@ -275,14 +275,14 @@ const NewDishModal = ({
               toggle
               label="Has optional paid add-ons"
               onChange={(event, { checked }) => {
-                setHasAdditionalFreeToppings(!hasAdditionalFreeToppings);
+                setHasAdditionalPaidToppings(!hasAdditionalPaidToppings);
                 // if (checked) {
                 //   setVariationData([{}]);
                 //   return;
                 // }
                 // setVariationData([]);
               }}
-              checked={hasAdditionalFreeToppings}
+              checked={hasAdditionalPaidToppings}
             />
           </Segment>
 
