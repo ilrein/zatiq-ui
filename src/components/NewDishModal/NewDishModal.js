@@ -54,7 +54,11 @@ const NewDishModal = ({
 
   // does it have dynamic toppings (free)
   const [hasAdditionalFreeToppings, setHasAdditionalFreeToppings] = useState(false);
-  // const [additionalFreeToppingsData, setAdditionalFreeToppingsData] = useState([]);
+  const [additionalFreeToppingsData, setAdditionalFreeToppingsData] = useState([]);
+
+  // does it have dynamic toppings (paid)
+  const [hasAdditionalPaidToppings, setHasAdditionalPaidToppings] = useState(false);
+  const [additionalPaidToppingsData, setAdditionalPaidToppingsData] = useState([]);
 
   const calculateTotalVariations = (modification) => {
     switch (modification) {
@@ -253,7 +257,23 @@ const NewDishModal = ({
           <Segment color="black">
             <Checkbox
               toggle
-              label="Has optional free toppings"
+              label="Has optional free add-ons (such as toppings)"
+              onChange={(event, { checked }) => {
+                setHasAdditionalFreeToppings(!hasAdditionalFreeToppings);
+                // if (checked) {
+                //   setVariationData([{}]);
+                //   return;
+                // }
+                // setVariationData([]);
+              }}
+              checked={hasAdditionalFreeToppings}
+            />
+          </Segment>
+
+          <Segment color="black">
+            <Checkbox
+              toggle
+              label="Has optional paid add-ons"
               onChange={(event, { checked }) => {
                 setHasAdditionalFreeToppings(!hasAdditionalFreeToppings);
                 // if (checked) {
@@ -289,7 +309,7 @@ const NewDishModal = ({
               // if name is empty
               name === ''
 
-              // if price and empty while variations no variations exist
+              // if price is empty while no variations exist
               || (
                 price === ''
                 && !hasVariations
