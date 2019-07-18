@@ -64,6 +64,8 @@ const Dishes = ({
     dietaryCategories,
   ) => {
     try {
+      // console.log(price, variationData);
+      // return;
       setSavingNewItem(true);
       
       let IMAGE_URI = null;
@@ -93,7 +95,7 @@ const Dishes = ({
             name,
             description,
             image: IMAGE_URI,
-            price: price === '' ? variationData[0].price : price,
+            price,
             variations: variationData,
             dietaryCategories,
           },

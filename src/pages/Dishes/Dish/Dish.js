@@ -286,7 +286,7 @@ const Dish = ({
 
                   <Table.Row colSpan="2">
                     <Table.Cell>
-                      Price
+                      Base Price
                     </Table.Cell>
                     <Table.Cell>
                       {
@@ -305,7 +305,10 @@ const Dish = ({
                       {
                         ITEM.variations.length > 0
                           ? ITEM.variations.map(variation => (
-                            <List divided>
+                            <List
+                              divided
+                              key={variation.name}
+                            >
                               <List.Item>
                                 <Label horizontal>
                                   {variation.name}
@@ -327,7 +330,9 @@ const Dish = ({
                       {
                         ITEM.dietaryCategories.length > 0
                           ? ITEM.dietaryCategories.map(category => (
-                            <Label>
+                            <Label
+                              key={category}
+                            >
                               {category}
                             </Label>
                           ))

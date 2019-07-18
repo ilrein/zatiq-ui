@@ -19,6 +19,7 @@ import styled from 'styled-components';
 import dropLast from 'ramda/src/dropLast';
 import update from 'ramda/src/update';
 import isEmpty from 'ramda/src/isEmpty';
+import isNil from 'ramda/src/isNil';
 
 // Components
 import Dropzone from '../Dropzone';
@@ -53,7 +54,7 @@ const NewDishModal = ({
 
   // does it have dynamic toppings (free)
   const [hasAdditionalFreeToppings, setHasAdditionalFreeToppings] = useState(false);
-  const [additionalFreeToppingsData, setAdditionalFreeToppingsData] = useState([]);
+  // const [additionalFreeToppingsData, setAdditionalFreeToppingsData] = useState([]);
 
   const calculateTotalVariations = (modification) => {
     switch (modification) {
@@ -174,9 +175,10 @@ const NewDishModal = ({
                             label="Variation"
                             placeholder="Small"
                             onChange={(event, { value }) => {
+                              // console.log(variationData[index].price);
                               const updated = update(index, {
                                 name: value,
-                                price: variationData[index].value,
+                                price: !isNil(variationData[index].price) ? variationData[index].price : '',
                               });
                               setVariationData(updated);
                             }}
@@ -191,7 +193,7 @@ const NewDishModal = ({
                             step="0.01"
                             onChange={(event, { value }) => {
                               const updated = update(index, {
-                                name: variationData[index].name,
+                                name: !isNil(variationData[index].name) ? variationData[index].name : '',
                                 price: value,
                               });
                               setVariationData(updated);
@@ -267,46 +269,38 @@ const NewDishModal = ({
           <Button
             primary
             type="submit"
-            onClick={(e) => {
+            onClick={async (e) => {
               e.preventDefault();
               
-              if (
-                variationData.length === 1
-                && isEmpty(variationData[0])
-              ) {
-                onSubmit(
-                  name,
-                  description,
-                  price,
-                  variationData,
-                  image,
-                  dietaryCategories,
-                );
-              } else {
-                onSubmit(
-                  name,
-                  description,
-                  '',
-                  variationData,
-                  image,
-                  dietaryCategories,
-                );
-              }
+              await onSubmit(
+                name,
+                description,
+                price,
+                variationData,
+                image,
+                dietaryCategories,
+              );
 
               resetState();
             }}
             style={{ marginTop: '1rem' }}
             loading={loading}
             disabled={
+              // if name is empty
               name === ''
+
+              // if price and empty while variations no variations exist
               || (
                 price === ''
-                && variationData.length === 0
+                && !hasVariations
               )
+
+              // if variations exists but any of the values are nil
               || (
-                variationData.length === 1
-                && isEmpty(variationData[0])
-                && price === ''
+                hasVariations
+                && variationData
+                  .map(v => isEmpty(v) || isNil(v.name) || isEmpty(v.name) || isNil(v.price) || isEmpty(v.price))
+                  .some(v => v === true)
               )
             }
           >
