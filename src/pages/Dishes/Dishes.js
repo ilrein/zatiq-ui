@@ -20,6 +20,9 @@ import {
 import NewDishModal from '../../components/NewDishModal';
 import DishCard from '../../components/DishCard';
 
+// utils
+import refreshSession from '../../utils/refreshSession';
+
 const Wrapper = styled.div`
   display: flex;
   animation: ${fadeIn} 1s ease;
@@ -122,6 +125,8 @@ const Dishes = ({
       setSavingNewItem(false);
       setServersideErrors(error);
       console.log(error) // eslint-disable-line
+
+      refreshSession();
     }
   };
 
