@@ -52,7 +52,7 @@ const Dishes = ({
   const [jwtToken] = useState(cognitoUser.signInUserSession.accessToken.jwtToken);
 
   // new dish states
-  const [newItemModalIsOpen, setNewItemModalOpen] = useState(false);
+  const [newItemModalIsOpen, setNewItemModalOpen] = useState(true);
   const [savingNewItem, setSavingNewItem] = useState(false);
 
   // serverside errors

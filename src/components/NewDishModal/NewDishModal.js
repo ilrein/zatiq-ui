@@ -54,7 +54,7 @@ const NewDishModal = ({
 
   // does it have dynamic toppings (free)
   const [hasAdditionalFreeToppings, setHasAdditionalFreeToppings] = useState(false);
-  const [additionalFreeToppingsData, setAdditionalFreeToppingsData] = useState([]);
+  const [additionalFreeToppingsData, setAdditionalFreeToppingsData] = useState(null);
 
   // does it have dynamic toppings (paid)
   const [hasAdditionalPaidToppings, setHasAdditionalPaidToppings] = useState(false);
@@ -76,6 +76,24 @@ const NewDishModal = ({
       case 'decrement':
         if (variationData.length !== 1) {
           setVariationData(dropLast(1, variationData));
+        }
+        break;
+      default:
+        break;
+    }
+  };
+
+  const calculateFreeAddons = (modification) => {
+    switch (modification) {
+      case 'increment':
+        setAdditionalFreeToppingsData([
+          ...additionalFreeToppingsData,
+          '',
+        ]);
+        break;
+      case 'decrement':
+        if (additionalFreeToppingsData.length !== 1) {
+          setAdditionalFreeToppingsData(dropLast(1, additionalFreeToppingsData));
         }
         break;
       default:
@@ -179,7 +197,6 @@ const NewDishModal = ({
                             label="Variation"
                             placeholder="Small"
                             onChange={(event, { value }) => {
-                              // console.log(variationData[index].price);
                               const updated = update(index, {
                                 name: value,
                                 price: !isNil(variationData[index].price) ? variationData[index].price : '',
@@ -260,14 +277,48 @@ const NewDishModal = ({
               label="Has optional free add-ons (such as toppings)"
               onChange={(event, { checked }) => {
                 setHasAdditionalFreeToppings(!hasAdditionalFreeToppings);
-                // if (checked) {
-                //   setVariationData([{}]);
-                //   return;
-                // }
-                // setVariationData([]);
+                if (checked) {
+                  setAdditionalFreeToppingsData(['']);
+                  return;
+                }
+                setAdditionalFreeToppingsData(null);
               }}
               checked={hasAdditionalFreeToppings}
             />
+
+            {
+              !isNil(additionalFreeToppingsData)
+                ? (
+                  <div style={{ marginTop: '1rem' }}>
+                    {
+                      additionalFreeToppingsData.map((ADDON, index) => (
+                        <Form.Input
+                          key={index}
+                          label={`Add on #${index}`}
+                          placeholder="Mozzarella cheese"
+                        />
+                      ))
+                    }
+
+                    <Button.Group style={{ marginBottom: '1rem' }}>
+                      <Button
+                        type="button"
+                        onClick={() => calculateFreeAddons('decrement')}
+                        disabled={additionalFreeToppingsData.length === 1}
+                      >
+                        <Icon name="minus" />
+                      </Button>
+                      <Button
+                        type="button"
+                        onClick={() => calculateFreeAddons('increment')}
+                      >
+                        <Icon name="plus" />
+                      </Button>
+                    </Button.Group>
+                  </div>
+                )
+                : null
+            }
           </Segment>
 
           <Segment color="black">
