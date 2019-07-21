@@ -52,7 +52,7 @@ const Dishes = ({
   const [jwtToken] = useState(cognitoUser.signInUserSession.accessToken.jwtToken);
 
   // new dish states
-  const [newItemModalIsOpen, setNewItemModalOpen] = useState(true);
+  const [newItemModalIsOpen, setNewItemModalOpen] = useState(false);
   const [savingNewItem, setSavingNewItem] = useState(false);
 
   // serverside errors
@@ -62,12 +62,13 @@ const Dishes = ({
     name,
     description,
     price,
-    variationData,
+    variations,
     image,
     dietaryCategories,
+    freeAddons,
   ) => {
     try {
-      // console.log(price, variationData);
+      // console.log(price);
       // return;
       setSavingNewItem(true);
       
@@ -99,8 +100,9 @@ const Dishes = ({
             description,
             image: IMAGE_URI,
             price,
-            variations: variationData,
+            variations,
             dietaryCategories,
+            freeAddons,
           },
         }),
       });

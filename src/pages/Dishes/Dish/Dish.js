@@ -347,6 +347,53 @@ const Dish = ({
                     </Table.Cell>
                   </Table.Row>
 
+                  <Table.Row colSpan="2">
+                    <Table.Cell>
+                      Free addons
+                    </Table.Cell>
+                    <Table.Cell>
+                      {
+                        ITEM.freeAddons.length > 0
+                          ? ITEM.freeAddons.map(addon => (
+                            <Label
+                              key={addon}
+                              style={{
+                                textTransform: 'capitalize',
+                              }}
+                            >
+                              {addon}
+                            </Label>
+                          ))
+                          : null
+                      }
+                    </Table.Cell>
+                  </Table.Row>
+
+                  <Table.Row colSpan="2">
+                    <Table.Cell>
+                      Paid addons
+                    </Table.Cell>
+                    <Table.Cell>
+                      {
+                        ITEM.paddAddons.length > 0
+                          ? ITEM.paddAddons.map(({ name, price }) => (
+                            <List
+                              divided
+                              key={name}
+                            >
+                              <List.Item>
+                                <Label horizontal>
+                                  {name}
+                                </Label>
+                                {formatUSD({ amount: Object.values(price) })}
+                              </List.Item>
+                            </List>
+                          ))
+                          : null
+                      }
+                    </Table.Cell>
+                  </Table.Row>
+
                   {/* {
                     ITEM.variations
                   } */}

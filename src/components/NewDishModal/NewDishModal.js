@@ -53,8 +53,8 @@ const NewDishModal = ({
   const [variationData, setVariationData] = useState([]);
 
   // does it have dynamic toppings (free)
-  const [hasAdditionalFreeToppings, setHasAdditionalFreeToppings] = useState(false);
-  const [additionalFreeToppingsData, setAdditionalFreeToppingsData] = useState(null);
+  const [hasAdditionalFreeAddons, setHasAdditionalFreeToppings] = useState(false);
+  const [additionalFreeAddons, setAdditionalFreeAddons] = useState(null);
 
   // does it have dynamic toppings (paid)
   const [hasAdditionalPaidToppings, setHasAdditionalPaidToppings] = useState(false);
@@ -86,14 +86,14 @@ const NewDishModal = ({
   const calculateFreeAddons = (modification) => {
     switch (modification) {
       case 'increment':
-        setAdditionalFreeToppingsData([
-          ...additionalFreeToppingsData,
+        setAdditionalFreeAddons([
+          ...additionalFreeAddons,
           '',
         ]);
         break;
       case 'decrement':
-        if (additionalFreeToppingsData.length !== 1) {
-          setAdditionalFreeToppingsData(dropLast(1, additionalFreeToppingsData));
+        if (additionalFreeAddons.length !== 1) {
+          setAdditionalFreeAddons(dropLast(1, additionalFreeAddons));
         }
         break;
       default:
@@ -110,6 +110,8 @@ const NewDishModal = ({
     setHasVariations(false);
     setVariationData([{}]);
   };
+
+  console.log(additionalFreeAddons);
 
   return (
     <Modal
@@ -276,26 +278,31 @@ const NewDishModal = ({
               toggle
               label="Has optional free add-ons (such as toppings)"
               onChange={(event, { checked }) => {
-                setHasAdditionalFreeToppings(!hasAdditionalFreeToppings);
+                setHasAdditionalFreeToppings(!hasAdditionalFreeAddons);
                 if (checked) {
-                  setAdditionalFreeToppingsData(['']);
+                  setAdditionalFreeAddons(['']);
                   return;
                 }
-                setAdditionalFreeToppingsData(null);
+                setAdditionalFreeAddons(null);
               }}
-              checked={hasAdditionalFreeToppings}
+              checked={hasAdditionalFreeAddons}
             />
 
             {
-              !isNil(additionalFreeToppingsData)
+              !isNil(additionalFreeAddons)
                 ? (
                   <div style={{ marginTop: '1rem' }}>
                     {
-                      additionalFreeToppingsData.map((ADDON, index) => (
+                      additionalFreeAddons.map((ADDON, index) => (
                         <Form.Input
                           key={index}
-                          label={`Add on #${index}`}
-                          placeholder="Mozzarella cheese"
+                          label={`Add on #${index + 1}`}
+                          placeholder="Salt & Pepper"
+                          required
+                          onChange={(event, { value }) => {
+                            const updated = update(index, value);
+                            setAdditionalFreeAddons(updated);
+                          }}
                         />
                       ))
                     }
@@ -304,7 +311,7 @@ const NewDishModal = ({
                       <Button
                         type="button"
                         onClick={() => calculateFreeAddons('decrement')}
-                        disabled={additionalFreeToppingsData.length === 1}
+                        disabled={additionalFreeAddons.length === 1}
                       >
                         <Icon name="minus" />
                       </Button>
@@ -350,6 +357,7 @@ const NewDishModal = ({
                 variationData,
                 image,
                 dietaryCategories,
+                additionalFreeAddons,
               );
 
               resetState();
@@ -366,11 +374,21 @@ const NewDishModal = ({
                 && !hasVariations
               )
 
-              // if variations exists but any of the values are nil
+              // if variations exists
+              // but any of the values are nil
               || (
                 hasVariations
                 && variationData
                   .map(v => isEmpty(v) || isNil(v.name) || isEmpty(v.name) || isNil(v.price) || isEmpty(v.price))
+                  .some(v => v === true)
+              )
+
+              // if free addons are present
+              // but any of the values are nil
+              || (
+                hasAdditionalFreeAddons
+                && additionalFreeAddons
+                  .map(addon => isEmpty(addon) || isNil(addon))
                   .some(v => v === true)
               )
             }
