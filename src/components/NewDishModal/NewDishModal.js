@@ -57,8 +57,8 @@ const NewDishModal = ({
   const [additionalFreeAddons, setAdditionalFreeAddons] = useState(null);
 
   // does it have dynamic toppings (paid)
-  const [hasAdditionalPaidToppings, setHasAdditionalPaidToppings] = useState(false);
-  const [additionalPaidToppingsData, setAdditionalPaidToppingsData] = useState([]);
+  const [hasAdditionalPaidAddons, setHasAdditionalPaidToppings] = useState(false);
+  const [additionalPaidAddons, setAdditionalPaidAddons] = useState([]);
 
   const calculateTotalVariations = (modification) => {
     switch (modification) {
@@ -101,6 +101,29 @@ const NewDishModal = ({
     }
   };
 
+  const calculatePaidAddons = (modification) => {
+    switch (modification) {
+      case 'increment':
+        setAdditionalPaidAddons([
+          ...additionalPaidAddons,
+          {
+            [additionalPaidAddons.length]: {
+              name: '',
+              price: '',
+            },
+          },
+        ]);
+        break;
+      case 'decrement':
+        if (additionalPaidAddons.length !== 1) {
+          setAdditionalPaidAddons(dropLast(1, additionalPaidAddons));
+        }
+        break;
+      default:
+        break;
+    }
+  };
+
   const resetState = () => {
     setName('');
     setDescription('');
@@ -111,7 +134,7 @@ const NewDishModal = ({
     setVariationData([{}]);
   };
 
-  console.log(additionalFreeAddons);
+  console.log(additionalPaidAddons);
 
   return (
     <Modal
@@ -333,15 +356,82 @@ const NewDishModal = ({
               toggle
               label="Has optional paid add-ons"
               onChange={(event, { checked }) => {
-                setHasAdditionalPaidToppings(!hasAdditionalPaidToppings);
-                // if (checked) {
-                //   setVariationData([{}]);
-                //   return;
-                // }
-                // setVariationData([]);
+                setHasAdditionalPaidToppings(!hasAdditionalPaidAddons);
+                if (checked) {
+                  setAdditionalPaidAddons([{}]);
+                  return;
+                }
+                setAdditionalPaidAddons([]);
               }}
-              checked={hasAdditionalPaidToppings}
+              checked={hasAdditionalPaidAddons}
             />
+          
+            {
+              hasAdditionalPaidAddons
+                ? (
+                  additionalPaidAddons.map((currentValue, index) => (
+                    <>
+                      <Form.Group
+                        style={{ marginTop: '1rem' }}
+                        widths="equal"
+                        key={index}
+                      >
+                        <Form.Input
+                          label={`Paid Addon ${index + 1}`}
+                          placeholder="Mozzarella Cheese"
+                          onChange={(event, { value }) => {
+                            const updated = update(index, {
+                              name: value,
+                              price: !isNil(additionalPaidAddons[index].price) ? additionalPaidAddons[index].price : '',
+                            });
+                            setAdditionalPaidAddons(updated);
+                          }}
+                          value={additionalPaidAddons[index].name}
+                        />
+                        <Form.Input
+                          label="Price"
+                          placeholder="1.99"
+                          type="number"
+                          min="0.00"
+                          max="100.00"
+                          step="0.01"
+                          onChange={(event, { value }) => {
+                            const updated = update(index, {
+                              name: !isNil(additionalPaidAddons[index].name) ? additionalPaidAddons[index].name : '',
+                              price: value,
+                            });
+                            setAdditionalPaidAddons(updated);
+                          }}
+                          value={additionalPaidAddons[index].price}
+                        />
+                      </Form.Group>
+                    </>
+                  ))
+                )
+                : null
+            }
+
+            {
+              hasAdditionalPaidAddons
+                ? (
+                  <Button.Group>
+                    <Button
+                      type="button"
+                      onClick={() => calculatePaidAddons('decrement')}
+                      disabled={additionalPaidAddons.length === 1}
+                    >
+                      <Icon name="minus" />
+                    </Button>
+                    <Button
+                      type="button"
+                      onClick={() => calculatePaidAddons('increment')}
+                    >
+                      <Icon name="plus" />
+                    </Button>
+                  </Button.Group>
+                )
+                : null
+            }
           </Segment>
 
           <Button
@@ -358,6 +448,7 @@ const NewDishModal = ({
                 image,
                 dietaryCategories,
                 additionalFreeAddons,
+                additionalPaidAddons,
               );
 
               resetState();
@@ -390,6 +481,15 @@ const NewDishModal = ({
                 && additionalFreeAddons
                   .map(addon => isEmpty(addon) || isNil(addon))
                   .some(v => v === true)
+              )
+
+              // if paid addons are present
+              // but any of the values are nil
+              || (
+                hasAdditionalPaidAddons
+                && additionalPaidAddons
+                  .map(addon => isEmpty(addon) || isNil(addon.name) || isEmpty(addon.name) || isNil(addon.price) || isEmpty(addon.price))
+                  .some(addon => addon === true)
               )
             }
           >
