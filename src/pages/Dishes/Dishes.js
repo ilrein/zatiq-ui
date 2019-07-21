@@ -66,6 +66,7 @@ const Dishes = ({
     image,
     dietaryCategories,
     freeAddons,
+    paidAddons,
   ) => {
     try {
       // console.log(price);
@@ -103,6 +104,7 @@ const Dishes = ({
             variations,
             dietaryCategories,
             freeAddons,
+            paidAddons,
           },
         }),
       });

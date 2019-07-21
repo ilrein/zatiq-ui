@@ -353,7 +353,8 @@ const Dish = ({
                     </Table.Cell>
                     <Table.Cell>
                       {
-                        ITEM.freeAddons.length > 0
+                        ITEM.freeAddons
+                        && ITEM.freeAddons.length > 0
                           ? ITEM.freeAddons.map(addon => (
                             <Label
                               key={addon}
@@ -375,8 +376,9 @@ const Dish = ({
                     </Table.Cell>
                     <Table.Cell>
                       {
-                        ITEM.paddAddons.length > 0
-                          ? ITEM.paddAddons.map(({ name, price }) => (
+                        ITEM.paidAddons
+                        && ITEM.paidAddons.length > 0
+                          ? ITEM.paidAddons.map(({ name, price }) => (
                             <List
                               divided
                               key={name}
