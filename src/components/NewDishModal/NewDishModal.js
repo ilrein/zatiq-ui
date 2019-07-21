@@ -132,9 +132,11 @@ const NewDishModal = ({
     setDietaryCategories([]);
     setHasVariations(false);
     setVariationData([{}]);
+    setHasAdditionalFreeToppings(false);
+    setAdditionalFreeAddons(null);
+    setHasAdditionalPaidToppings(false);
+    setAdditionalPaidAddons([]);
   };
-
-  console.log(additionalPaidAddons);
 
   return (
     <Modal

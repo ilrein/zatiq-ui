@@ -98,7 +98,13 @@ const Dish = ({
     ) getImage(ITEM);
   }, []);
 
-  const updateItem = async (name, description, price, picture) => {
+  const updateItem = async (
+    name,
+    description,
+    price,
+    picture,
+    dietaryCategories,
+  ) => {
     try {
       setUpdating(true);
       if (
@@ -124,6 +130,13 @@ const Dish = ({
         IMAGE_URI = key;
       }
 
+      if (
+        picture === undefined
+        && ITEM.image
+      ) {
+        IMAGE_URI = ITEM.image;
+      }
+
       const updatedDishItem = await fetch(`${API_DISHES}/${ITEM._id}`, {
         method: 'PUT',
         headers: {
@@ -136,6 +149,7 @@ const Dish = ({
             description,
             price,
             image: IMAGE_URI.length > 0 ? IMAGE_URI : null,
+            dietaryCategories,
           },
         }),
       });

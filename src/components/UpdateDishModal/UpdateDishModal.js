@@ -12,6 +12,9 @@ import styled from 'styled-components';
 
 import Dropzone from '../Dropzone';
 
+// options
+import { options } from '../../data/dietaryCategory.json';
+
 const SpreadHeader = styled(Header)`
   display: flex !important;
   flex-direction: row;
@@ -29,8 +32,11 @@ const UpdateDishModal = ({
   const [name, setName] = useState(dish.name);
   const [description, setDescription] = useState(dish.description);
   const [price, setPrice] = useState(Object.values(dish.price)[0]);
-
   const [picture, setPicture] = useState(undefined);
+
+  const [dietaryCategories, setDietaryCategories] = useState(dish.dietaryCategories);
+
+  console.log(dish);
 
   return (
     <Modal
@@ -54,31 +60,13 @@ const UpdateDishModal = ({
             onChange={(event, { value }) => setName(value)}
           />
 
-          <Form.TextArea
-            label="Description"
-            value={description}
-            onChange={(event, { value }) => setDescription(value)}
-          />
-
-          <Form.Input
-            label="Price"
-            placeholder="12.99"
-            onChange={(event, { value }) => setPrice(value)}
-            value={price}
-            required
-            type="number"
-            min="0.00"
-            max="100.00"
-            step="0.01"
-          />
-
           <div className="field">
             <label>
               Image
             </label>
             {
               image
-              && picture === undefined
+                && picture === undefined
                 ? (
                   <>
                     <Image src={image} />
@@ -98,18 +86,18 @@ const UpdateDishModal = ({
                   <Dropzone
                     handleDrop={PIC => setPicture(PIC)}
                     defaultDropMessage="Modify dish image, or leave blank to omit one."
-                  /> 
+                  />
                 )
-                : null 
+                : null
             }
 
             {
               picture !== null
-              && picture !== undefined
+                && picture !== undefined
                 ? (
                   <>
                     <Image src={picture.preview} />
-                    
+
                     <Button
                       icon="remove"
                       onClick={() => setPicture(null)}
@@ -121,21 +109,72 @@ const UpdateDishModal = ({
 
             {
               dish.image === null
-              && picture === undefined
+                && picture === undefined
                 ? (
                   <Dropzone
                     handleDrop={PIC => setPicture(PIC)}
                     defaultDropMessage="Modify dish image, or leave blank to omit one."
-                  /> 
+                  />
                 )
-                : null 
+                : null
             }
           </div>
+
+          <Form.TextArea
+            label="Description (Optional)"
+            value={description}
+            onChange={(event, { value }) => setDescription(value)}
+          />
+
+          <Form.Dropdown
+            label="Dietary Category (Optional)"
+            onChange={(event, { value }) => setDietaryCategories(value)}
+            fluid
+            options={options}
+            selection
+            search
+            placeholder="Dairy Free"
+            multiple
+            value={dietaryCategories}
+          />
+
+          {
+            dish.variations
+              ? (
+                dish.variations.map(variation => (
+                  <>
+                    {variation.name} {Object.values(variation.price)}
+                  </>
+                ))
+              )
+              : (
+                <Form.Input
+                  label="Price"
+                  placeholder="12.99"
+                  onChange={(event, { value }) => setPrice(value)}
+                  value={price}
+                  required
+                  type="number"
+                  min="0.00"
+                  max="100.00"
+                  step="0.01"
+                />
+              )
+            
+          }
 
           <Button
             primary
             type="submit"
-            onClick={() => onSubmit(name, description, price, picture)}
+            onClick={() => {
+              onSubmit(
+                name,
+                description,
+                price,
+                picture,
+                dietaryCategories,
+              );
+            }}
             style={{ marginTop: '1rem' }}
             loading={loading}
           >
