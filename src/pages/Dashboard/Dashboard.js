@@ -12,6 +12,7 @@ import isNil from 'ramda/src/isNil';
 import PropTypes from 'prop-types';
 import uuidv4 from 'uuid/v4';
 import { Storage } from 'aws-amplify';
+import { toast } from 'react-toastify';
 
 // UI parts
 import fadeIn from '../../anime/fadeIn';
@@ -25,7 +26,6 @@ import {
   API_RESTAURANT,
   API_USERS,
 } from '../../constants';
-import { toast } from 'react-toastify';
 
 const Wrapper = styled.div`
   display: flex;

@@ -4,7 +4,7 @@ import {
   Header,
   Icon,
   Grid,
-  // Breadcrumb,
+  Breadcrumb,
 } from 'semantic-ui-react';
 import styled from 'styled-components';
 import fetch from 'isomorphic-fetch';
@@ -12,6 +12,7 @@ import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 import { Storage } from 'aws-amplify';
 import uuidv4 from 'uuid/v4';
+import { Link } from 'react-router-dom';
 
 import fadeIn from '../../anime/fadeIn';
 import {
@@ -137,6 +138,18 @@ const Dishes = ({
   return (
     <Wrapper>
       <InnerWrapper>
+        <Breadcrumb>
+          <Link to="/dashboard">
+            <Breadcrumb.Section>
+              Dashboard
+            </Breadcrumb.Section>
+          </Link>
+          <Breadcrumb.Divider icon="right chevron" />
+          <Breadcrumb.Section active>
+            Dishes
+          </Breadcrumb.Section>
+        </Breadcrumb>
+
         <SpreadHeader>
           <Header style={{ margin: 0 }}>
             Dishes
