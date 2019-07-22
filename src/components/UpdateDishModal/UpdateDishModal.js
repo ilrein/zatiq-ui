@@ -54,6 +54,29 @@ const UpdateDishModal = ({
   const [hasVariations, setHasVariations] = useState(dish.variations.length > 0);
   const [variations, setVariations] = useState(dish.variations);
 
+  const calculateTotalVariations = (modification) => {
+    switch (modification) {
+      case 'increment':
+        setVariations([
+          ...variations,
+          {
+            [variations.length]: {
+              name: '',
+              price: '',
+            },
+          },
+        ]);
+        break;
+      case 'decrement':
+        if (variations.length !== 1) {
+          setVariations(dropLast(1, variations));
+        }
+        break;
+      default:
+        break;
+    }
+  };
+
   console.log(dish);
 
   return (
@@ -160,40 +183,61 @@ const UpdateDishModal = ({
             {
               hasVariations
                 ? (
-                  variations.map((currentValue, index) => (
-                    <Form.Group
-                      widths="equal"
-                      key={index}
-                    >
-                      <Form.Input
-                        label="Variation"
-                        placeholder="Small"
-                        onChange={(event, { value }) => {
-                          const updated = update(index, {
-                            name: value,
-                            price: !isNil(variations[index].price) ? variations[index].price : '',
-                          });
-                          setVariations(updated);
-                        }}
-                        value={variations[index].name}
-                      />
-                      <Form.Input
-                        label="Price"
-                        placeholder="10.99"
-                        type="number"
-                        min="0.00"
-                        max="100.00"
-                        step="0.01"
-                        onChange={(event, { value }) => {
-                          const updated = update(index, {
-                            name: !isNil(variations[index].name) ? variations[index].name : '',
-                            price: value,
-                          });
-                          setVariations(updated);
-                        }}
-                      />
-                    </Form.Group>
-                  ))
+                  <>
+                    {
+                      variations.map((currentValue, index) => (
+                        <Form.Group
+                          widths="equal"
+                          key={index}
+                        >
+                          <Form.Input
+                            label="Variation"
+                            placeholder="Small"
+                            onChange={(event, { value }) => {
+                              const updated = update(index, {
+                                name: value,
+                                price: !isNil(variations[index].price) ? variations[index].price : '',
+                              });
+                              setVariations(updated);
+                            }}
+                            value={variations[index].name}
+                          />
+                          <Form.Input
+                            label="Price"
+                            placeholder="10.99"
+                            type="number"
+                            min="0.00"
+                            max="100.00"
+                            step="0.01"
+                            onChange={(event, { value }) => {
+                              const updated = update(index, {
+                                name: !isNil(variations[index].name) ? variations[index].name : '',
+                                price: value,
+                              });
+                              setVariations(updated);
+                            }}
+                          />
+                        </Form.Group>
+                      ))
+                    }
+
+                    <Button.Group style={{ marginBottom: '1rem' }}>
+                      <Button
+                        type="button"
+                        onClick={() => calculateTotalVariations('decrement')}
+                        disabled={variations.length === 1}
+                      >
+                        <Icon name="minus" />
+                      </Button>
+                      <Button
+                        type="button"
+                        onClick={() => calculateTotalVariations('increment')}
+                      >
+                        <Icon name="plus" />
+                      </Button>
+                    </Button.Group>
+                    <br />
+                  </>
                 )
                 : (
                   <Form.Input
