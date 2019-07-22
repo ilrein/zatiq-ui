@@ -50,7 +50,7 @@ const NewDishModal = ({
   // dynamic variances in dish
   // things like quantity or size
   const [hasVariations, setHasVariations] = useState(false);
-  const [variationData, setVariationData] = useState([]);
+  const [variations, setVariations] = useState([]);
 
   // does it have dynamic toppings (free)
   const [hasAdditionalFreeAddons, setHasAdditionalFreeToppings] = useState(false);
@@ -63,10 +63,10 @@ const NewDishModal = ({
   const calculateTotalVariations = (modification) => {
     switch (modification) {
       case 'increment':
-        setVariationData([
-          ...variationData,
+        setVariations([
+          ...variations,
           {
-            [variationData.length]: {
+            [variations.length]: {
               name: '',
               price: '',
             },
@@ -74,8 +74,8 @@ const NewDishModal = ({
         ]);
         break;
       case 'decrement':
-        if (variationData.length !== 1) {
-          setVariationData(dropLast(1, variationData));
+        if (variations.length !== 1) {
+          setVariations(dropLast(1, variations));
         }
         break;
       default:
@@ -131,7 +131,7 @@ const NewDishModal = ({
     setImage('');
     setDietaryCategories([]);
     setHasVariations(false);
-    setVariationData([{}]);
+    setVariations([{}]);
     setHasAdditionalFreeToppings(false);
     setAdditionalFreeAddons(null);
     setHasAdditionalPaidToppings(false);
@@ -215,7 +215,7 @@ const NewDishModal = ({
                 ? (
                   <>
                     {
-                      variationData.map((currentValue, index) => (
+                      variations.map((currentValue, index) => (
                         <Form.Group
                           widths="equal"
                           key={index}
@@ -226,11 +226,11 @@ const NewDishModal = ({
                             onChange={(event, { value }) => {
                               const updated = update(index, {
                                 name: value,
-                                price: !isNil(variationData[index].price) ? variationData[index].price : '',
+                                price: !isNil(variations[index].price) ? variations[index].price : '',
                               });
-                              setVariationData(updated);
+                              setVariations(updated);
                             }}
-                            value={variationData[index].name}
+                            value={variations[index].name}
                           />
                           <Form.Input
                             label="Price"
@@ -241,10 +241,10 @@ const NewDishModal = ({
                             step="0.01"
                             onChange={(event, { value }) => {
                               const updated = update(index, {
-                                name: !isNil(variationData[index].name) ? variationData[index].name : '',
+                                name: !isNil(variations[index].name) ? variations[index].name : '',
                                 price: value,
                               });
-                              setVariationData(updated);
+                              setVariations(updated);
                             }}
                           />
                         </Form.Group>
@@ -255,7 +255,7 @@ const NewDishModal = ({
                       <Button
                         type="button"
                         onClick={() => calculateTotalVariations('decrement')}
-                        disabled={variationData.length === 1}
+                        disabled={variations.length === 1}
                       >
                         <Icon name="minus" />
                       </Button>
@@ -289,10 +289,10 @@ const NewDishModal = ({
               onChange={(event, { checked }) => {
                 setHasVariations(!hasVariations);
                 if (checked) {
-                  setVariationData([{}]);
+                  setVariations([{}]);
                   return;
                 }
-                setVariationData([]);
+                setVariations([]);
               }}
               checked={hasVariations}
             />
@@ -446,7 +446,7 @@ const NewDishModal = ({
                 name,
                 description,
                 price,
-                variationData,
+                variations,
                 image,
                 dietaryCategories,
                 additionalFreeAddons,
@@ -471,8 +471,14 @@ const NewDishModal = ({
               // but any of the values are nil
               || (
                 hasVariations
-                && variationData
-                  .map(v => isEmpty(v) || isNil(v.name) || isEmpty(v.name) || isNil(v.price) || isEmpty(v.price))
+                && variations
+                  .map(
+                    v => isEmpty(v)
+                    || isNil(v.name)
+                    || isEmpty(v.name)
+                    || isNil(v.price)
+                    || isEmpty(v.price),
+                  )
                   .some(v => v === true)
               )
 
@@ -490,7 +496,13 @@ const NewDishModal = ({
               || (
                 hasAdditionalPaidAddons
                 && additionalPaidAddons
-                  .map(addon => isEmpty(addon) || isNil(addon.name) || isEmpty(addon.name) || isNil(addon.price) || isEmpty(addon.price))
+                  .map(
+                    addon => isEmpty(addon)
+                      || isNil(addon.name)
+                      || isEmpty(addon.name)
+                      || isNil(addon.price)
+                      || isEmpty(addon.price),
+                  )
                   .some(addon => addon === true)
               )
             }

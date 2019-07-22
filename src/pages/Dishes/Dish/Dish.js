@@ -104,6 +104,7 @@ const Dish = ({
     price,
     picture,
     dietaryCategories,
+    variations,
   ) => {
     try {
       setUpdating(true);
@@ -150,6 +151,7 @@ const Dish = ({
             price,
             image: IMAGE_URI.length > 0 ? IMAGE_URI : null,
             dietaryCategories,
+            variations,
           },
         }),
       });

@@ -70,8 +70,6 @@ const Dishes = ({
     paidAddons,
   ) => {
     try {
-      // console.log(price);
-      // return;
       setSavingNewItem(true);
       
       let IMAGE_URI = null;

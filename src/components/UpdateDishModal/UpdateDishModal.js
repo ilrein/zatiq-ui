@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React, { useState } from 'react';
 import {
   Modal,
@@ -6,9 +7,17 @@ import {
   Icon,
   Form,
   Image,
+  Segment,
+  Checkbox,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+
+// Ramda utils for calculating variations
+import dropLast from 'ramda/src/dropLast';
+import update from 'ramda/src/update';
+import isEmpty from 'ramda/src/isEmpty';
+import isNil from 'ramda/src/isNil';
 
 import Dropzone from '../Dropzone';
 
@@ -29,12 +38,21 @@ const UpdateDishModal = ({
   dish,
   image,
 }) => {
+  // original values
   const [name, setName] = useState(dish.name);
   const [description, setDescription] = useState(dish.description);
   const [price, setPrice] = useState(Object.values(dish.price)[0]);
+
+  // picture is used to hold state for a modified new image
   const [picture, setPicture] = useState(undefined);
 
+  // array of strings
   const [dietaryCategories, setDietaryCategories] = useState(dish.dietaryCategories);
+
+  // dynamic variances in dish
+  // things like quantity or size
+  const [hasVariations, setHasVariations] = useState(dish.variations.length > 0);
+  const [variations, setVariations] = useState(dish.variations);
 
   console.log(dish);
 
@@ -138,30 +156,74 @@ const UpdateDishModal = ({
             value={dietaryCategories}
           />
 
-          {
-            dish.variations
-              ? (
-                dish.variations.map(variation => (
-                  <>
-                    {variation.name} {Object.values(variation.price)}
-                  </>
-                ))
-              )
-              : (
-                <Form.Input
-                  label="Price"
-                  placeholder="12.99"
-                  onChange={(event, { value }) => setPrice(value)}
-                  value={price}
-                  required
-                  type="number"
-                  min="0.00"
-                  max="100.00"
-                  step="0.01"
-                />
-              )
-            
-          }
+          <Segment color="black">
+            {
+              hasVariations
+                ? (
+                  variations.map((currentValue, index) => (
+                    <Form.Group
+                      widths="equal"
+                      key={index}
+                    >
+                      <Form.Input
+                        label="Variation"
+                        placeholder="Small"
+                        onChange={(event, { value }) => {
+                          const updated = update(index, {
+                            name: value,
+                            price: !isNil(variations[index].price) ? variations[index].price : '',
+                          });
+                          setVariations(updated);
+                        }}
+                        value={variations[index].name}
+                      />
+                      <Form.Input
+                        label="Price"
+                        placeholder="10.99"
+                        type="number"
+                        min="0.00"
+                        max="100.00"
+                        step="0.01"
+                        onChange={(event, { value }) => {
+                          const updated = update(index, {
+                            name: !isNil(variations[index].name) ? variations[index].name : '',
+                            price: value,
+                          });
+                          setVariations(updated);
+                        }}
+                      />
+                    </Form.Group>
+                  ))
+                )
+                : (
+                  <Form.Input
+                    label="Base Price"
+                    placeholder="12.99"
+                    onChange={(event, { value }) => setPrice(value)}
+                    value={price}
+                    required
+                    type="number"
+                    min="0.00"
+                    max="100.00"
+                    step="0.01"
+                  />
+                )
+            }
+
+            <Checkbox
+              toggle
+              label="Has Price Variations (such as size or quantity)"
+              onChange={(event, { checked }) => {
+                setHasVariations(!hasVariations);
+                if (checked) {
+                  setVariations([{}]);
+                  return;
+                }
+                setVariations([]);
+              }}
+              checked={hasVariations}
+            />
+          </Segment>
 
           <Button
             primary
@@ -173,10 +235,30 @@ const UpdateDishModal = ({
                 price,
                 picture,
                 dietaryCategories,
+                variations,
               );
             }}
             style={{ marginTop: '1rem' }}
             loading={loading}
+            disabled={
+              // if name is empty
+              name === ''
+
+              // if price is empty while no variations exist
+              || (
+                price === ''
+                && !hasVariations
+              )
+
+              // if variations exists
+              // but any of the values are nil
+              || (
+                hasVariations
+                && variations
+                  .map(v => isEmpty(v) || isNil(v.name) || isEmpty(v.name) || isNil(v.price) || isEmpty(v.price))
+                  .some(v => v === true)
+              )
+            }
           >
             Submit
           </Button>
