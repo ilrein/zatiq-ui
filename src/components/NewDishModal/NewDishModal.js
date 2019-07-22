@@ -54,7 +54,7 @@ const NewDishModal = ({
 
   // does it have dynamic toppings (free)
   const [hasAdditionalFreeAddons, setHasAdditionalFreeToppings] = useState(false);
-  const [additionalFreeAddons, setAdditionalFreeAddons] = useState(null);
+  const [additionalFreeAddons, setAdditionalFreeAddons] = useState([]);
 
   // does it have dynamic toppings (paid)
   const [hasAdditionalPaidAddons, setHasAdditionalPaidToppings] = useState(false);
@@ -133,7 +133,7 @@ const NewDishModal = ({
     setHasVariations(false);
     setVariations([{}]);
     setHasAdditionalFreeToppings(false);
-    setAdditionalFreeAddons(null);
+    setAdditionalFreeAddons([]);
     setHasAdditionalPaidToppings(false);
     setAdditionalPaidAddons([]);
   };
@@ -314,7 +314,7 @@ const NewDishModal = ({
             />
 
             {
-              !isNil(additionalFreeAddons)
+              !isEmpty(additionalFreeAddons)
                 ? (
                   <div style={{ marginTop: '1rem' }}>
                     {

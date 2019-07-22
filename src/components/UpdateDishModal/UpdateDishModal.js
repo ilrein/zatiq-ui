@@ -54,6 +54,13 @@ const UpdateDishModal = ({
   const [hasVariations, setHasVariations] = useState(dish.variations.length > 0);
   const [variations, setVariations] = useState(dish.variations);
 
+  // does it have freeAddons)
+  const [
+    hasAdditionalFreeAddons,
+    setHasAdditionalFreeToppings,
+  ] = useState(dish.freeAddons.length > 0);
+  const [additionalFreeAddons, setAdditionalFreeAddons] = useState(dish.freeAddons);
+
   const calculateTotalVariations = (modification) => {
     switch (modification) {
       case 'increment':
@@ -70,6 +77,24 @@ const UpdateDishModal = ({
       case 'decrement':
         if (variations.length !== 1) {
           setVariations(dropLast(1, variations));
+        }
+        break;
+      default:
+        break;
+    }
+  };
+
+  const calculateFreeAddons = (modification) => {
+    switch (modification) {
+      case 'increment':
+        setAdditionalFreeAddons([
+          ...additionalFreeAddons,
+          '',
+        ]);
+        break;
+      case 'decrement':
+        if (additionalFreeAddons.length !== 1) {
+          setAdditionalFreeAddons(dropLast(1, additionalFreeAddons));
         }
         break;
       default:
@@ -267,6 +292,61 @@ const UpdateDishModal = ({
               }}
               checked={hasVariations}
             />
+          </Segment>
+
+          <Segment color="black">
+            <Checkbox
+              toggle
+              label="Has optional free add-ons (such as toppings)"
+              onChange={(event, { checked }) => {
+                setHasAdditionalFreeToppings(!hasAdditionalFreeAddons);
+                if (checked) {
+                  setAdditionalFreeAddons(['']);
+                  return;
+                }
+                setAdditionalFreeAddons(null);
+              }}
+              checked={hasAdditionalFreeAddons}
+            />
+
+            {
+              !isNil(additionalFreeAddons)
+                ? (
+                  <div style={{ marginTop: '1rem' }}>
+                    {
+                      additionalFreeAddons.map((ADDON, index) => (
+                        <Form.Input
+                          key={index}
+                          label={`Add on #${index + 1}`}
+                          placeholder="Salt & Pepper"
+                          required
+                          onChange={(event, { value }) => {
+                            const updated = update(index, value);
+                            setAdditionalFreeAddons(updated);
+                          }}
+                        />
+                      ))
+                    }
+
+                    <Button.Group style={{ marginBottom: '1rem' }}>
+                      <Button
+                        type="button"
+                        onClick={() => calculateFreeAddons('decrement')}
+                        disabled={additionalFreeAddons.length === 1}
+                      >
+                        <Icon name="minus" />
+                      </Button>
+                      <Button
+                        type="button"
+                        onClick={() => calculateFreeAddons('increment')}
+                      >
+                        <Icon name="plus" />
+                      </Button>
+                    </Button.Group>
+                  </div>
+                )
+                : null
+            }
           </Segment>
 
           <Button
