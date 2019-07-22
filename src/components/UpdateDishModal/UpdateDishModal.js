@@ -380,7 +380,13 @@ const UpdateDishModal = ({
               || (
                 hasVariations
                 && variations
-                  .map(v => isEmpty(v) || isNil(v.name) || isEmpty(v.name) || isNil(v.price) || isEmpty(v.price))
+                  .map(
+                    v => isEmpty(v)
+                    || isNil(v.name)
+                    || isEmpty(v.name)
+                    || isNil(v.price)
+                    || isEmpty(v.price),
+                  )
                   .some(v => v === true)
               )
 
