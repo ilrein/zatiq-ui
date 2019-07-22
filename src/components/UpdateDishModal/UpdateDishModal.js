@@ -360,6 +360,7 @@ const UpdateDishModal = ({
                 picture,
                 dietaryCategories,
                 variations,
+                additionalFreeAddons,
               );
             }}
             style={{ marginTop: '1rem' }}
@@ -380,6 +381,15 @@ const UpdateDishModal = ({
                 hasVariations
                 && variations
                   .map(v => isEmpty(v) || isNil(v.name) || isEmpty(v.name) || isNil(v.price) || isEmpty(v.price))
+                  .some(v => v === true)
+              )
+
+              // if free addons are present
+              // but any of the values are nil
+              || (
+                hasAdditionalFreeAddons
+                && additionalFreeAddons
+                  .map(addon => isEmpty(addon) || isNil(addon))
                   .some(v => v === true)
               )
             }
