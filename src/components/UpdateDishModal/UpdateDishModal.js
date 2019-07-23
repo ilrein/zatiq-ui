@@ -133,6 +133,8 @@ const UpdateDishModal = ({
     }
   };
 
+  // console.log(variations);
+
   return (
     <Modal
       open={open}
@@ -437,7 +439,11 @@ const UpdateDishModal = ({
                             });
                             setAdditionalPaidAddons(updated);
                           }}
-                          value={additionalPaidAddons[index].price.$numberDecimal}
+                          value={
+                            additionalPaidAddons[index].price
+                              ? additionalPaidAddons[index].price.$numberDecimal
+                              : ''
+                          }
                         />
                       </Form.Group>
                     </>
