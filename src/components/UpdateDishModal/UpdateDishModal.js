@@ -12,6 +12,7 @@ import {
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import formatUSD from 'format-usd';
 
 // Ramda utils for calculating variations
 import dropLast from 'ramda/src/dropLast';
@@ -102,7 +103,7 @@ const UpdateDishModal = ({
     }
   };
 
-  console.log(dish);
+  // console.log(dish);
 
   return (
     <Modal
@@ -216,6 +217,7 @@ const UpdateDishModal = ({
                           key={index}
                         >
                           <Form.Input
+                            required
                             label="Variation"
                             placeholder="Small"
                             onChange={(event, { value }) => {
@@ -228,12 +230,14 @@ const UpdateDishModal = ({
                             value={variations[index].name}
                           />
                           <Form.Input
+                            required
                             label="Price"
                             placeholder="10.99"
                             type="number"
                             min="0.00"
                             max="100.00"
                             step="0.01"
+                            value={formatUSD({ amount: Object.values(variations[index].price) })}
                             onChange={(event, { value }) => {
                               const updated = update(index, {
                                 name: !isNil(variations[index].name) ? variations[index].name : '',
@@ -320,6 +324,7 @@ const UpdateDishModal = ({
                           label={`Add on #${index + 1}`}
                           placeholder="Salt & Pepper"
                           required
+                          value={ADDON}
                           onChange={(event, { value }) => {
                             const updated = update(index, value);
                             setAdditionalFreeAddons(updated);
@@ -352,7 +357,9 @@ const UpdateDishModal = ({
           <Button
             primary
             type="submit"
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
+
               onSubmit(
                 name,
                 description,

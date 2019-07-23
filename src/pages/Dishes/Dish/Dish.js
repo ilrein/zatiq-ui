@@ -37,6 +37,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   animation: ${fadeIn} 1s ease;
+  margin-bottom: 1rem;
 `;
 
 const InnerWrapper = styled.div`
@@ -299,9 +300,7 @@ const Dish = ({
                       Description
                     </Table.Cell>
                     <Table.Cell>
-                      {
-                        ITEM.description || 'null'
-                      }
+                      {ITEM.description}
                     </Table.Cell>
                   </Table.Row>
 

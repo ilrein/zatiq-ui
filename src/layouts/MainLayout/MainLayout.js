@@ -23,6 +23,7 @@ import AnimatedHamburger from '../../components/AnimatedHamburger';
 
 // utils
 import fadeIn from '../../anime/fadeIn';
+import refreshSession from '../../utils/refreshSession';
 
 const Wrapper = styled.div`
   height: 100%;
@@ -46,7 +47,7 @@ const MainLayout = ({
   };
 
   const handleKeyPress = (e) => {
-    if (e.code === 'KeyQ') {
+    if (e.code === 'Backquote') {
       toggleSidebar();
     }
   };
@@ -56,6 +57,13 @@ const MainLayout = ({
     return () => {
       window.removeEventListener('keyup', handleKeyPress);
     };
+  }, []); // eslint-disable-line
+
+  useEffect(() => {
+    setTimeout(() => {
+      console.log('refreshing session'); // eslint-disable-line
+      refreshSession();
+    }, 1800000);
   }, []); // eslint-disable-line
 
   return (
