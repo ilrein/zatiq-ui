@@ -133,7 +133,12 @@ const UpdateDishModal = ({
     }
   };
 
-  // console.log(variations);
+  const resetState = () => {
+    setVariations(variations);
+    setAdditionalPaidAddons(additionalPaidAddons);
+  };
+
+  console.log(additionalPaidAddons);
 
   return (
     <Modal
@@ -276,8 +281,9 @@ const UpdateDishModal = ({
                             }}
                             value={
                               variations[index].price
+                                && variations[index].price.$numberDecimal
                                 ? variations[index].price.$numberDecimal
-                                : ''
+                                : variations[index].price
                             }
                           />
                         </Form.Group>
@@ -348,7 +354,7 @@ const UpdateDishModal = ({
             />
 
             {
-              !isNil(additionalFreeAddons)
+              !isEmpty(additionalFreeAddons)
                 ? (
                   <div style={{ marginTop: '1rem' }}>
                     {
@@ -441,8 +447,9 @@ const UpdateDishModal = ({
                           }}
                           value={
                             additionalPaidAddons[index].price
+                            && additionalPaidAddons[index].price.$numberDecimal
                               ? additionalPaidAddons[index].price.$numberDecimal
-                              : ''
+                              : additionalPaidAddons[index].price
                           }
                         />
                       </Form.Group>
@@ -491,6 +498,8 @@ const UpdateDishModal = ({
                 additionalFreeAddons,
                 additionalPaidAddons,
               );
+
+              resetState();
             }}
             style={{ marginTop: '1rem' }}
             loading={loading}

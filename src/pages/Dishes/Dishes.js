@@ -238,7 +238,7 @@ const Dishes = ({
                       <PaginationRow>
                         <Pagination
                           boundaryRange={0}
-                          defaultActivePage={1}
+                          defaultActivePage={dishes.page}
                           ellipsisItem={null}
                           firstItem={null}
                           lastItem={null}
