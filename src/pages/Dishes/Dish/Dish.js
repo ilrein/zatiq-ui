@@ -107,6 +107,7 @@ const Dish = ({
     dietaryCategories,
     variations,
     freeAddons,
+    paidAddons,
   ) => {
     try {
       setUpdating(true);
@@ -155,6 +156,7 @@ const Dish = ({
             dietaryCategories,
             variations,
             freeAddons,
+            paidAddons,
           },
         }),
       });
