@@ -3,6 +3,7 @@ import {
   Grid,
   Header,
   Pagination,
+  Segment,
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -28,8 +29,10 @@ const DishesSection = ({
   const { user, cognitoUser } = userReducer;
   const { restaurantId } = user;
   const [jwtToken] = useState(cognitoUser.signInUserSession.accessToken.jwtToken);
+  const [loading, setLoading] = useState(false);
 
   const getPageOfDishes = async (pageNumber) => {
+    setLoading(true);
     try {
       const get = await fetch(`${API_DISHES}?restaurantId=${restaurantId}&limit=10&page=${pageNumber}`, {
         headers: {
@@ -43,6 +46,7 @@ const DishesSection = ({
     } catch (error) {
       console.log(error); // eslint-disable-line
     }
+    setLoading(false);
   };
 
   return (
@@ -68,25 +72,32 @@ const DishesSection = ({
           }
         </Grid.Column>
       </Grid.Row>
-  
-      <Grid.Row>
-        {
-          dishes.totalDocs > 0
-            ? (
-              dishes.docs.map(DOC => (
-                <Grid.Column
-                  key={DOC._id}
-                  mobile={16}
-                  tablet={8}
-                  computer={4}
-                >
-                  <DishCard doc={DOC} />
-                </Grid.Column>
-              ))
-            )
-            : null
-        }
-      </Grid.Row>
+      {
+        loading 
+          ? (
+            <>loading...</>
+          )
+          : (
+            <Grid.Row>
+              {
+                dishes.totalDocs > 0
+                  ? (
+                    dishes.docs.map(DOC => (
+                      <Grid.Column
+                        key={DOC._id}
+                        mobile={16}
+                        tablet={8}
+                        computer={4}
+                      >
+                        <DishCard doc={DOC} />
+                      </Grid.Column>
+                    ))
+                  )
+                  : null
+              }
+            </Grid.Row>
+          )
+      }
   
       {
         dishes.totalDocs > 0
