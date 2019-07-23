@@ -12,7 +12,7 @@ import {
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import formatUSD from 'format-usd';
+// import formatUSD from 'format-usd';
 
 // Ramda utils for calculating variations
 import dropLast from 'ramda/src/dropLast';
@@ -138,6 +138,8 @@ const UpdateDishModal = ({
     setAdditionalPaidAddons(additionalPaidAddons);
   };
 
+  // console.log(image, picture);
+
   return (
     <Modal
       open={open}
@@ -165,7 +167,7 @@ const UpdateDishModal = ({
               Image
             </label>
             {
-              image
+              !isNil(image)
                 && picture === undefined
                 ? (
                   <>

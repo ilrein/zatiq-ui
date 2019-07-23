@@ -19,6 +19,7 @@ import fetch from 'isomorphic-fetch';
 import uuidv4 from 'uuid/v4';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
+import isNil from 'ramda/src/isNil';
 
 import fadeIn from '../../../anime/fadeIn';
 import UpdateDishModal from '../../../components/UpdateDishModal';
@@ -83,6 +84,7 @@ const Dish = ({
 
   const getImage = async (dishItem) => {
     setFetchingImage(true);
+    if (isNil(dishItem.image)) return;
     try {
       const picture = await Storage.get(dishItem.image);
       setImage(picture);
@@ -95,9 +97,11 @@ const Dish = ({
   useEffect(() => {
     if (
       ITEM
-      && ITEM.image !== null
-    ) getImage(ITEM);
-  }, []);
+      && !isNil(ITEM.image)
+    ) {
+      getImage(ITEM);
+    }
+  }, [ITEM.image]);
 
   const updateItem = async (
     name,
