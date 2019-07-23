@@ -48,7 +48,7 @@ const SpreadHeader = styled.div`
   display: flex !important;
   flex-direction: row;
   justify-content: space-between;
-  align-dishes: center;
+  align-items: center;
   margin-top: 1rem;
 `;
 
@@ -197,7 +197,7 @@ const Dish = ({
         },
       });
 
-      const getItemsAgain = await fetch(API_DISHES, {
+      const getItemsAgain = await fetch(`${API_DISHES}?restaurantId=${restaurantId}&limit=10`, {
         headers: {
           'Content-Type': 'application/json',
           'jwt-token': jwtToken,

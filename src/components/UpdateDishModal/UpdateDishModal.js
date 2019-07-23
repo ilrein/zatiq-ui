@@ -265,7 +265,6 @@ const UpdateDishModal = ({
                             min="0.00"
                             max="100.00"
                             step="0.01"
-                            value={formatUSD({ amount: Object.values(variations[index].price) })}
                             onChange={(event, { value }) => {
                               const updated = update(index, {
                                 name: !isNil(variations[index].name) ? variations[index].name : '',
@@ -273,6 +272,11 @@ const UpdateDishModal = ({
                               });
                               setVariations(updated);
                             }}
+                            value={
+                              variations[index].price
+                                ? variations[index].price.$numberDecimal
+                                : ''
+                            }
                           />
                         </Form.Group>
                       ))

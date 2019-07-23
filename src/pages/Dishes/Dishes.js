@@ -39,7 +39,7 @@ const SpreadHeader = styled.div`
   display: flex !important;
   flex-direction: row;
   justify-content: space-between;
-  align-dishes: center;
+  align-items: center;
   margin: 1rem 0 2rem 0;
 `;
 
@@ -150,7 +150,7 @@ const Dishes = ({
 
         <SpreadHeader>
           <Header style={{ margin: 0 }}>
-            Dishes
+            Dishes ({dishes.totalDocs})
           </Header>
 
           <Button
