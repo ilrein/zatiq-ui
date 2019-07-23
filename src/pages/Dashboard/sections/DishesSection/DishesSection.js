@@ -3,7 +3,6 @@ import {
   Grid,
   Header,
   Pagination,
-  Segment,
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -72,6 +71,7 @@ const DishesSection = ({
           }
         </Grid.Column>
       </Grid.Row>
+
       {
         loading 
           ? (

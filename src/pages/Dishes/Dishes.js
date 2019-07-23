@@ -5,6 +5,7 @@ import {
   Icon,
   Grid,
   Breadcrumb,
+  Pagination,
 } from 'semantic-ui-react';
 import styled from 'styled-components';
 import fetch from 'isomorphic-fetch';
@@ -43,6 +44,11 @@ const SpreadHeader = styled.div`
   margin: 1rem 0 2rem 0;
 `;
 
+const PaginationRow = styled(Grid.Row)`
+  flex-direction: row-reverse !important;
+  margin: 0 1rem !important;
+`;
+
 const Dishes = ({
   userReducer,
   dishes,
@@ -58,6 +64,9 @@ const Dishes = ({
 
   // serverside errors
   const [serversideErrors, setServersideErrors] = useState([]);
+
+  // pagination re-render
+  const [loading, setLoading] = useState(false);
 
   const createNewDish = async (
     name,
@@ -133,6 +142,24 @@ const Dishes = ({
     }
   };
 
+  const getPageOfDishes = async (pageNumber) => {
+    setLoading(true);
+    try {
+      const get = await fetch(`${API_DISHES}?restaurantId=${restaurantId}&limit=10&page=${pageNumber}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'jwt-token': jwtToken,
+        },
+      });
+
+      const result = await get.json();
+      captureItems(result);
+    } catch (error) {
+      console.log(error); // eslint-disable-line
+    }
+    setLoading(false);
+  };
+
   return (
     <Wrapper>
       <InnerWrapper>
@@ -177,22 +204,53 @@ const Dishes = ({
               <Grid
                 stackable
               >
-                <Grid.Row>
-                  {
-                    dishes.docs.map(DOC => (
-                      <Grid.Column
-                        key={DOC._id}
-                        mobile={16}
-                        tablet={8}
-                        computer={4}
-                      >
-                        <DishCard
-                          doc={DOC}
+
+                {
+                  loading
+                    ? (
+                      <>loading...</>
+                    )
+                    : (
+                      <Grid.Row>
+                        {
+                          dishes.totalDocs > 0
+                            ? (
+                              dishes.docs.map(DOC => (
+                                <Grid.Column
+                                  key={DOC._id}
+                                  mobile={16}
+                                  tablet={8}
+                                  computer={4}
+                                >
+                                  <DishCard doc={DOC} />
+                                </Grid.Column>
+                              ))
+                            )
+                            : null
+                        }
+                      </Grid.Row>
+                    )
+                }
+
+                {
+                  dishes.totalDocs > 0
+                    ? (
+                      <PaginationRow>
+                        <Pagination
+                          boundaryRange={0}
+                          defaultActivePage={1}
+                          ellipsisItem={null}
+                          firstItem={null}
+                          lastItem={null}
+                          siblingRange={1}
+                          totalPages={dishes.totalPages}
+                          page={dishes.page}
+                          onPageChange={(event, { activePage }) => getPageOfDishes(activePage)}
                         />
-                      </Grid.Column>
-                    ))
-                  }
-                </Grid.Row>
+                      </PaginationRow>
+                    )
+                    : null
+                }
               </Grid>
             )
         }
