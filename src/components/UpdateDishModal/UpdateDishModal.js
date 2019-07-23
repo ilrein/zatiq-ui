@@ -133,11 +133,6 @@ const UpdateDishModal = ({
     }
   };
 
-  console.log(
-    additionalPaidAddons[0].price.$numberDecimal,
-    formatUSD({ amount: additionalPaidAddons[0].price.$numberDecimal })
-  );
-
   return (
     <Modal
       open={open}

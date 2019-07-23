@@ -21,7 +21,7 @@ const StyledCard = styled(Segment)`
   margin-bottom: 1rem !important;
 `;
 
-const DishCard = ({ doc }) => {
+const DishCard = ({ doc, showImage }) => {
   const [fetchingImage, setFetchingImage] = useState(false);
   const [image, setImage] = useState(null);
 
@@ -45,6 +45,7 @@ const DishCard = ({ doc }) => {
       basic
       loading={fetchingImage}
       key={doc._id}
+      showImage
     >
       <Link
         to={`/dishes/${doc._id}`}
@@ -53,6 +54,7 @@ const DishCard = ({ doc }) => {
         <Card>
           {
             doc.image
+            && showImage
               ? (
                 <Image
                   src={image}
@@ -84,6 +86,11 @@ const DishCard = ({ doc }) => {
 
 DishCard.propTypes = {
   doc: PropTypes.shape().isRequired,
+  showImage: PropTypes.bool,
+};
+
+DishCard.defaultProps = {
+  showImage: false,
 };
 
 export default DishCard;

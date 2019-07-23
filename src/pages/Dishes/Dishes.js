@@ -111,7 +111,7 @@ const Dishes = ({
       await DISH_POST.json();
 
       // query for dishes again now that a new insert was made
-      const getItems = await fetch(API_DISHES, {
+      const getItems = await fetch(`${API_DISHES}?restaurantId=${restaurantId}&limit=10&page=1`, {
         headers: {
           'Content-Type': 'application/json',
           'jwt-token': jwtToken,

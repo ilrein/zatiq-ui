@@ -29,7 +29,7 @@ const DishesContainer = ({
   const getItemsByrestaurantId = async () => {
     if (!isNil(restaurantId)) {
       try {
-        const get = await fetch(`${API_DISHES}?restaurantId=${restaurantId}&limit=50`, {
+        const get = await fetch(`${API_DISHES}?restaurantId=${restaurantId}&limit=10&page=1`, {
           headers: {
             'Content-Type': 'application/json',
             'jwt-token': jwtToken,

@@ -163,7 +163,7 @@ const Dish = ({
 
       const updatedDishItemPayload = await updatedDishItem.json();
 
-      const getItemsAgain = await fetch(`${API_DISHES}?restaurantId=${restaurantId}&limit=50`, {
+      const getItemsAgain = await fetch(`${API_DISHES}?restaurantId=${restaurantId}&limit=10`, {
         headers: {
           'Content-Type': 'application/json',
           'jwt-token': jwtToken,

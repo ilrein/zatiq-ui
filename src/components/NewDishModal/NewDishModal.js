@@ -131,7 +131,7 @@ const NewDishModal = ({
     setImage('');
     setDietaryCategories([]);
     setHasVariations(false);
-    setVariations([{}]);
+    setVariations([]);
     setHasAdditionalFreeToppings(false);
     setAdditionalFreeAddons([]);
     setHasAdditionalPaidToppings(false);

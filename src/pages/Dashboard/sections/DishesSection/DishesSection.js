@@ -16,7 +16,7 @@ const DishesSection = ({
       <Grid.Column>
         <Header>
           <Link to="/dishes">
-            Dishes
+            Dishes ({`${dishes.totalDocs}`})
           </Link>
         </Header>
         
