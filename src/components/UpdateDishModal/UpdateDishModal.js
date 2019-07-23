@@ -138,8 +138,6 @@ const UpdateDishModal = ({
     setAdditionalPaidAddons(additionalPaidAddons);
   };
 
-  console.log(additionalPaidAddons);
-
   return (
     <Modal
       open={open}
