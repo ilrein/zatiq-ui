@@ -101,7 +101,7 @@ const Dish = ({
     ) {
       getImage(ITEM);
     }
-  }, [ITEM.image]);
+  }, []);
 
   const updateItem = async (
     name,

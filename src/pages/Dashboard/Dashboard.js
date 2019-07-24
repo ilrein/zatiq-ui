@@ -58,8 +58,6 @@ const Dashboard = ({
     features,
     image,
     phoneNumber,
-    minPrice,
-    maxPrice,
     startingTime,
     closingTime,
   ) => {
@@ -82,8 +80,6 @@ const Dashboard = ({
             cuisineType,
             image: null,
             phoneNumber,
-            priceRangeMin: minPrice,
-            priceRangeMax: maxPrice,
             startingTime,
             closingTime,
           },

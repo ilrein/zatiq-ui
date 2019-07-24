@@ -62,8 +62,6 @@ const InitialLaunchModal = ({
       features,
       image,
       phone,
-      minPrice,
-      maxPrice,
       startingTime, 
       closingTime,
     );
@@ -124,18 +122,6 @@ const InitialLaunchModal = ({
             placeholder="Italian"
           />
 
-          <div className="field">
-            <label>
-              Features
-            </label>
-            <FeaturesDropdown
-              onChange={(event, { value }) => setFeatures(value)}
-              fluid
-              required
-              disabled={loading}
-            />
-          </div>
-
           <div className="field required">
             <label>
               Image
@@ -176,35 +162,6 @@ const InitialLaunchModal = ({
 
           <Form.Group widths="equal">
             <Form.Input
-              onChange={(event, { value }) => setMinPrice(value)}
-              value={minPrice}
-              label="Min. Price"
-              fluid
-              disabled={loading}
-              required
-              type="number"
-              placeholder="11.99"
-              min="0.00"
-              max="100.00"
-              step="0.01"
-            />
-            <Form.Input
-              onChange={(event, { value }) => setMaxPrice(value)}
-              value={maxPrice}
-              label="Max Price"
-              fluid
-              disabled={loading}
-              required
-              type="number"
-              placeholder="34.99"
-              min="0.00"
-              max="100.00"
-              step="0.01"
-            />
-          </Form.Group>
-
-          <Form.Group widths="equal">
-            <Form.Input
               onChange={(event, { value }) => setStartingTime(value)}
               value={startingTime}
               label="Starting Time"
@@ -224,6 +181,18 @@ const InitialLaunchModal = ({
             />
           </Form.Group>
 
+          <div className="field">
+            <label>
+              Features
+            </label>
+            <FeaturesDropdown
+              onChange={(event, { value }) => setFeatures(value)}
+              fluid
+              required
+              disabled={loading}
+            />
+          </div>
+
           <Form.Button
             primary
             type="submit"
@@ -237,8 +206,6 @@ const InitialLaunchModal = ({
               || image === null
               || cuisineType === ''
               || phone === ''
-              || minPrice === ''
-              || maxPrice === ''
               || startingTime === ''
               || closingTime === ''
             }
