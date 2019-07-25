@@ -55,11 +55,10 @@ const Dashboard = ({
     address,
     description,
     cuisineType,
-    features,
     image,
     phoneNumber,
-    startingTime,
-    closingTime,
+    operatingHours,
+    features,
   ) => {
     setSaving(true);
 
@@ -76,12 +75,11 @@ const Dashboard = ({
             ownerId: user._id,
             address,
             description,
-            features,
             cuisineType,
             image: null,
             phoneNumber,
-            startingTime,
-            closingTime,
+            operatingHours,
+            features,
           },
         }),
       });

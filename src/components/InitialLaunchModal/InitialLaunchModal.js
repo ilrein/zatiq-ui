@@ -7,14 +7,19 @@ import {
   Button,
   Image,
   Form,
+  Segment,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
+// import dayjs from 'dayjs';
+
+// ramda utils
+import update from 'ramda/src/update';
+import isEmpty from 'ramda/src/isEmpty';
 
 // constants
 import { APP_NAME } from '../../constants';
 
 // components
-// import CuisineDropdown from '../CuisineDropdown';
 import FeaturesDropdown from '../FeaturesDropdown';
 import PlacesAutoComplete from '../PlacesAutoComplete';
 import Dropzone from '../Dropzone';
@@ -24,6 +29,7 @@ import { copy } from './copy.json';
 
 // dropdown data
 import { options } from '../../data/cuisineType.json';
+import { weekdays } from '../../data/weekdays.json';
 
 const InitialLaunchModal = ({
   onSubmit,
@@ -41,13 +47,15 @@ const InitialLaunchModal = ({
   // features
   const [features, setFeatures] = useState([]);
 
-  // prices
-  const [minPrice, setMinPrice] = useState('');
-  const [maxPrice, setMaxPrice] = useState('');
-
   // start/close times
-  const [startingTime, setStartingTime] = useState('');
-  const [closingTime, setClosingTime] = useState('');
+  const [hasDifferentOperatingHours, setHasDifferentOperatingHours] = useState(false);
+  const [operatingHours, setOperatingHours] = useState(weekdays.map(weekday => ({
+    weekday,
+    startTime: '09:00',
+    closeTime: '17:00',
+  })));
+
+  console.log(operatingHours);
 
   const heading = `Welcome to ${APP_NAME}!`;
 
@@ -59,11 +67,10 @@ const InitialLaunchModal = ({
       formatted_address,
       description,
       cuisineType,
-      features,
       image,
       phone,
-      startingTime, 
-      closingTime,
+      operatingHours,
+      features,
     );
   };
 
@@ -77,7 +84,7 @@ const InitialLaunchModal = ({
       </Header>
       <Modal.Content>
         <Message info>
-          Please enter your restaurant details to get started.
+          Please enter your restaurant information to get started.
         </Message>
 
         <Form>
@@ -160,26 +167,91 @@ const InitialLaunchModal = ({
             maxLength={12}
           />
 
-          <Form.Group widths="equal">
-            <Form.Input
-              onChange={(event, { value }) => setStartingTime(value)}
-              value={startingTime}
-              label="Starting Time"
-              fluid
-              disabled={loading}
-              required
-              type="time"
+          <Segment color="black">
+            <Header as="h4">
+              Hours of operation
+            </Header>
+            <Form.Checkbox
+              toggle
+              label="Some days have different hours"
+              checked={hasDifferentOperatingHours}
+              onChange={(event, { checked }) => setHasDifferentOperatingHours(checked)}
             />
-            <Form.Input
-              onChange={(event, { value }) => setClosingTime(value)}
-              value={closingTime}
-              label="Closing Time"
-              fluid
-              disabled={loading}
-              required
-              type="time"
-            />
-          </Form.Group>
+            {
+              !hasDifferentOperatingHours
+                ? (
+                  <Form.Group widths="equal">
+                    <Form.Input
+                      onChange={(event, { value }) => {
+                        setOperatingHours(operatingHours.map(OPERATING_HOURS => ({
+                          ...OPERATING_HOURS,
+                          startTime: value,
+                        })));
+                      }}
+                      label="Starting Time"
+                      fluid
+                      disabled={loading}
+                      required
+                      type="time"
+                      value={operatingHours[0].startTime}
+                    />
+                    <Form.Input
+                      onChange={(event, { value }) => {
+                        setOperatingHours(operatingHours.map(OPERATING_HOURS => ({
+                          ...OPERATING_HOURS,
+                          closeTime: value,
+                        })));
+                      }}
+                      label="Closing Time"
+                      fluid
+                      disabled={loading}
+                      required
+                      type="time"
+                      value={operatingHours[0].closeTime}
+                    />
+                  </Form.Group>
+                )
+                : (
+                  operatingHours.map((weekday, index) => (
+                    <div key={`${weekday}`}>
+                      <Header as="h4">
+                        {weekday.weekday}
+                      </Header>
+                      <Form.Group widths="equal">
+                        <Form.Input
+                          onChange={(event, { value }) => {
+                            setOperatingHours(update(index, {
+                              ...operatingHours[index],
+                              startTime: value,
+                            }));
+                          }}
+                          value={weekday.startTime}
+                          label="Starting Time"
+                          fluid
+                          disabled={loading}
+                          required
+                          type="time"
+                        />
+                        <Form.Input
+                          onChange={(event, { value }) => {
+                            setOperatingHours(update(index, {
+                              ...operatingHours[index],
+                              closeTime: value,
+                            }));
+                          }}
+                          value={weekday.closeTime}
+                          label="Closing Time"
+                          fluid
+                          disabled={loading}
+                          required
+                          type="time"
+                        />
+                      </Form.Group>
+                    </div>
+                  ))
+                )
+            }
+          </Segment>
 
           <div className="field">
             <label>
@@ -206,8 +278,14 @@ const InitialLaunchModal = ({
               || image === null
               || cuisineType === ''
               || phone === ''
-              || startingTime === ''
-              || closingTime === ''
+              || (
+                operatingHours
+                  .map(
+                    hours => isEmpty(hours.startTime)
+                    || isEmpty(hours.closeTime),
+                  )
+                  .some(fieldsAreEmpty => fieldsAreEmpty === true)
+              )
             }
           >
             Submit

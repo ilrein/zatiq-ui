@@ -62,7 +62,7 @@ const MainLayout = ({
   }, []); // eslint-disable-line
 
   useEffect(() => {
-    later.setInterval(
+    later.setTimeout(
       () => {
         console.log('refreshing session', dayjs().format('h:mm:ss a')); // eslint-disable-line
         refreshSession();
