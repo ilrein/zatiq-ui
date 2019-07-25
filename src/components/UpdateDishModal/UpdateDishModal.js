@@ -23,7 +23,7 @@ import isNil from 'ramda/src/isNil';
 import Dropzone from '../Dropzone';
 
 // options
-import { options } from '../../data/dietaryCategory.json';
+import { dietaryCategory } from '../../data/dietaryCategory.json';
 
 const SpreadHeader = styled(Header)`
   display: flex !important;
@@ -48,7 +48,7 @@ const UpdateDishModal = ({
   const [picture, setPicture] = useState(undefined);
 
   // array of strings
-  const [dietaryCategories, setDietaryCategories] = useState(dish.dietaryCategories);
+  const [dietaryRestrictions, setDietaryCategories] = useState(dish.dietaryRestrictions);
 
   // dynamic variances in dish
   // things like quantity or size
@@ -232,12 +232,12 @@ const UpdateDishModal = ({
             label="Dietary Category (Optional)"
             onChange={(event, { value }) => setDietaryCategories(value)}
             fluid
-            options={options}
+            options={dietaryCategory}
             selection
             search
             placeholder="Dairy Free"
             multiple
-            value={dietaryCategories}
+            value={dietaryRestrictions}
           />
 
           <Segment color="black">
@@ -493,7 +493,7 @@ const UpdateDishModal = ({
                 description,
                 price,
                 picture,
-                dietaryCategories,
+                dietaryRestrictions,
                 variations,
                 additionalFreeAddons,
                 additionalPaidAddons,

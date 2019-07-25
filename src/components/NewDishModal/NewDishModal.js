@@ -25,7 +25,8 @@ import isNil from 'ramda/src/isNil';
 import Dropzone from '../Dropzone';
 
 // options
-import { options } from '../../data/dietaryCategory.json';
+import { dietaryCategory } from '../../data/dietaryCategory.json';
+import { category } from '../../data/category.json';
 
 const SpreadHeader = styled(Header)`
   display: flex !important;
@@ -44,7 +45,7 @@ const NewDishModal = ({
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
-  const [dietaryCategories, setDietaryCategories] = useState([]);
+  const [dietaryRestrictions, setDietaryCategories] = useState([]);
   const [image, setImage] = useState('');
 
   // dynamic variances in dish
@@ -59,6 +60,9 @@ const NewDishModal = ({
   // does it have dynamic toppings (paid)
   const [hasPaidAddons, setHasPaidAddons] = useState(false);
   const [paidAddons, setPaidAddons] = useState([]);
+
+  // is it a main course, appetizer, etc
+  const [categoryValue, setCategoryValue] = useState('MAIN COURSE');
 
   const calculateTotalVariations = (modification) => {
     switch (modification) {
@@ -199,10 +203,21 @@ const NewDishModal = ({
           />
 
           <Form.Dropdown
-            label="Dietary Category (Optional)"
+            label="Category"
+            required
+            onChange={(event, { value }) => setCategoryValue(value)}
+            fluid
+            options={category}
+            selection
+            search
+            value={categoryValue}
+          />
+
+          <Form.Dropdown
+            label="Dietary Restriction (Optional)"
             onChange={(event, { value }) => setDietaryCategories(value)}
             fluid
-            options={options}
+            options={dietaryCategory}
             selection
             search
             placeholder="Dairy Free"
@@ -448,7 +463,8 @@ const NewDishModal = ({
                 price,
                 variations,
                 image,
-                dietaryCategories,
+                category: categoryValue,
+                dietaryRestrictions,
                 freeAddons,
                 paidAddons,
               };

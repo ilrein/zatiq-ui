@@ -1,0 +1,34 @@
+{
+  "category": [
+    {
+      "key": "APPETIZER",
+      "text": "Appetizer",
+      "value": "APPETIZER"
+    },
+    {
+      "key": "SOUP/SALAD",
+      "text": "Soup/Salad",
+      "value": "SOUP/SALAD"
+    },
+    {
+      "key": "MAIN COURSE",
+      "text": "Main course",
+      "value": "MAIN COURSE"
+    },
+    {
+      "key": "SIDE",
+      "text": "Side",
+      "value": "SIDE"
+    },
+    {
+      "key": "DESERT",
+      "text": "Desert",
+      "value": "DESERT"
+    },
+    {
+      "key": "DRINK",
+      "text": "Drink",
+      "value": "DRINK"
+    }
+  ]
+}

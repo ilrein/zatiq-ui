@@ -108,7 +108,7 @@ const Dish = ({
     description,
     price,
     picture,
-    dietaryCategories,
+    dietaryRestrictions,
     variations,
     freeAddons,
     paidAddons,
@@ -158,7 +158,7 @@ const Dish = ({
             description,
             price,
             image: IMAGE_URI.length > 0 ? IMAGE_URI : null,
-            dietaryCategories,
+            dietaryRestrictions,
             variations,
             freeAddons,
             paidAddons,
@@ -314,6 +314,17 @@ const Dish = ({
 
                   <Table.Row colSpan="2">
                     <Table.Cell>
+                      Category
+                    </Table.Cell>
+                    <Table.Cell>
+                      <Label>
+                        {ITEM.category}
+                      </Label>
+                    </Table.Cell>
+                  </Table.Row>
+
+                  <Table.Row colSpan="2">
+                    <Table.Cell>
                       Base Price
                     </Table.Cell>
                     <Table.Cell>
@@ -356,8 +367,8 @@ const Dish = ({
                     </Table.Cell>
                     <Table.Cell>
                       {
-                        ITEM.dietaryCategories.length > 0
-                          ? ITEM.dietaryCategories.map(category => (
+                        ITEM.dietaryRestrictions.length > 0
+                          ? ITEM.dietaryRestrictions.map(category => (
                             <Label
                               key={category}
                               style={{
