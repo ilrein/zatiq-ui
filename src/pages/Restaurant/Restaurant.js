@@ -66,10 +66,6 @@ const Restaurant = ({
   // phoneNumber
   const [phoneNumber, setPhoneNumber] = useState(restaurant.phoneNumber);
 
-  // price range
-  const [priceRangeMin, setPriceRangeMin] = useState(restaurant.priceRangeMin ? restaurant.priceRangeMin.$numberDecimal : '');
-  const [priceRangeMax, setPriceRangeMax] = useState(restaurant.priceRangeMax ? restaurant.priceRangeMax.$numberDecimal : '');
-
   // start/close times
   const [startingTime, setStartingTime] = useState(restaurant.startingTime);
   const [closingTime, setClosingTime] = useState(restaurant.closingTime);
@@ -99,8 +95,6 @@ const Restaurant = ({
             description,
             cuisineType,
             features,
-            priceRangeMin,
-            priceRangeMax,
             phoneNumber,
             startingTime,
             closingTime,
@@ -298,35 +292,6 @@ const Restaurant = ({
 
             <Form.Group widths="equal">
               <Form.Input
-                onChange={(event, { value }) => setPriceRangeMin(value)}
-                value={priceRangeMin}
-                label="Min. Price"
-                fluid
-                disabled={loading}
-                required
-                type="number"
-                placeholder="11.99"
-                min="0.00"
-                max="100.00"
-                step="0.01"
-              />
-              <Form.Input
-                onChange={(event, { value }) => setPriceRangeMax(value)}
-                value={priceRangeMax}
-                label="Max Price"
-                fluid
-                disabled={loading}
-                required
-                type="number"
-                placeholder="34.99"
-                min="0.00"
-                max="100.00"
-                step="0.01"
-              />
-            </Form.Group>
-
-            <Form.Group widths="equal">
-              <Form.Input
                 onChange={(event, { value }) => setStartingTime(value)}
                 value={startingTime}
                 label="Starting Time"
@@ -358,8 +323,6 @@ const Restaurant = ({
                 || picture === null
                 || cuisineType === ''
                 || phoneNumber === ''
-                || priceRangeMin === ''
-                || priceRangeMax === ''
                 || startingTime === ''
                 || closingTime === ''
               }

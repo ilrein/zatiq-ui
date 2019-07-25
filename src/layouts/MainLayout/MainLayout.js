@@ -6,6 +6,8 @@ import {
 } from 'semantic-ui-react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import later from 'later';
+import dayjs from 'dayjs';
 
 import {
   APP_NAME,
@@ -60,10 +62,13 @@ const MainLayout = ({
   }, []); // eslint-disable-line
 
   useEffect(() => {
-    setTimeout(() => {
-      console.log('refreshing session'); // eslint-disable-line
-      refreshSession();
-    }, 1800000);
+    later.setInterval(
+      () => {
+        console.log('refreshing session', dayjs().format('h:mm:ss a')); // eslint-disable-line
+        refreshSession();
+      },
+      later.parse.text('every 15 min'),
+    );
   }, []); // eslint-disable-line
 
   return (

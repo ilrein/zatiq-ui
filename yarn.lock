@@ -8704,6 +8704,10 @@ last-call-webpack-plugin@^3.0.0:
     lodash "^4.17.5"
     webpack-sources "^1.1.0"
 
+later@RickCarlino/later:
+  version "1.2.0"
+  resolved "https://codeload.github.com/RickCarlino/later/tar.gz/fc9ceb582728f75edbf9581e4f53da5fbb8cd4ac"
+
 lazy-cache@^0.2.3:
   version "0.2.7"
   resolved "https://registry.yarnpkg.com/lazy-cache/-/lazy-cache-0.2.7.tgz#7feddf2dcb6edb77d11ef1d117ab5ffdf0ab1b65"
