@@ -112,6 +112,7 @@ const Dish = ({
     variations,
     freeAddons,
     paidAddons,
+    operatingHours,
   ) => {
     try {
       setUpdating(true);
@@ -161,6 +162,7 @@ const Dish = ({
             variations,
             freeAddons,
             paidAddons,
+            operatingHours,
           },
         }),
       });

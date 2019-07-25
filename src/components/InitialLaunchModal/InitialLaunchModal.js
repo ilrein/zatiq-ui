@@ -50,12 +50,12 @@ const InitialLaunchModal = ({
   // start/close times
   const [hasDifferentOperatingHours, setHasDifferentOperatingHours] = useState(false);
   const [operatingHours, setOperatingHours] = useState(weekdays.map(weekday => ({
-    weekday,
+    weekday: weekday.toUpperCase(),
     startTime: '09:00',
     closeTime: '17:00',
   })));
 
-  console.log(operatingHours);
+  // console.log(operatingHours);
 
   const heading = `Welcome to ${APP_NAME}!`;
 

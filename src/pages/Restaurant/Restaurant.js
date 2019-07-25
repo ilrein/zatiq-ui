@@ -67,8 +67,8 @@ const Restaurant = ({
   const [phoneNumber, setPhoneNumber] = useState(restaurant.phoneNumber);
 
   // start/close times
-  const [startingTime, setStartingTime] = useState(restaurant.startingTime);
-  const [closingTime, setClosingTime] = useState(restaurant.closingTime);
+  const [hasDifferentOperatingHours, setHasDifferentOperatingHours] = useState(false);
+  const [operatingHours, setOperatingHours] = useState(restaurant.operatingHours);
 
   // update states
   const [loading] = useState(false);
@@ -94,10 +94,9 @@ const Restaurant = ({
             address,
             description,
             cuisineType,
-            features,
             phoneNumber,
-            startingTime,
-            closingTime,
+            operatingHours,
+            features,
           },
         }),
       });
@@ -197,19 +196,6 @@ const Restaurant = ({
               search
               placeholder="Italian"
             />
-  
-            <div className="field">
-              <label>
-                Features
-              </label>
-              <FeaturesDropdown
-                onChange={(event, { value }) => setFeatures(value)}
-                fluid
-                required
-                disabled={loading}
-                value={features}
-              />
-            </div>
 
             <div className="field required">
               <label>
@@ -290,26 +276,17 @@ const Restaurant = ({
               maxLength={12}
             />
 
-            <Form.Group widths="equal">
-              <Form.Input
-                onChange={(event, { value }) => setStartingTime(value)}
-                value={startingTime}
-                label="Starting Time"
+            <div className="field">
+              <label>
+                Features
+              </label>
+              <FeaturesDropdown
+                onChange={(event, { value }) => setFeatures(value)}
                 fluid
                 disabled={loading}
-                required
-                type="time"
+                value={features}
               />
-              <Form.Input
-                onChange={(event, { value }) => setClosingTime(value)}
-                value={closingTime}
-                label="Closing Time"
-                fluid
-                disabled={loading}
-                required
-                type="time"
-              />
-            </Form.Group>
+            </div>
   
             <PrimaryButton
               type="submit"
@@ -323,8 +300,6 @@ const Restaurant = ({
                 || picture === null
                 || cuisineType === ''
                 || phoneNumber === ''
-                || startingTime === ''
-                || closingTime === ''
               }
             >
               Update
