@@ -68,18 +68,11 @@ const Dishes = ({
   // pagination re-render
   const [loading, setLoading] = useState(false);
 
-  const createNewDish = async (
-    name,
-    description,
-    price,
-    variations,
-    image,
-    dietaryCategories,
-    freeAddons,
-    paidAddons,
-  ) => {
+  const createNewDish = async (newDishParams) => {
     try {
       setSavingNewItem(true);
+
+      const { image } = newDishParams;
       
       let IMAGE_URI = null;
       if (image.name) {
@@ -104,15 +97,9 @@ const Dishes = ({
         },
         body: JSON.stringify({
           dish: {
+            ...newDishParams,
             restaurantId,
-            name,
-            description,
             image: IMAGE_URI,
-            price,
-            variations,
-            dietaryCategories,
-            freeAddons,
-            paidAddons,
           },
         }),
       });
@@ -129,7 +116,7 @@ const Dishes = ({
 
       const freshItems = await getItems.json();
       captureItems(freshItems);
-      toast.success(`Successfully created ${name}`);
+      toast.success(`Successfully created ${newDishParams.name}`);
       setNewItemModalOpen(false);
       setSavingNewItem(false);
       setServersideErrors([]);

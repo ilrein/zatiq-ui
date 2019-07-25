@@ -6,8 +6,6 @@ import {
 } from 'semantic-ui-react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import later from 'later';
-import dayjs from 'dayjs';
 
 import {
   APP_NAME,
@@ -25,7 +23,6 @@ import AnimatedHamburger from '../../components/AnimatedHamburger';
 
 // utils
 import fadeIn from '../../anime/fadeIn';
-import refreshSession from '../../utils/refreshSession';
 
 const Wrapper = styled.div`
   height: 100%;
@@ -59,16 +56,6 @@ const MainLayout = ({
     return () => {
       window.removeEventListener('keyup', handleKeyPress);
     };
-  }, []); // eslint-disable-line
-
-  useEffect(() => {
-    later.setTimeout(
-      () => {
-        console.log('refreshing session', dayjs().format('h:mm:ss a')); // eslint-disable-line
-        refreshSession();
-      },
-      later.parse.text('every 15 min'),
-    );
   }, []); // eslint-disable-line
 
   return (
