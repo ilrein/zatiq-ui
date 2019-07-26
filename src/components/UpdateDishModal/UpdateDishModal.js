@@ -142,7 +142,7 @@ const UpdateDishModal = ({
     setAdditionalPaidAddons(additionalPaidAddons);
   };
 
-  console.log(categoryValue);
+  // console.log(categoryValue);
 
   return (
     <Modal
@@ -503,16 +503,19 @@ const UpdateDishModal = ({
             onClick={(e) => {
               e.preventDefault();
 
-              onSubmit(
+              const updatedDishParams = {
                 name,
                 description,
                 price,
                 picture,
+                category: categoryValue,
                 dietaryRestrictions,
                 variations,
                 additionalFreeAddons,
                 additionalPaidAddons,
-              );
+              };
+
+              onSubmit(updatedDishParams);
 
               resetState();
             }}

@@ -103,17 +103,9 @@ const Dish = ({
     }
   }, []);
 
-  const updateItem = async (
-    name,
-    description,
-    price,
-    picture,
-    dietaryRestrictions,
-    variations,
-    freeAddons,
-    paidAddons,
-    operatingHours,
-  ) => {
+  const updateItem = async (newDishParams) => {
+    const { picture } = newDishParams;
+
     try {
       setUpdating(true);
       if (
@@ -154,15 +146,8 @@ const Dish = ({
         },
         body: JSON.stringify({
           dish: {
-            name,
-            description,
-            price,
+            ...newDishParams,
             image: IMAGE_URI.length > 0 ? IMAGE_URI : null,
-            dietaryRestrictions,
-            variations,
-            freeAddons,
-            paidAddons,
-            operatingHours,
           },
         }),
       });
