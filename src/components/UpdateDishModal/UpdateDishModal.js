@@ -24,6 +24,7 @@ import Dropzone from '../Dropzone';
 
 // options
 import { dietaryCategory } from '../../data/dietaryCategory.json';
+import { category } from '../../data/category.json';
 
 const SpreadHeader = styled(Header)`
   display: flex !important;
@@ -68,6 +69,9 @@ const UpdateDishModal = ({
     setHasAdditionalPaidToppings,
   ] = useState(dish.paidAddons.length > 0);
   const [additionalPaidAddons, setAdditionalPaidAddons] = useState(dish.paidAddons);
+
+  // is it a main course, appetizer, etc
+  const [categoryValue, setCategoryValue] = useState(dish.category);
 
   const calculateTotalVariations = (modification) => {
     switch (modification) {
@@ -138,7 +142,7 @@ const UpdateDishModal = ({
     setAdditionalPaidAddons(additionalPaidAddons);
   };
 
-  // console.log(image, picture);
+  console.log(categoryValue);
 
   return (
     <Modal
@@ -226,6 +230,17 @@ const UpdateDishModal = ({
             label="Description (Optional)"
             value={description}
             onChange={(event, { value }) => setDescription(value)}
+          />
+
+          <Form.Dropdown
+            label="Category"
+            required
+            onChange={(event, { value }) => setCategoryValue(value)}
+            fluid
+            options={category}
+            selection
+            search
+            value={categoryValue}
           />
 
           <Form.Dropdown
