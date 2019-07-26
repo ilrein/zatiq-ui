@@ -6,6 +6,8 @@ import {
 } from 'semantic-ui-react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import later from 'later';
+import dayjs from 'dayjs';
 
 import {
   APP_NAME,
@@ -23,6 +25,7 @@ import AnimatedHamburger from '../../components/AnimatedHamburger';
 
 // utils
 import fadeIn from '../../anime/fadeIn';
+import refreshSession from '../../utils/refreshSession';
 
 const Wrapper = styled.div`
   height: 100%;
@@ -37,6 +40,7 @@ const MainLayout = ({
   children,
   misc,
   toggleSidebar,
+  refreshUserSession,
 }) => {
   const { sidebarIsOpen } = misc;
 
@@ -56,6 +60,17 @@ const MainLayout = ({
     return () => {
       window.removeEventListener('keyup', handleKeyPress);
     };
+  }, []); // eslint-disable-line
+
+  useEffect(() => {
+    later.setTimeout(
+      async () => {
+        console.log('refreshing...', dayjs().format('HH:mm:ss')); // eslint-disable-line 
+        const refreshedCredentials = await refreshSession();
+        refreshUserSession(refreshedCredentials);
+      },
+      later.parse.text('every 20 min'),
+    );
   }, []); // eslint-disable-line
 
   return (
@@ -119,7 +134,6 @@ const MainLayout = ({
                       )}
                     />
                     {children}
-                    {/* <Footer /> */}
                   </Section>
                 </Sidebar.Pusher>
               </Sidebar.Pushable>

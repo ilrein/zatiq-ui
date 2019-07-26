@@ -37,3 +37,4 @@ export const ORANGE = '#F05E63';
 
 // Misc
 export const TOGGLE_SIDEBAR = 'TOGGLE_SIDEBAR';
+export const REFRESH_SESSION = 'REFRESH_SESSION';
