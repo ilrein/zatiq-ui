@@ -133,7 +133,7 @@ const Dashboard = ({
 
       const updateUserResult = await updateUser.json();
       captureUser(updateUserResult);
-      toast.success('Created restaurant!');
+      toast.success(`Created ${name}!`);
 
       setSaving(false);
     } catch (error) {

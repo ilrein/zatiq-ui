@@ -14,6 +14,9 @@ import PropTypes from 'prop-types';
 import { Storage } from 'aws-amplify';
 import uuidv4 from 'uuid/v4';
 
+// ramda utils
+import isEmpty from 'ramda/src/isEmpty';
+
 // animations
 import fadeIn from '../../anime/fadeIn';
 
@@ -195,6 +198,7 @@ const Restaurant = ({
               selection
               search
               placeholder="Italian"
+              multiple
             />
 
             <div className="field required">
@@ -294,12 +298,12 @@ const Restaurant = ({
               onClick={onUpdate}
               loading={saving}
               disabled={
-                name === ''
-                || address === ''
+                isEmpty(name)
+                || isEmpty(address)
                 || description === null
                 || picture === null
-                || cuisineType === ''
-                || phoneNumber === ''
+                || isEmpty(cuisineType)
+                || isEmpty(phoneNumber)
               }
             >
               Update

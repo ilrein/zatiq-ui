@@ -68,7 +68,7 @@ const InitialLaunchModal = ({
       name,
       formatted_address,
       description,
-      cuisineType,
+      cuisineTypeValue,
       image,
       phone,
       operatingHours,

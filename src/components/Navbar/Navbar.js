@@ -31,6 +31,7 @@ const Navbar = ({
 
   return (
     <Menu
+      stackable
       inverted
       size="huge"
       style={{
