@@ -8,6 +8,7 @@ import {
   Image,
   Form,
   Segment,
+  Divider,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 // import dayjs from 'dayjs';
@@ -28,7 +29,7 @@ import Dropzone from '../Dropzone';
 import { copy } from './copy.json';
 
 // dropdown data
-import { options } from '../../data/cuisineType.json';
+import { cuisineType } from '../../data/cuisineType.json';
 import { weekdays } from '../../data/weekdays.json';
 
 const InitialLaunchModal = ({
@@ -40,7 +41,7 @@ const InitialLaunchModal = ({
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
   const [description, setDescription] = useState('');
-  const [cuisineType, setCuisineType] = useState('');
+  const [cuisineTypeValue, setCuisineTypeValue] = useState([]);
   const [image, setImage] = useState(null);
   const [phone, setPhone] = useState('');
 
@@ -53,9 +54,10 @@ const InitialLaunchModal = ({
     weekday: weekday.toUpperCase(),
     startTime: '09:00',
     closeTime: '17:00',
+    closed: false,
   })));
 
-  // console.log(operatingHours);
+  console.log(operatingHours);
 
   const heading = `Welcome to ${APP_NAME}!`;
 
@@ -120,13 +122,15 @@ const InitialLaunchModal = ({
 
           <Form.Dropdown
             label="Cuisine Type"
-            onChange={(event, { value }) => setCuisineType(value)}
+            value={cuisineTypeValue}
+            onChange={(event, { value }) => setCuisineTypeValue(value)}
             fluid
             required
-            options={options}
+            options={cuisineType}
             selection
             search
             placeholder="Italian"
+            multiple
           />
 
           <div className="field required">
@@ -217,6 +221,7 @@ const InitialLaunchModal = ({
                       <Header as="h4">
                         {weekday.weekday}
                       </Header>
+                      <Divider />
                       <Form.Group widths="equal">
                         <Form.Input
                           onChange={(event, { value }) => {
@@ -228,7 +233,7 @@ const InitialLaunchModal = ({
                           value={weekday.startTime}
                           label="Starting Time"
                           fluid
-                          disabled={loading}
+                          disabled={loading || operatingHours[index].closed}
                           required
                           type="time"
                         />
@@ -242,11 +247,25 @@ const InitialLaunchModal = ({
                           value={weekday.closeTime}
                           label="Closing Time"
                           fluid
-                          disabled={loading}
+                          disabled={loading || operatingHours[index].closed}
                           required
                           type="time"
                         />
                       </Form.Group>
+                      <Form.Checkbox
+                        toggle
+                        label="Closed"
+                        checked={operatingHours[index].closed}
+                        style={{ marginBottom: '1rem' }}
+                        onChange={(event, { checked }) => {
+                          setOperatingHours(update(index, {
+                            ...operatingHours[index],
+                            startTime: '00:00',
+                            closeTime: '00:00',
+                            closed: checked,
+                          }));
+                        }}
+                      />
                     </div>
                   ))
                 )
@@ -276,7 +295,7 @@ const InitialLaunchModal = ({
               || address.formatted_address === undefined
               || description === null
               || image === null
-              || cuisineType === ''
+              || isEmpty(cuisineType)
               || phone === ''
               || (
                 operatingHours

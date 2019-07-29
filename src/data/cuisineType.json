@@ -1,5 +1,5 @@
 {
-  "options": [
+  "cuisineType": [
     {
       "key": "AMERICAN",
       "text": "American",
@@ -9,6 +9,16 @@
       "key": "CHINESE",
       "text": "Chinese",
       "value": "CHINESE"
+    },
+    {
+      "key": "KOREAN",
+      "text": "Korean",
+      "value": "KOREAN"
+    },
+    {
+      "key": "JAPANESE",
+      "text": "Japanese",
+      "value": "JAPANESE"
     },
     {
       "key": "MEXICAN",

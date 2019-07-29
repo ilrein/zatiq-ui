@@ -33,7 +33,7 @@ import PrimaryButton from '../../components/PrimaryButton';
 import PaymentDetails from './PaymentDetails';
 
 // dropdown data
-import { options } from '../../data/cuisineType.json';
+import { cuisineType } from '../../data/cuisineType.json';
 
 const Wrapper = styled.div`
   display: flex;
@@ -54,7 +54,7 @@ const Restaurant = ({
   const [name, setName] = useState(restaurant.name);
   const [address, setAddress] = useState(restaurant.address);
   const [description, setDescription] = useState(restaurant.description);
-  const [cuisineType, setCuisineType] = useState(restaurant.cuisineType);
+  const [cuisineTypeValue, setCuisineTypeValue] = useState(restaurant.cuisineType);
 
   // features
   const [features, setFeatures] = useState(restaurant.features);
@@ -93,7 +93,7 @@ const Restaurant = ({
             name,
             address,
             description,
-            cuisineType,
+            cuisineTypeValue,
             phoneNumber,
             operatingHours,
             features,
@@ -187,11 +187,11 @@ const Restaurant = ({
   
             <Form.Dropdown
               label="Cuisine Type"
-              value={cuisineType}
-              onChange={(event, { value }) => setCuisineType(value)}
+              value={cuisineTypeValue}
+              onChange={(event, { value }) => setCuisineTypeValue(value)}
               fluid
               required
-              options={options}
+              options={cuisineType}
               selection
               search
               placeholder="Italian"
