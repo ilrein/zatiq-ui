@@ -150,6 +150,7 @@ MainLayout.propTypes = {
   history: PropTypes.shape().isRequired,
   misc: PropTypes.shape().isRequired,
   toggleSidebar: PropTypes.func.isRequired,
+  refreshUserSession: PropTypes.func.isRequired,
 };
 
 MainLayout.defaultProps = {};
