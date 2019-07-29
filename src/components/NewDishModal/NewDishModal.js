@@ -323,7 +323,7 @@ const NewDishModal = ({
                   setFreeAddons(['']);
                   return;
                 }
-                setFreeAddons(null);
+                setFreeAddons([]);
               }}
               checked={hasFreeAddons}
             />
