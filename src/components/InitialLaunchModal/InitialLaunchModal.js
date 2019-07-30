@@ -57,7 +57,7 @@ const InitialLaunchModal = ({
     closed: false,
   })));
 
-  console.log(operatingHours);
+  // console.log(operatingHours);
 
   const heading = `Welcome to ${APP_NAME}!`;
 

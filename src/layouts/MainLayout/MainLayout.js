@@ -63,13 +63,13 @@ const MainLayout = ({
   }, []); // eslint-disable-line
 
   useEffect(() => {
-    later.setTimeout(
+    later.setInterval(
       async () => {
         console.log('refreshing...', dayjs().format('HH:mm:ss')); // eslint-disable-line 
         const refreshedCredentials = await refreshSession();
         refreshUserSession(refreshedCredentials);
       },
-      later.parse.text('every 20 min'),
+      later.parse.text('every 25 min'),
     );
   }, []); // eslint-disable-line
 
