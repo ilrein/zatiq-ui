@@ -6,6 +6,8 @@ import {
   Header,
   Tab,
   Image,
+  Segment,
+  Divider,
 } from 'semantic-ui-react';
 import styled from 'styled-components';
 import fetch from 'isomorphic-fetch';
@@ -15,7 +17,10 @@ import { Storage } from 'aws-amplify';
 import uuidv4 from 'uuid/v4';
 
 // ramda utils
+import update from 'ramda/src/update';
 import isEmpty from 'ramda/src/isEmpty';
+import pluck from 'ramda/src/pluck';
+import uniq from 'ramda/src/uniq';
 
 // animations
 import fadeIn from '../../anime/fadeIn';
@@ -37,6 +42,7 @@ import PaymentDetails from './PaymentDetails';
 
 // dropdown data
 import { cuisineType } from '../../data/cuisineType.json';
+import { weekdays } from '../../data/weekdays.json';
 
 const Wrapper = styled.div`
   display: flex;
@@ -70,7 +76,15 @@ const Restaurant = ({
   const [phoneNumber, setPhoneNumber] = useState(restaurant.phoneNumber);
 
   // start/close times
-  const [hasDifferentOperatingHours, setHasDifferentOperatingHours] = useState(false);
+  const [hasDifferentOperatingHours, setHasDifferentOperatingHours] = useState(() => {
+    const getStartTimes = pluck('startTime');
+    const getCloseTimes = pluck('closeTime');
+    const getClosed = pluck('closed');
+
+    if (uniq(getStartTimes(restaurant.operatingHours)).length > 1) return true;
+    if (uniq(getCloseTimes(restaurant.operatingHours)).length > 1) return true;
+    if (uniq(getClosed(restaurant.operatingHours)).length > 1) return true;
+  });
   const [operatingHours, setOperatingHours] = useState(restaurant.operatingHours);
 
   // update states
@@ -279,6 +293,117 @@ const Restaurant = ({
               minLength={10}
               maxLength={12}
             />
+
+            <Segment color="black">
+              <Header as="h4">
+                Hours of operation
+              </Header>
+              <Form.Checkbox
+                toggle
+                label="Some days have different hours"
+                checked={hasDifferentOperatingHours}
+                onChange={(event, { checked }) => {
+                  setHasDifferentOperatingHours(checked);
+                  if (!checked) {
+                    setOperatingHours(weekdays.map(weekday => ({
+                      weekday: weekday.toUpperCase(),
+                      startTime: '09:00',
+                      closeTime: '17:00',
+                      closed: false,
+                    })));
+                  }
+                }}
+              />
+              {
+                !hasDifferentOperatingHours
+                  ? (
+                    <Form.Group widths="equal">
+                      <Form.Input
+                        onChange={(event, { value }) => {
+                          setOperatingHours(operatingHours.map(OPERATING_HOURS => ({
+                            ...OPERATING_HOURS,
+                            startTime: value,
+                          })));
+                        }}
+                        label="Starting Time"
+                        fluid
+                        disabled={loading}
+                        required
+                        type="time"
+                        value={operatingHours[0].startTime}
+                      />
+                      <Form.Input
+                        onChange={(event, { value }) => {
+                          setOperatingHours(operatingHours.map(OPERATING_HOURS => ({
+                            ...OPERATING_HOURS,
+                            closeTime: value,
+                          })));
+                        }}
+                        label="Closing Time"
+                        fluid
+                        disabled={loading}
+                        required
+                        type="time"
+                        value={operatingHours[0].closeTime}
+                      />
+                    </Form.Group>
+                  )
+                  : (
+                    operatingHours.map((weekday, index) => (
+                      <div key={`${weekday}`}>
+                        <Header as="h4">
+                          {weekday.weekday}
+                        </Header>
+                        <Divider />
+                        <Form.Group widths="equal">
+                          <Form.Input
+                            onChange={(event, { value }) => {
+                              setOperatingHours(update(index, {
+                                ...operatingHours[index],
+                                startTime: value,
+                              }));
+                            }}
+                            value={weekday.startTime}
+                            label="Starting Time"
+                            fluid
+                            disabled={loading || operatingHours[index].closed}
+                            required
+                            type="time"
+                          />
+                          <Form.Input
+                            onChange={(event, { value }) => {
+                              setOperatingHours(update(index, {
+                                ...operatingHours[index],
+                                closeTime: value,
+                              }));
+                            }}
+                            value={weekday.closeTime}
+                            label="Closing Time"
+                            fluid
+                            disabled={loading || operatingHours[index].closed}
+                            required
+                            type="time"
+                          />
+                        </Form.Group>
+                        <Form.Checkbox
+                          toggle
+                          label="Closed"
+                          checked={operatingHours[index].closed}
+                          style={{ marginBottom: '1rem' }}
+                          onChange={(event, { checked }) => {
+                            setOperatingHours(update(index, {
+                              ...operatingHours[index],
+                              startTime: '00:00',
+                              closeTime: '00:00',
+                              closed: checked,
+                            }));
+                          }}
+                        />
+                      </div>
+                    ))
+                  )
+              }
+            </Segment>
 
             <div className="field">
               <label>
