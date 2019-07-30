@@ -63,6 +63,7 @@ const MainLayout = ({
   }, []); // eslint-disable-line
 
   useEffect(() => {
+    console.log('useEffect MainLayout is called');
     later.setInterval(
       async () => {
         console.log('refreshing...', dayjs().format('HH:mm:ss')); // eslint-disable-line 
