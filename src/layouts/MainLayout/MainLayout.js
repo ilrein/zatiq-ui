@@ -113,6 +113,14 @@ const MainLayout = ({
                     Dishes
                   </Menu.Item>
 
+                  {/* <Menu.Item
+                    as="a"
+                    onClick={() => pushAndToggle('/menus')}
+                  >
+                    <Icon name="coffee" />
+                    Dishes
+                  </Menu.Item> */}
+
                   <Menu.Item
                     as="a"
                     onClick={() => pushAndToggle('/restaurant')}
