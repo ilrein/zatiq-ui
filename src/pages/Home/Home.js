@@ -38,10 +38,8 @@ const HomePage = () => {
   useEffect(() => {
     getApiVersion();
     if (APIVersion !== '') {
-      console.log(
-        `App: ${pkg.version},`,
-        `API: ${API_URL}, ${APIVersion}`,
-      );
+      window.app = pkg.version;
+      window.api = `${API_URL}, ${APIVersion}`;
     }
   }, [APIVersion]);
 
