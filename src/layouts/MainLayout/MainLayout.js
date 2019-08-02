@@ -66,11 +66,11 @@ const MainLayout = ({
   useEffect(() => {
     later.setInterval(
       async () => {
-        // console.log('refreshing...', dayjs().format('HH:mm:ss')); // eslint-disable-line 
+        console.log('refreshing...', dayjs().format('HH:mm:ss')); // eslint-disable-line 
         const refreshedCredentials = await refreshSession();
         refreshUserSession(refreshedCredentials);
       },
-      later.parse.text('every 25 min'),
+      later.parse.text('every 20 min'),
     );
   }, []); // eslint-disable-line
 

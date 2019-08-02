@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {
@@ -11,9 +11,11 @@ import {
   // Pagination,
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import fetch from 'isomorphic-fetch';
 
 import fadeIn from '../../anime/fadeIn';
 import NewMenuModal from '../../components/NewMenuModal';
+import { API_DISHES } from '../../constants'
 
 import { copy } from './copy.json';
 
@@ -42,15 +44,45 @@ const PaginationRow = styled(Grid.Row)`
 `;
 
 const Menus = ({
+  userReducer,
   menus,
-  dishes,
 }) => {
+  const { user, cognitoUser } = userReducer;
+  const [jwtToken] = useState(cognitoUser.signInUserSession.accessToken.jwtToken);
+
+  const [loadingDishes, setLoadingDishes] = useState(false);
   const [newMenuModalIsOpen, setNewMenuModalIsOpen] = useState(false);
   const [savingNewMenu, setSavingNewMenu] = useState(false);
 
+  const [fullDishList, setFullDishList] = useState([]);
+
   const submitNewMenu = (params) => {
     console.log(params);
-  }
+  };
+
+  const getAllDishes = async () => {
+    setLoadingDishes(true);
+
+    try {
+      const get = await fetch(`${API_DISHES}?restaurantId=${user.restaurantId}&limit=500`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'jwt-token': jwtToken,
+        },
+      });
+      
+      const result = await get.json();
+      setFullDishList(result);
+      console.log(result);
+    } catch (error) {
+      console.log(error) // eslint-disable-line
+    }
+    setLoadingDishes(false);
+  };
+
+  useEffect(() => {
+    getAllDishes();
+  }, []);
 
   return (
     <Wrapper>
@@ -72,7 +104,7 @@ const Menus = ({
           onSubmit={submitNewMenu}
           loading={savingNewMenu}
           onClose={() => setNewMenuModalIsOpen(false)}
-          dishes={dishes}
+          // dishes={fullDishList}
         />
   
         <SpreadHeader>
@@ -85,6 +117,7 @@ const Menus = ({
             icon
             labelPosition="left"
             onClick={() => setNewMenuModalIsOpen(true)}
+            loading={loadingDishes}
           >
             <Icon name="plus" />
             New Menu

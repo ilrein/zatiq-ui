@@ -34,11 +34,16 @@ const NewMenuModal = ({
 
   // console.log(dishes);
 
-  const mapDishesForSemanticDropdown = values => values.docs.map(doc => ({
-    key: doc._id,
-    value: doc,
-    text: doc.name,
-  }));
+  const mapDishesForSemanticDropdown = (values) => {
+    if (values.docs.length > 0) {
+      return values.docs.map(doc => ({
+        key: doc._id,
+        value: doc,
+        text: doc.name,
+      }));
+    }
+    return [];
+  };
 
   return (
     <Modal
@@ -110,6 +115,14 @@ NewMenuModal.propTypes = {
   open: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
+  dishes: PropTypes.shape(),
+};
+
+NewMenuModal.defaultProps = {
+  dishes: {
+    docs: [],
+    totalDocs: 0,
+  },
 };
 
 export default NewMenuModal;
