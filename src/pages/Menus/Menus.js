@@ -15,7 +15,7 @@ import fetch from 'isomorphic-fetch';
 
 import fadeIn from '../../anime/fadeIn';
 import NewMenuModal from '../../components/NewMenuModal';
-import { API_DISHES } from '../../constants'
+import { API_MENUS, API_DISHES } from '../../constants';
 
 import { copy } from './copy.json';
 
@@ -57,11 +57,37 @@ const Menus = ({
 
   const [fullDishList, setFullDishList] = useState([]);
 
-  const submitNewMenu = (params) => {
-    console.log(params); // eslint-disable-line
+  const submitNewMenu = async (params) => {
+    if (restaurantId === undefined) return;
+
+    setSavingNewMenu(true);
+
+    try {
+      const post = await fetch(API_MENUS, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'jwt-token': jwtToken,
+        },
+        body: JSON.stringify({
+          menu: {
+            restaurantId,
+            ...params,
+          },
+        }),
+      });
+
+      await post.json();
+      setNewMenuModalIsOpen(false);
+    } catch (error) {
+      console.log(error); // eslint-disable-line
+    }
+    setSavingNewMenu(false);
   };
 
   const getAllDishes = async () => {
+    if (restaurantId === undefined) return;
+
     setLoadingDishes(true);
 
     try {
@@ -83,7 +109,7 @@ const Menus = ({
 
   useEffect(() => {
     getAllDishes();
-  }, []);
+  }, [restaurantId]);
 
   return (
     <Wrapper>

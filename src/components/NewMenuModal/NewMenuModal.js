@@ -27,12 +27,16 @@ const NewMenuModal = ({
 }) => {
   // base states
   const [name, setName] = useState('');
+  const [selectedDishes, setSelectedDishes] = useState([]);
+  const [startTime, setStartTime] = useState('');
+  const [endTime, setEndTime] = useState('');
   
   const resetState = () => {
     setName('');
+    setSelectedDishes([]);
+    setStartTime('');
+    setEndTime('');
   };
-
-  // console.log(dishes);
 
   const mapDishesForSemanticDropdown = (values) => {
     if (values.docs) {
@@ -78,8 +82,29 @@ const NewMenuModal = ({
             multiple
             label={`Dishes (${dishes.totalDocs})`}
             options={mapDishesForSemanticDropdown(dishes)}
-            // dishes
+            onChange={(event, { value }) => setSelectedDishes(value)}
+            value={selectedDishes}
           />
+
+          <Form.Group widths="equal">
+            <Form.Input
+              onChange={(event, { value }) => setStartTime(value)}
+              label="Start Time"
+              fluid
+              required
+              type="time"
+              value={startTime}
+            />
+
+            <Form.Input
+              onChange={(event, { value }) => setEndTime(value)}
+              label="End Time"
+              fluid
+              required
+              type="time"
+              value={endTime}
+            />
+          </Form.Group>
 
           <Button
             primary
@@ -89,6 +114,9 @@ const NewMenuModal = ({
 
               const newMenuParams = {
                 name,
+                dishes: selectedDishes,
+                startTime,
+                endTime,
               };
               
               await onSubmit(newMenuParams);
@@ -100,6 +128,13 @@ const NewMenuModal = ({
             disabled={
               // if name is empty
               name === ''
+
+              // if no dishes are found
+              || selectedDishes.length === 0
+
+              // if the times aren't set
+              || startTime === ''
+              || endTime === ''
             }
           >
             Submit
