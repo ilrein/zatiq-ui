@@ -19,6 +19,7 @@ import { API_MENUS, API_DISHES } from '../../constants';
 
 // components
 import NewMenuModal from '../../components/NewMenuModal';
+import UpdateMenuModal from '../../components/UpdateMenuModal';
 import ConfirmDeleteModal from '../../components/ConfirmDeleteModal';
 
 import { copy } from './copy.json';
@@ -62,6 +63,11 @@ const Menus = ({
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [menuIdToDelete, setMenuIdToDelete] = useState(null);
+
+  // update modal
+  const [updateModalIsOpen, setUpdateModalIsOpen] = useState(false);
+  const [menuToUpdate, setMenuToUpdate] = useState(null);
+  const [updatingMenu, setUpdatingMenu] = useState(false);
 
   const submitNewMenu = async (params) => {
     if (restaurantId === undefined) return;
@@ -154,6 +160,8 @@ const Menus = ({
     setDeleteModalIsOpen(false);
   };
 
+  const updateMenu = async () => {}
+
   useEffect(() => {
     getAllDishes();
   }, [restaurantId]);
@@ -187,6 +195,20 @@ const Menus = ({
           loading={deleting}
           onClose={() => setDeleteModalIsOpen(false)}
         />
+
+        {
+          menuToUpdate
+            ? (
+              <UpdateMenuModal
+                open={updateModalIsOpen}
+                loading={updatingMenu}
+                onClose={() => setUpdateModalIsOpen(false)}
+                menu={menuToUpdate}
+                dishes={fullDishList}
+              />
+            )
+            : null
+        }
   
         <SpreadHeader>
           <Header style={{ margin: 0 }}>
@@ -256,6 +278,10 @@ const Menus = ({
                           <Button
                             icon="edit"
                             color="blue"
+                            onClick={() => {
+                              setUpdateModalIsOpen(true);
+                              setMenuToUpdate(doc);
+                            }}
                           />
                           <Button
                             icon="remove"
@@ -288,6 +314,7 @@ const Menus = ({
 Menus.propTypes = {
   menus: PropTypes.shape().isRequired,
   captureMenu: PropTypes.func.isRequired,
+  captureMenus: PropTypes.func.isRequired,
   userReducer: PropTypes.shape().isRequired,
 };
 
