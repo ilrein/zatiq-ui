@@ -8,7 +8,8 @@ import {
   Grid,
   Breadcrumb,
   Message,
-  // Pagination,
+  Table,
+  Label,
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import fetch from 'isomorphic-fetch';
@@ -46,6 +47,7 @@ const PaginationRow = styled(Grid.Row)`
 const Menus = ({
   userReducer,
   menus,
+  captureMenu,
 }) => {
   const { user, cognitoUser } = userReducer;
   const { restaurantId } = user;
@@ -77,8 +79,9 @@ const Menus = ({
         }),
       });
 
-      await post.json();
+      const newMenu = await post.json();
       setNewMenuModalIsOpen(false);
+      captureMenu(newMenu);
     } catch (error) {
       console.log(error); // eslint-disable-line
     }
@@ -156,9 +159,55 @@ const Menus = ({
             header="Menus are optional"
             content={copy.information}
           />
-          <p>
-            body
-          </p>
+          <Table
+            celled
+          >
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell collapsing>
+                  Name
+                </Table.HeaderCell>
+                <Table.HeaderCell collapsing>
+                  Times
+                </Table.HeaderCell>
+                <Table.HeaderCell>
+                  Dishes
+                </Table.HeaderCell>
+              </Table.Row>
+            </Table.Header>
+
+            <Table.Body>
+              {
+                menus.totalDocs > 0
+                  ? menus.docs.map(doc => (
+                    <Table.Row collapsing>
+                      <Table.Cell>
+                        {doc.name}
+                      </Table.Cell>
+                      <Table.Cell collapsing>
+                        {doc.startTime} - {doc.endTime}
+                      </Table.Cell>
+                      <Table.Cell>
+                        {
+                          doc.dishes.map(dish => (
+                            <Label>
+                              {dish.name}
+                            </Label>
+                          ))
+                        }
+                      </Table.Cell>
+                    </Table.Row>
+                  ))
+                  : (
+                    <Table.Row>
+                      <Table.Cell colSpan="3">
+                        No menus found.
+                      </Table.Cell>
+                    </Table.Row>
+                  )
+              }
+            </Table.Body>
+          </Table>
         </>
       </InnerWrapper>
     </Wrapper>
@@ -167,6 +216,8 @@ const Menus = ({
 
 Menus.propTypes = {
   menus: PropTypes.shape().isRequired,
+  captureMenu: PropTypes.func.isRequired,
+  userReducer: PropTypes.shape().isRequired,
 };
 
 export default Menus;
