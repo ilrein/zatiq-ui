@@ -122,7 +122,7 @@ const Dish = ({
         && picture.name
       ) {
         const PUT = await Storage.put(
-          (`${uuidv4()}-${picture.name}`).replace(/\s/g, ''),
+          (`${restaurantId}/dishes/${uuidv4()}-${picture.name}`).replace(/\s/g, ''),
           picture,
           { level: 'public' },
         );
