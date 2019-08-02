@@ -350,7 +350,8 @@ const Restaurant = ({
                   )
                   : (
                     operatingHours.map((weekday, index) => (
-                      <div key={`${weekday}`}>
+                      // eslint-disable-next-line react/no-array-index-key
+                      <div key={`${weekday}-${index}`}>
                         <Header as="h4">
                           {weekday.weekday}
                         </Header>

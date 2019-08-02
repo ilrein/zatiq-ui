@@ -17,6 +17,7 @@ import Verify from './pages/Auth/Verify';
 import Dashboard from './pages/Dashboard';
 import Restaurant from './pages/Restaurant';
 import Reservations from './pages/Reservations';
+import Menus from './pages/Menus';
 import Dishes from './pages/Dishes';
 import Dish from './pages/Dishes/Dish';
 
@@ -81,6 +82,18 @@ const Routes = () => (
           <Route
             exact
             path="/dishes/:id"
+            component={Dish}
+          />
+
+          <Route
+            exact
+            path="/menus"
+            component={Menus}
+          />
+
+          <Route
+            exact
+            path="/menus/:id"
             component={Dish}
           />
         </MainLayout>

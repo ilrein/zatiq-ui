@@ -18,6 +18,7 @@ import AuthContainer from '../../containers/AuthContainer';
 import UserContainer from '../../containers/UserContainer';
 import RestaurantContainer from '../../containers/RestaurantContainer';
 import DishesContainer from '../../containers/DishesContainer';
+import MenusContainer from '../../containers/MenusContainer';
 
 // Components
 import Navbar from '../../components/Navbar';
@@ -63,7 +64,6 @@ const MainLayout = ({
   }, []); // eslint-disable-line
 
   useEffect(() => {
-    console.log('useEffect MainLayout is called');
     later.setInterval(
       async () => {
         console.log('refreshing...', dayjs().format('HH:mm:ss')); // eslint-disable-line 
@@ -78,76 +78,78 @@ const MainLayout = ({
     <AuthContainer>
       <UserContainer>
         <RestaurantContainer>
-          <DishesContainer>
-            <Wrapper>
-              <Sidebar.Pushable>
-                <Sidebar
-                  as={Menu}
-                  animation="push"
-                  icon="labeled"
-                  inverted
-                  vertical
-                  visible={sidebarIsOpen}
-                  width="thin"
-                >
-                  <Menu.Item
-                    as="a"
-                    onClick={() => pushAndToggle('/dashboard')}
-                    style={{ fontSize: '1.75rem' }}
+          <MenusContainer>
+            <DishesContainer>
+              <Wrapper>
+                <Sidebar.Pushable>
+                  <Sidebar
+                    as={Menu}
+                    animation="push"
+                    icon="labeled"
+                    inverted
+                    vertical
+                    visible={sidebarIsOpen}
+                    width="thin"
                   >
-                    {APP_NAME}
-                  </Menu.Item>
+                    <Menu.Item
+                      as="a"
+                      onClick={() => pushAndToggle('/dashboard')}
+                      style={{ fontSize: '1.75rem' }}
+                    >
+                      {APP_NAME}
+                    </Menu.Item>
 
-                  <Menu.Item
-                    as="a"
-                    onClick={() => pushAndToggle('/reservations')}
+                    <Menu.Item
+                      as="a"
+                      onClick={() => pushAndToggle('/reservations')}
+                    >
+                      <Icon name="clock" />
+                      Reservations
+                    </Menu.Item>
+
+                    <Menu.Item
+                      as="a"
+                      onClick={() => pushAndToggle('/dishes')}
+                    >
+                      <Icon name="coffee" />
+                      Dishes
+                    </Menu.Item>
+
+                    <Menu.Item
+                      as="a"
+                      onClick={() => pushAndToggle('/menus')}
+                    >
+                      <Icon name="newspaper outline" />
+                      Menus
+                    </Menu.Item>
+
+                    <Menu.Item
+                      as="a"
+                      onClick={() => pushAndToggle('/restaurant')}
+                    >
+                      <Icon name="building outline" />
+                      Restaurant
+                    </Menu.Item>
+                  </Sidebar>
+
+                  <Sidebar.Pusher
+                    dimmed={sidebarIsOpen}
+                    onClick={sidebarIsOpen ? toggleSidebar : null}
                   >
-                    <Icon name="hourglass outline" />
-                    Reservations
-                  </Menu.Item>
-
-                  <Menu.Item
-                    as="a"
-                    onClick={() => pushAndToggle('/dishes')}
-                  >
-                    <Icon name="coffee" />
-                    Dishes
-                  </Menu.Item>
-
-                  {/* <Menu.Item
-                    as="a"
-                    onClick={() => pushAndToggle('/menus')}
-                  >
-                    <Icon name="coffee" />
-                    Dishes
-                  </Menu.Item> */}
-
-                  <Menu.Item
-                    as="a"
-                    onClick={() => pushAndToggle('/restaurant')}
-                  >
-                    <Icon name="building outline" />
-                    Restaurant
-                  </Menu.Item>
-                </Sidebar>
-
-                <Sidebar.Pusher
-                  dimmed={sidebarIsOpen}
-                  onClick={sidebarIsOpen ? toggleSidebar : null}
-                >
-                  <Section>
-                    <Navbar
-                      toggleMenu={toggleSidebar}
-                      menuButton={(
-                        <AnimatedHamburger open={sidebarIsOpen} />
-                      )}
-                    />
-                    {children}
-                  </Section>
-                </Sidebar.Pusher>
-              </Sidebar.Pushable>
-            </Wrapper>
-          </DishesContainer>
+                    <Section>
+                      <Navbar
+                        toggleMenu={toggleSidebar}
+                        menuButton={(
+                          <AnimatedHamburger open={sidebarIsOpen} />
+                        )}
+                      />
+                      {children}
+                    </Section>
+                  </Sidebar.Pusher>
+                </Sidebar.Pushable>
+              </Wrapper>
+            </DishesContainer>
+          </MenusContainer>
         </RestaurantContainer>
       </UserContainer>
     </AuthContainer>
