@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {
@@ -7,11 +7,15 @@ import {
   Icon,
   Grid,
   Breadcrumb,
+  Message,
   // Pagination,
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 import fadeIn from '../../anime/fadeIn';
+import NewMenuModal from '../../components/NewMenuModal';
+
+import { copy } from './copy.json';
 
 const Wrapper = styled.div`
   display: flex;
@@ -39,39 +43,67 @@ const PaginationRow = styled(Grid.Row)`
 
 const Menus = ({
   menus,
-}) => (
-  <Wrapper>
-    <InnerWrapper>
-      <Breadcrumb>
-        <Link to="/dashboard">
-          <Breadcrumb.Section>
-            Dashboard
+  dishes,
+}) => {
+  const [newMenuModalIsOpen, setNewMenuModalIsOpen] = useState(false);
+  const [savingNewMenu, setSavingNewMenu] = useState(false);
+
+  const submitNewMenu = (params) => {
+    console.log(params);
+  }
+
+  return (
+    <Wrapper>
+      <InnerWrapper>
+        <Breadcrumb>
+          <Link to="/dashboard">
+            <Breadcrumb.Section>
+              Dashboard
+            </Breadcrumb.Section>
+          </Link>
+          <Breadcrumb.Divider icon="right chevron" />
+          <Breadcrumb.Section active>
+            Menus
           </Breadcrumb.Section>
-        </Link>
-        <Breadcrumb.Divider icon="right chevron" />
-        <Breadcrumb.Section active>
-          Menus
-        </Breadcrumb.Section>
-      </Breadcrumb>
-
-      <SpreadHeader>
-        <Header style={{ margin: 0 }}>
-          Menus ({menus.totalDocs})
-        </Header>
-
-        <Button
-          primary
-          icon
-          labelPosition="left"
-          // onClick={() => setNewItemModalOpen(true)}
-        >
-          <Icon name="plus" />
-          New Menu
-        </Button>
-      </SpreadHeader>
-    </InnerWrapper>
-  </Wrapper>
-);
+        </Breadcrumb>
+  
+        <NewMenuModal
+          open={newMenuModalIsOpen}
+          onSubmit={submitNewMenu}
+          loading={savingNewMenu}
+          onClose={() => setNewMenuModalIsOpen(false)}
+          dishes={dishes}
+        />
+  
+        <SpreadHeader>
+          <Header style={{ margin: 0 }}>
+            Menus ({menus.totalDocs})
+          </Header>
+  
+          <Button
+            primary
+            icon
+            labelPosition="left"
+            onClick={() => setNewMenuModalIsOpen(true)}
+          >
+            <Icon name="plus" />
+            New Menu
+          </Button>
+        </SpreadHeader>
+        <>
+          <Message
+            info
+            header="Menus are optional"
+            content={copy.information}
+          />
+          <p>
+            body
+          </p>
+        </>
+      </InnerWrapper>
+    </Wrapper>
+  );
+};
 
 Menus.propTypes = {
   menus: PropTypes.shape().isRequired,
