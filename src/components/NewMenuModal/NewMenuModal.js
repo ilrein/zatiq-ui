@@ -35,7 +35,7 @@ const NewMenuModal = ({
   // console.log(dishes);
 
   const mapDishesForSemanticDropdown = (values) => {
-    if (values.docs.length > 0) {
+    if (values.docs) {
       return values.docs.map(doc => ({
         key: doc._id,
         value: doc,

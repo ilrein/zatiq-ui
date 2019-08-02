@@ -48,6 +48,7 @@ const Menus = ({
   menus,
 }) => {
   const { user, cognitoUser } = userReducer;
+  const { restaurantId } = user;
   const [jwtToken] = useState(cognitoUser.signInUserSession.accessToken.jwtToken);
 
   const [loadingDishes, setLoadingDishes] = useState(false);
@@ -57,14 +58,14 @@ const Menus = ({
   const [fullDishList, setFullDishList] = useState([]);
 
   const submitNewMenu = (params) => {
-    console.log(params);
+    console.log(params); // eslint-disable-line
   };
 
   const getAllDishes = async () => {
     setLoadingDishes(true);
 
     try {
-      const get = await fetch(`${API_DISHES}?restaurantId=${user.restaurantId}&limit=500`, {
+      const get = await fetch(`${API_DISHES}?restaurantId=${restaurantId}&limit=500`, {
         headers: {
           'Content-Type': 'application/json',
           'jwt-token': jwtToken,
@@ -73,7 +74,7 @@ const Menus = ({
       
       const result = await get.json();
       setFullDishList(result);
-      console.log(result);
+      // console.log('t', result);
     } catch (error) {
       console.log(error) // eslint-disable-line
     }
@@ -104,7 +105,7 @@ const Menus = ({
           onSubmit={submitNewMenu}
           loading={savingNewMenu}
           onClose={() => setNewMenuModalIsOpen(false)}
-          // dishes={fullDishList}
+          dishes={fullDishList}
         />
   
         <SpreadHeader>
