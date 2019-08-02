@@ -5,7 +5,6 @@ import {
   Button,
   Header,
   Icon,
-  Grid,
   Breadcrumb,
   Message,
   Table,
@@ -13,10 +12,14 @@ import {
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import fetch from 'isomorphic-fetch';
+import isNil from 'ramda/src/isNil';
 
 import fadeIn from '../../anime/fadeIn';
-import NewMenuModal from '../../components/NewMenuModal';
 import { API_MENUS, API_DISHES } from '../../constants';
+
+// components
+import NewMenuModal from '../../components/NewMenuModal';
+import ConfirmDeleteModal from '../../components/ConfirmDeleteModal';
 
 import { copy } from './copy.json';
 
@@ -39,15 +42,11 @@ const SpreadHeader = styled.div`
   margin: 1rem 0 2rem 0;
 `;
 
-const PaginationRow = styled(Grid.Row)`
-  flex-direction: row-reverse !important;
-  margin: 0 1rem !important;
-`;
-
 const Menus = ({
   userReducer,
   menus,
   captureMenu,
+  captureMenus,
 }) => {
   const { user, cognitoUser } = userReducer;
   const { restaurantId } = user;
@@ -58,6 +57,11 @@ const Menus = ({
   const [savingNewMenu, setSavingNewMenu] = useState(false);
 
   const [fullDishList, setFullDishList] = useState([]);
+
+  // delete state
+  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const [menuIdToDelete, setMenuIdToDelete] = useState(null);
 
   const submitNewMenu = async (params) => {
     if (restaurantId === undefined) return;
@@ -110,6 +114,46 @@ const Menus = ({
     setLoadingDishes(false);
   };
 
+  const getMenusByrestaurantId = async () => {
+    if (!isNil(restaurantId)) {
+      try {
+        const get = await fetch(`${API_MENUS}?restaurantId=${restaurantId}&limit=10&page=1`, {
+          headers: {
+            'Content-Type': 'application/json',
+            'jwt-token': jwtToken,
+          },
+        });
+
+        const result = await get.json();
+        captureMenus(result);
+      } catch (error) {
+        console.log(error); // eslint-disable-line
+      }
+    }
+  };
+
+  const deleteMenu = async () => {
+    setDeleting(true);
+
+    try {
+      const remove = await fetch(`${API_MENUS}/${menuIdToDelete}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'jwt-token': jwtToken,
+        },
+      });
+
+      await remove.json();
+      getMenusByrestaurantId();
+    } catch (error) {
+      console.log(error) // eslint-disable-line
+    }
+
+    setDeleting(false);
+    setDeleteModalIsOpen(false);
+  };
+
   useEffect(() => {
     getAllDishes();
   }, [restaurantId]);
@@ -136,6 +180,13 @@ const Menus = ({
           onClose={() => setNewMenuModalIsOpen(false)}
           dishes={fullDishList}
         />
+
+        <ConfirmDeleteModal
+          open={deleteModalIsOpen}
+          onDelete={deleteMenu}
+          loading={deleting}
+          onClose={() => setDeleteModalIsOpen(false)}
+        />
   
         <SpreadHeader>
           <Header style={{ margin: 0 }}>
@@ -159,6 +210,7 @@ const Menus = ({
             header="Menus are optional"
             content={copy.information}
           />
+
           <Table
             celled
           >
@@ -172,6 +224,9 @@ const Menus = ({
                 </Table.HeaderCell>
                 <Table.HeaderCell>
                   Dishes
+                </Table.HeaderCell>
+                <Table.HeaderCell float="right">
+                  Actions
                 </Table.HeaderCell>
               </Table.Row>
             </Table.Header>
@@ -195,6 +250,22 @@ const Menus = ({
                             </Label>
                           ))
                         }
+                      </Table.Cell>
+                      <Table.Cell collapsing>
+                        <Button.Group>
+                          <Button
+                            icon="edit"
+                            color="blue"
+                          />
+                          <Button
+                            icon="remove"
+                            color="red"
+                            onClick={() => {
+                              setDeleteModalIsOpen(true);
+                              setMenuIdToDelete(doc._id);
+                            }}
+                          />
+                        </Button.Group>
                       </Table.Cell>
                     </Table.Row>
                   ))
