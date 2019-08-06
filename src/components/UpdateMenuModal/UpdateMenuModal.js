@@ -11,6 +11,9 @@ import {
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+// ramda
+import contains from 'ramda/src/contains';
+
 const SpreadHeader = styled(Header)`
   display: flex !important;
   flex-direction: row;
@@ -24,7 +27,6 @@ const UpdateMenuModal = ({
   onClose,
   dishes,
   menu,
-  // serversideErrors,
 }) => {
   const mapFullDishList = values => values.docs.map(doc => ({
     key: doc._id,
@@ -33,26 +35,30 @@ const UpdateMenuModal = ({
   }));
 
   // base states
-  const [name, setName] = useState(menu.name);
-  const [selectedDishes, setSelectedDishes] = useState(menu.dishes);
-  const [startTime, setStartTime] = useState(menu.startTime);
-  const [endTime, setEndTime] = useState(menu.endTime);
+  const [options, setOptions] = useState([]);
+  const [name, setName] = useState('');
+  const [selectedDishes, setSelectedDishes] = useState([]);
+  const [startTime, setStartTime] = useState('');
+  const [endTime, setEndTime] = useState('');
 
   useEffect(() => {
+    setOptions(mapFullDishList(dishes));
     setName(menu.name);
-    setSelectedDishes(menu.dishes);
     setStartTime(menu.startTime);
     setEndTime(menu.endTime);
+
+    const preSelected = [];
+    mapFullDishList(dishes).map((DISH) => { // eslint-disable-line
+      if (contains(DISH.value, menu.dishes)) {
+        preSelected.push(DISH.value);
+      }
+    });
+    setSelectedDishes(preSelected);
   }, [menu]);
 
-  // console.log(menu);
-  
-  // const resetState = () => {
-  //   setName('');
-  //   setSelectedDishes([]);
-  //   setStartTime('');
-  //   setEndTime('');
-  // };
+  // const reduced = dishes.docs.filter(DISH => !contains(DISH, menu.dishes));
+
+  // console.log(selectedDishes, options);
 
   return (
     <Modal
@@ -86,11 +92,8 @@ const UpdateMenuModal = ({
             search
             multiple
             label={`Dishes (${dishes.totalDocs})`}
-            options={mapFullDishList(dishes)}
-            // onChange={(event, { value }) => {
-            //   console.log(value);
-            //   setSelectedDishes(value);
-            // }}
+            options={options}
+            onChange={(event, { value }) => setSelectedDishes(value)}
             value={selectedDishes}
           />
 
@@ -128,8 +131,6 @@ const UpdateMenuModal = ({
               };
               
               await onSubmit(newMenuParams);
-
-              // resetState();
             }}
             style={{ marginTop: '1rem' }}
             loading={loading}
@@ -138,7 +139,7 @@ const UpdateMenuModal = ({
               name === ''
 
               // if no dishes are found
-              // || selectedDishes.length === 0
+              || selectedDishes.length === 0
 
               // if the times aren't set
               || startTime === ''
