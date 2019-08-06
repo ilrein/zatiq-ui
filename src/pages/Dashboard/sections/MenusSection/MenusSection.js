@@ -5,9 +5,9 @@ import {
   Card,
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const MenusSection = ({
-  userReducer,
   menus,
 }) => (
   <>
@@ -41,5 +41,9 @@ const MenusSection = ({
     }
   </>
 );
+
+MenusSection.propTypes = {
+  menus: PropTypes.shape().isRequired,
+};
 
 export default MenusSection;

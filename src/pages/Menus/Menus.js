@@ -67,8 +67,8 @@ const Menus = ({
 
   // update modal
   const [updateModalIsOpen, setUpdateModalIsOpen] = useState(false);
-  const [menuToUpdate, setMenuToUpdate] = useState(null);
   const [updatingMenu, setUpdatingMenu] = useState(false);
+  const [menuToUpdate, setMenuToUpdate] = useState(null);
 
   const submitNewMenu = async (params) => {
     if (restaurantId === undefined) return;
@@ -162,7 +162,33 @@ const Menus = ({
     setDeleteModalIsOpen(false);
   };
 
-  const updateMenu = async () => {};
+  const updateMenu = async (updatedMenuParams) => {
+    setUpdatingMenu(true);
+
+    // console.log(updatedMenuParams);
+
+    try {
+      const put = await fetch(`${API_MENUS}/${menuToUpdate._id}`, {
+        method: 'put',
+        headers: {
+          'Content-Type': 'application/json',
+          'jwt-token': jwtToken,
+        },
+        body: JSON.stringify({
+          menu: updatedMenuParams,
+        }),
+      });
+
+      await put.json();
+      toast.success('Updated ', menuToUpdate.name);
+      getMenusByrestaurantId();
+      setUpdateModalIsOpen(false);
+    } catch (error) {
+      console.log(error); // eslint-disable-line
+    }
+
+    setUpdatingMenu(false);
+  };
 
   useEffect(() => {
     getAllDishes();
@@ -207,6 +233,7 @@ const Menus = ({
                 onClose={() => setUpdateModalIsOpen(false)}
                 menu={menuToUpdate}
                 dishes={fullDishList}
+                onSubmit={updateMenu}
               />
             )
             : null
