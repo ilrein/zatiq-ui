@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 const MenusSection = ({
   menus,
 }) => (
-  <>
+  <Grid>
     <Grid.Row columns="1">
       <Grid.Column>
         <Header>
@@ -21,25 +21,27 @@ const MenusSection = ({
       </Grid.Column>
     </Grid.Row>
 
-    {
-      menus.totalDocs > 0
-        ? menus.docs.map(MENU => (
-          <Card
-            header={MENU.name}
-            description={`${MENU.startTime} - ${MENU.endTime}`}
-          />
-        ))
-        : (
-          <Grid.Row>
+    <Grid.Row columns={3}>
+      {
+        menus.totalDocs > 0
+          ? menus.docs.map(MENU => (
+            <Grid.Column>
+              <Card
+                header={MENU.name}
+                description={`${MENU.startTime} - ${MENU.endTime}`}
+              />
+            </Grid.Column>
+          ))
+          : (
             <Grid.Column>
               <p>
                 No menus found.
               </p>
             </Grid.Column>
-          </Grid.Row>
-        )
-    }
-  </>
+          )
+      }
+    </Grid.Row>
+  </Grid>
 );
 
 MenusSection.propTypes = {
