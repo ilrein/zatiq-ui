@@ -1,6 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 // Core
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Modal,
   Header,
@@ -38,14 +38,21 @@ const UpdateMenuModal = ({
   const [startTime, setStartTime] = useState(menu.startTime);
   const [endTime, setEndTime] = useState(menu.endTime);
 
-  // console.log(selectedDishes, mapFullDishList(dishes));
+  useEffect(() => {
+    setName(menu.name);
+    setSelectedDishes(menu.dishes);
+    setStartTime(menu.startTime);
+    setEndTime(menu.endTime);
+  }, [menu]);
+
+  // console.log(menu);
   
-  const resetState = () => {
-    setName('');
-    setSelectedDishes([]);
-    setStartTime('');
-    setEndTime('');
-  };
+  // const resetState = () => {
+  //   setName('');
+  //   setSelectedDishes([]);
+  //   setStartTime('');
+  //   setEndTime('');
+  // };
 
   return (
     <Modal
@@ -122,7 +129,7 @@ const UpdateMenuModal = ({
               
               await onSubmit(newMenuParams);
 
-              resetState();
+              // resetState();
             }}
             style={{ marginTop: '1rem' }}
             loading={loading}

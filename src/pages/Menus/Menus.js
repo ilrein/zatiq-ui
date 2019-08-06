@@ -308,8 +308,8 @@ const Menus = ({
                             icon="edit"
                             color="blue"
                             onClick={() => {
-                              setUpdateModalIsOpen(true);
                               setMenuToUpdate(doc);
+                              setUpdateModalIsOpen(true);
                             }}
                           />
                           <Button
