@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 // Core
 import React, { useState } from 'react';
 import {
@@ -41,7 +42,7 @@ import PrimaryButton from '../../components/PrimaryButton';
 import PaymentDetails from './PaymentDetails';
 
 // dropdown data
-import { cuisineType } from '../../data/cuisineType.json';
+import { cuisineType as cuisineTypeOptions } from '../../data/cuisineType.json';
 import { weekdays } from '../../data/weekdays.json';
 
 const Wrapper = styled.div`
@@ -63,7 +64,7 @@ const Restaurant = ({
   const [name, setName] = useState(restaurant.name);
   const [address, setAddress] = useState(restaurant.address);
   const [description, setDescription] = useState(restaurant.description);
-  const [cuisineTypeValue, setCuisineTypeValue] = useState(restaurant.cuisineType);
+  const [cuisineType, setCuisineType] = useState(restaurant.cuisineType);
 
   // features
   const [features, setFeatures] = useState(restaurant.features);
@@ -77,10 +78,12 @@ const Restaurant = ({
 
   // start/close times
   const [hasDifferentOperatingHours, setHasDifferentOperatingHours] = useState(() => {
+    // extract all the specific values into a single array
     const getStartTimes = pluck('startTime');
     const getCloseTimes = pluck('closeTime');
     const getClosed = pluck('closed');
 
+    // check if any of the values are duplicate
     if (uniq(getStartTimes(restaurant.operatingHours)).length > 1) return true;
     if (uniq(getCloseTimes(restaurant.operatingHours)).length > 1) return true;
     if (uniq(getClosed(restaurant.operatingHours)).length > 1) return true;
@@ -110,7 +113,7 @@ const Restaurant = ({
             name,
             address,
             description,
-            cuisineTypeValue,
+            cuisineType,
             phoneNumber,
             operatingHours,
             features,
@@ -204,11 +207,11 @@ const Restaurant = ({
   
             <Form.Dropdown
               label="Cuisine Type"
-              value={cuisineTypeValue}
-              onChange={(event, { value }) => setCuisineTypeValue(value)}
+              value={cuisineType}
+              onChange={(event, { value }) => setCuisineType(value)}
               fluid
               required
-              options={cuisineType}
+              options={cuisineTypeOptions}
               selection
               search
               placeholder="Italian"
