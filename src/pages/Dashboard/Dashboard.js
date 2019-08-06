@@ -18,9 +18,9 @@ import { toast } from 'react-toastify';
 import fadeIn from '../../anime/fadeIn';
 import InitialLaunchModal from '../../components/InitialLaunchModal';
 
-// import MenuSection from './parts/MenuSection';
 import SalesSection from './sections/SalesSection';
 import DishesSection from './sections/DishesSection';
+import MenusSection from './sections/MenusSection';
 
 import {
   API_RESTAURANT,
@@ -45,9 +45,9 @@ const Dashboard = ({
   captureUser,
 }) => {
   const { user, cognitoUser } = userReducer;
-
   const token = cognitoUser.signInUserSession.idToken.jwtToken;
 
+  // saving a new restaurant with InitialLaunchModal
   const [saving, setSaving] = useState(false);
 
   const onSubmit = async (
@@ -168,6 +168,8 @@ const Dashboard = ({
 
                 <Divider />
                 <DishesSection />
+                <Divider />
+                <MenusSection />
               </InnerWrapper>
             )
             : (

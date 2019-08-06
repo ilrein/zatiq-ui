@@ -13,6 +13,7 @@ import {
 import { Link } from 'react-router-dom';
 import fetch from 'isomorphic-fetch';
 import isNil from 'ramda/src/isNil';
+import { toast } from 'react-toastify';
 
 import fadeIn from '../../anime/fadeIn';
 import { API_MENUS, API_DISHES } from '../../constants';
@@ -152,6 +153,7 @@ const Menus = ({
 
       await remove.json();
       getMenusByrestaurantId();
+      toast.success('Deleted menu');
     } catch (error) {
       console.log(error) // eslint-disable-line
     }
@@ -160,7 +162,7 @@ const Menus = ({
     setDeleteModalIsOpen(false);
   };
 
-  const updateMenu = async () => {}
+  const updateMenu = async () => {};
 
   useEffect(() => {
     getAllDishes();

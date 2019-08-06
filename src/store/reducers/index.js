@@ -6,7 +6,7 @@ import userReducer from './userReducer';
 import restaurantReducer from './restaurantReducer';
 import dishesReducer from './dishesReducer';
 import menusReducer from './menusReducer';
-import dishReducer from './dishReducer';
+// import dishReducer from './dishReducer';
 import miscReducer from './miscReducer';
 
 const rootReducer = combineReducers({
@@ -14,7 +14,7 @@ const rootReducer = combineReducers({
   restaurant: restaurantReducer,
   menus: menusReducer,
   dishes: dishesReducer,
-  dish: dishReducer,
+  // dish: dishReducer,
   misc: miscReducer,
 });
 
