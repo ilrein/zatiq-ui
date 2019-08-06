@@ -7,7 +7,7 @@ import {
 import fetch from 'isomorphic-fetch';
 
 import fadeIn from '../../anime/fadeIn';
-import { API_URL } from '../../constants';
+import API_URL from '../../baseUrl';
 import pkg from '../../../package.json';
 import copy from './copy.json';
 

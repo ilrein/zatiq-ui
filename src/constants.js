@@ -1,9 +1,4 @@
-/*
- * API_URL needs to be swapped when deploying to prod
- */
-
-export const API_URL = process.env.REACT_APP_API_URL_PROD;
-// export const API_URL = process.env.REACT_APP_API_URL;
+import API_URL from './baseUrl';
 
 // App
 export const APP_NAME = 'Zatiq';
