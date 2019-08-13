@@ -12,6 +12,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import HomePage from './pages/Home';
 import Register from './pages/Auth/Register';
 import Verify from './pages/Auth/Verify';
+import ForgotPassword from './pages/Auth/ForgotPassword';
+import ResetPassword from './pages/Auth/ResetPassword';
 
 // Main
 import Dashboard from './pages/Dashboard';
@@ -52,6 +54,18 @@ const Routes = () => (
           exact
           path="/verify"
           component={Verify}
+        />
+
+        <Route
+          exact
+          path="/forgot-password"
+          component={ForgotPassword}
+        />
+
+        <Route
+          exact
+          path="/reset-password"
+          component={ResetPassword}
         />
 
         <MainLayout>

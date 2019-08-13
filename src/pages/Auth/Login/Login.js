@@ -98,7 +98,7 @@ class Login extends Component {
               onClick={this.handleSubmit}
               color="pink"
               loading={loading}
-              style={{ marginBottom: '8rem' }}
+              style={{ margin: '1rem 0 2rem 0' }}
             >
               Login
             </PrimaryButton>
@@ -107,6 +107,12 @@ class Login extends Component {
               Not a member yet? Sign up
               <Link to="/register">
                 &nbsp;here
+              </Link>
+            </Form.Field>
+
+            <Form.Field>
+              <Link to="/forgot-password">
+                Forgot password?
               </Link>
             </Form.Field>
 
