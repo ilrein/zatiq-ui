@@ -39,10 +39,12 @@ const ForgotPassword = ({ history }) => {
       .then(() => {
         toast.success(`Sent recovery email to ${email}`);
         history.push('/reset-password');
+        setLoading(false);
       })
-      .catch(({ message }) => setErrorMsg(message));
-
-    setLoading(false);
+      .catch(({ message }) => {
+        setErrorMsg(message);
+        setLoading(false);
+      });
   };
 
   return (
