@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import { Auth } from 'aws-amplify';
-import { Segment } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import {
+  Segment,
+  Header,
+  Button,
+} from 'semantic-ui-react';
 
 import { CAPTURE_COGNITO_USER } from '../../constants';
 
@@ -48,15 +52,27 @@ class AuthContainer extends Component {
       err,
       loading,
     } = this.state;
-    const { children } = this.props;
+    
+    const {
+      children,
+      history,
+    } = this.props;
 
     return (
       err || loading
         ? (
           <Segment
             loading={loading}
+            placeholder
           >
-            {err}
+            <Header>
+              {err}
+            </Header>
+            <Button
+              onClick={() => history.push('/')}
+            >
+              Return to Login
+            </Button>
           </Segment>
         )
         : (
