@@ -6,7 +6,20 @@ const awsmobile = {
     "aws_cognito_region": "us-east-1",
     "aws_user_pools_id": "us-east-1_xt26JO3HK",
     "aws_user_pools_web_client_id": "1i5c6gh8j9b884f1dj5gnd69ek",
-    "oauth": {},
+    "oauth": {
+        "domain": "dinehub-prod.auth.us-east-1.amazoncognito.com",
+        "scope": [
+            "phone",
+            "email",
+            "openid",
+            "profile",
+            "aws.cognito.signin.user.admin"
+        ],
+        "redirectSignIn": "exp://127.0.0.1:19000/",
+        "redirectSignOut": "exp://127.0.0.1:19000/",
+        "responseType": "code"
+    },
+    "federationTarget": "COGNITO_USER_POOLS",
     "aws_user_files_s3_bucket": "zstorage-prod",
     "aws_user_files_s3_bucket_region": "us-east-1",
     "aws_content_delivery_bucket": "zatiq-application-20190618184818-hostingbucket-prod",

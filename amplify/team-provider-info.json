@@ -12,7 +12,9 @@
         },
         "categories": {
             "auth": {
-                "cognito8b044cef": {}
+                "cognito8b044cef": {
+                    "hostedUIProviderCreds": "[{\"ProviderName\":\"Facebook\",\"client_id\":\"705885429837326\",\"client_secret\":\"afab0f2f9d2bf70f72430a7ab1cca511\"}]"
+                }
             }
         }
     }
