@@ -12,5 +12,8 @@
   - create-react-app
   - aws-amplify for hosting + storage
   - connects to ec2 instance via 'iliareingold.com'
+  - uses storybook as well
+
+---
 
 Linted with custom modified airbnb styleguide. Minor tests added with Enzyme.
