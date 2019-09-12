@@ -1,12 +1,16 @@
 > Whatever he was—that robot in the Garden of Eden, who existed without mind, without values, without labor, without love—he was not man.
 
-### Base Bucket
-http://zatiq-app-hosting-bucket-dev.s3-website-us-east-1.amazonaws.com
+### Partner App
+- web admin portal that handles the restaurant side
+  - features:
+    - create email account
+    - create restaurant
+    - create dishes
+    - create menus and associate dishes
 
-### Feedback
-  - Phone number
-  - Opening hours
-  - Wifi, handicap friendly, kid friendly, delivery, patio, cuisine type, price range
+### Built with
+  - create-react-app
+  - aws-amplify for hosting + storage
+  - connects to ec2 instance via 'iliareingold.com'
 
-  - dish is halal, vegan, vegitarian
-  - dish with different sizes
+Linted with custom modified airbnb styleguide. Minor tests added with Enzyme.
