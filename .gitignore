@@ -45,3 +45,5 @@ aws-exports.js
 awsconfiguration.json
 
 set-keys.sh
+
+public/index.html
