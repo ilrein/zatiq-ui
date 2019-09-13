@@ -47,3 +47,4 @@ awsconfiguration.json
 set-keys.sh
 
 public/index.html
+.storybook/preview-head.html
